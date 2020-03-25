@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sumit.myapplication">
+    package="com.mukul.onnwaytransporter">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -37,7 +37,7 @@
         android:value="AIzaSyDD5e-SJP_E8SDLOHYz79IR79pVy6YQOgg" />
 
     <application
-        android:name=".networking.AppController"
+        android:name="com.mukul.onnwaytransporter.networking.AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,20 +45,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".otp.NumberIntroActivity"></activity>
+        <activity android:name="com.mukul.onnwaytransporter.otp.NumberIntroActivity"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".profilerelated.KycProviderActivity" />
-        <activity android:name=".driver.profilerelated.uploadkycimage.KycMainPage" />
-        <activity android:name=".driver.profilerelated.uploadkycimage.UploadImageActivity" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".driver.profilerelated.AddTruckDetails" />
-        <activity android:name=".driver.profilerelated.DriverTruckDetails" />
-        <activity android:name=".driver.Image_Picker.FileUploadCamera" />
-        <activity android:name=".driver.Image_Picker.FileUpload" /> <!-- <provider -->
+        <activity android:name="com.mukul.onnwaytransporter.profilerelated.KycProviderActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.uploadkycimage.KycMainPage" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.uploadkycimage.UploadImageActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.TestActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.AddTruckDetails" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetails" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.Image_Picker.FileUploadCamera" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.Image_Picker.FileUpload" /> <!-- <provider -->
         <!-- android:name="android.support.v4.content.FileProvider" -->
         <!-- android:authorities="com.sumit.myapplication.fileprovider" -->
         <!-- android:exported="false" -->
@@ -77,31 +77,31 @@
                 android:resource="@xml/provider_path" />
         </provider>
 
-        <activity android:name=".providerpartload.SelectTruckSpaceProvider" />
-        <activity android:name=".providerpartload.PartLoadMaterialDetails" />
-        <activity android:name=".driver.profilerelated.KycDriverActivity" />
-        <activity android:name=".driver.profilerelated.DriverOperatedRoutesActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.providerpartload.SelectTruckSpaceProvider" />
+        <activity android:name="com.mukul.onnwaytransporter.providerpartload.PartLoadMaterialDetails" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.KycDriverActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverOperatedRoutesActivity" />
         <activity
-            android:name=".driver.profilerelated.DriverUpdateCity"
+            android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverUpdateCity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".driver.profilerelated.DriverUpdateMobile"
+            android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverUpdateMobile"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".driver.profilerelated.DriverUpdateName"
+            android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverUpdateName"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".driver.profilerelated.DriverAddRoutesActivity" />
-        <activity android:name=".driver.profilerelated.DriverNamePhoneActivity" />
-        <activity android:name=".driver.profilerelated.DriverProfileActivity" />
-        <activity android:name=".OrderStatus.UploadPOD" />
-        <activity android:name=".OrderStatus.AssignTruck" />
-        <activity android:name=".driver.postload.DriverPostPartLoad" />
-        <activity android:name=".driver.postload.DriverPostFullLoad" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverAddRoutesActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverNamePhoneActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.OrderStatus.UploadPOD" />
+        <activity android:name="com.mukul.onnwaytransporter.OrderStatus.AssignTruck" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.postload.DriverPostPartLoad" />
+        <activity android:name="com.mukul.onnwaytransporter.driver.postload.DriverPostFullLoad" />
         <activity
-            android:name=".driver.DriverMainActivity"
+            android:name="com.mukul.onnwaytransporter.driver.DriverMainActivity"
             android:label="Onnway Driver"
             android:theme="@style/AppTheme.NoActionBar"
             />
@@ -117,56 +117,56 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".FetchDriverLocation" />
-        <activity android:name=".profilerelated.UpdateRoutesActivity" />
-        <activity android:name=".GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
+        <activity android:name="com.mukul.onnwaytransporter.FetchDriverLocation" />
+        <activity android:name="com.mukul.onnwaytransporter.profilerelated.UpdateRoutesActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
         <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
-        <activity android:name=".biddetails.SetBidDetailsActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.biddetails.SetBidDetailsActivity" />
+        <activity android:name="com.mukul.onnwaytransporter.MainActivity" />
         <activity
-            android:name=".profilerelated.AddRoutesActivity"
+            android:name="com.mukul.onnwaytransporter.profilerelated.AddRoutesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.UpdateCityActivity"
+            android:name="com.mukul.onnwaytransporter.profilerelated.UpdateCityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.UpdateMobileActivity"
+            android:name="com.mukul.onnwaytransporter.profilerelated.UpdateMobileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.UpdateNameActivity"
+            android:name="com.mukul.onnwaytransporter.profilerelated.UpdateNameActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.NamePhoneActivity"
+            android:name="com.mukul.onnwaytransporter.profilerelated.NamePhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.mukul.onnwaytransporter.ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".otp.OtpActivity"
+            android:name="com.mukul.onnwaytransporter.otp.OtpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".otp.NumberActivity"
+            android:name="com.mukul.onnwaytransporter.otp.NumberActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".FirstTimeProfileActivity"
+            android:name="com.mukul.onnwaytransporter.FirstTimeProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".SelectUserType" />
+        <activity android:name="com.mukul.onnwaytransporter.SelectUserType" />
         <activity
-            android:name=".testing.TestingActivity"
+            android:name="com.mukul.onnwaytransporter.testing.TestingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="com.mukul.onnwaytransporter.splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

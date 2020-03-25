@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profilerelated.AddRoutesActivity"
+    android:background="#FFFFFF">
+
+    <Toolbar
+        android:id="@+id/toolbar_add_route"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#696969"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <LinearLayout
+        android:id="@+id/source_ll"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_add_route">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/startimage"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/source_location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:text="Enter Source Location"
+            android:fontFamily="@font/robotomedium"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:textColor="#696969"
+            android:maxLines="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/destination_ll"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source_ll">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/endimage"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/drop_location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Enter Drop Location"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/robotomedium"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:textColor="#696969"
+            android:maxLines="1"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addRouteBtnProvider"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Add Route"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="#E11F22"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

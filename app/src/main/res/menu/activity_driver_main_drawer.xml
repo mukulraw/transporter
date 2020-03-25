@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_driver"
+            android:icon="@drawable/homeimage"
+            android:title="Home"/>
+        <item
+            android:id="@+id/nav_about_driver"
+            android:icon="@drawable/aboutimage"
+            android:title="About Onnway" />
+        <item
+            android:id="@+id/nav_faq_driver"
+            android:icon="@drawable/faqimage"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/nav_contact_driver"
+            android:icon="@drawable/contact"
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_terms_and_condition_driver"
+            android:icon="@drawable/termscondtionimage"
+            android:title="Terms and Conditions" />
+        <item
+            android:id="@+id/nav_payment_terms_driver"
+            android:icon="@drawable/paymentimage"
+            android:title="Payment Terms" />
+        <item
+            android:id="@+id/nav_privacy_policy_driver"
+            android:icon="@drawable/privacyimage"
+            android:title="Privacy Policy" />
+
+        <item
+            android:id="@+id/nav_share_driver"
+            android:icon="@drawable/shareimage"
+            android:title="Share App" />
+
+        <item
+            android:id="@+id/nav_logout_driver"
+            android:icon="@drawable/logoutimage"
+            android:title="Logout" />
+    </group>
+
+</menu>

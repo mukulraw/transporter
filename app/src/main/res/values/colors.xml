@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E11F26</color>
+    <color name="colorPrimaryDark">#E11F26</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteTransparent">#80FFFFFF</color>
+    <color name="darkGrey">#696969</color>
+
+    <color name="active_button">#19B985</color>
+    <color name="inactive_button">#AEAEAE</color>
+
+    <color name="red_active_button">#E11F26</color>
+    <color name="red_inactive_button">#C55A5A</color>
+
+    <color name="spinner_item">#2A2A2A</color>
+</resources>

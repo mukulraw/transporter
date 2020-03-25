@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Toolbar
+        android:id="@+id/toolbar_activity_shipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_background"
+        android:elevation="8dp"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Select weight"
+        android:textColor="#707070"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_activity_shipment" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Select Material Type"
+        android:textColor="#707070"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv2">
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="0.9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:weightSum="0.9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="#2E2E2E"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="0.9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="0.9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="0.9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="0.9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_13"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_13"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_15"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_15"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="0.9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_17"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_17"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/material_image_18"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/material_type_18"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Material Type"
+                        android:textAlignment="center"
+                        android:textColor="#444444" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="4dp">
+
+            <EditText
+                android:id="@+id/et1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:hint="L"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColorHint="#707070"
+                android:textAlignment="center"
+                android:textColor="#707070" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="4dp">
+
+            <EditText
+                android:id="@+id/et2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:hint="B"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColorHint="#707070"
+                android:textAlignment="center"
+                android:textColor="#707070" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="16dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="4dp">
+
+            <EditText
+                android:id="@+id/et3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:hint="H"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColorHint="#707070"
+                android:textAlignment="center"
+                android:textColor="#707070" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="8dp"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/back_btn_material_details"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.45"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Back"
+            android:background="#FF1001"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:background="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/next_btn_material_details"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.45"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Next"
+            android:background="#FF1001"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:background="#FFFFFF">-->
+
+<!--    <android.support.constraint.ConstraintLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        xmlns:tools="http://schemas.android.com/tools"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:context="com.sumit.myapplication.providerpartload.PartLoadMaterialDetails">-->
+
+<!--        &lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
+<!--        &lt;!&ndash;android:id="@+id/toolbar_part_load_provider"&ndash;&gt;-->
+<!--        &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+<!--        &lt;!&ndash;android:background="#FFFFFF"&ndash;&gt;-->
+<!--        &lt;!&ndash;android:elevation="8dp"&ndash;&gt;-->
+<!--        &lt;!&ndash;android:minHeight="?attr/actionBarSize"&ndash;&gt;-->
+<!--        &lt;!&ndash;android:titleTextColor="#696969"&ndash;&gt;-->
+<!--        &lt;!&ndash;app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;app:theme="@style/ThemeOverlay.AppCompat.Dark">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;</android.support.v7.widget.Toolbar>&ndash;&gt;-->
+<!--        <android.support.v7.widget.CardView-->
+<!--            android:id="@+id/part_load_card_view_address"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="52dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:clickable="false"-->
+<!--            android:elevation="24dp"-->
+<!--            app:cardBackgroundColor="#FFFFFF"-->
+<!--            app:cardCornerRadius="6dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/part_load_src_addr"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.4"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Source Address"-->
+<!--                    android:textColor="#2A2A2A"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="0.2"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="TO"-->
+<!--                    android:textColor="#2A2A2A"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/part_load_dest_addr"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.4"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Destination Address"-->
+<!--                    android:textColor="#2A2A2A"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
+<!--        </android.support.v7.widget.CardView>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/part_load_card_view_address">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:text="     Material Type"-->
+<!--                    android:textColor="#2a2A2A"-->
+<!--                    android:gravity="center_vertical"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/material_type_tv"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:text="     Select"-->
+<!--                    android:textColor="#2A2A2A"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:clickable="true"/>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1"-->
+<!--                android:layout_marginTop="8dp">-->
+
+<!--                <android.support.design.widget.TextInputLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:focusableInTouchMode="true"-->
+<!--                    android:textColorHint="#444">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/remaining_payload_et"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:hint="Remaining PayLoad"-->
+<!--                        android:textColor="#2A2A2A"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:background="@null"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:textSize="16sp"/>-->
+
+<!--                </android.support.design.widget.TextInputLayout>-->
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_payload_unit"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:entries="@array/weight_unit"-->
+<!--                    android:padding="8dp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1"-->
+<!--                android:layout_marginTop="8dp">-->
+
+<!--                <android.support.design.widget.TextInputLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:focusableInTouchMode="true"-->
+<!--                    android:textColorHint="#444">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/remaining_length_et"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:hint="Remaining Length"-->
+<!--                        android:textColor="#2A2A2A"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:background="@null"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:textSize="16sp"/>-->
+
+<!--                </android.support.design.widget.TextInputLayout>-->
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_payload_length"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:entries="@array/length_unit"-->
+<!--                    android:padding="8dp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1"-->
+<!--                android:layout_marginTop="8dp">-->
+
+<!--                <android.support.design.widget.TextInputLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:focusableInTouchMode="true"-->
+<!--                    android:textColorHint="#444">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/remaining_width_et"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:hint="Remaining Width"-->
+<!--                        android:textColor="#2A2A2A"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:background="@null"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:textSize="16sp"/>-->
+
+<!--                </android.support.design.widget.TextInputLayout>-->
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_payload_breadth"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:entries="@array/length_unit"-->
+<!--                    android:padding="8dp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1"-->
+<!--                android:layout_marginTop="8dp">-->
+
+<!--                <android.support.design.widget.TextInputLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:focusableInTouchMode="true"-->
+<!--                    android:textColorHint="#444">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/remaining_height_et"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:hint="Remaining Height"-->
+<!--                        android:textColor="#2A2A2A"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:background="@null"-->
+<!--                        android:layout_marginLeft="16dp"-->
+<!--                        android:textSize="16sp"/>-->
+
+<!--                </android.support.design.widget.TextInputLayout>-->
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_payload_height"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:background="#EDEDED"-->
+<!--                    android:entries="@array/length_unit"-->
+<!--                    android:padding="8dp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:layout_marginBottom="16dp">-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/back_btn_material_details"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:background="@drawable/rounded_button"-->
+<!--                    android:layout_marginRight="8dp"-->
+<!--                    android:text="BACK"-->
+<!--                    android:textColor="#2A2A2A"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"/>-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/next_btn_material_details"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:background="@drawable/rounded_button"-->
+<!--                    android:text="NEXT"-->
+<!--                    android:textColor="#2A2A2A"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"/>-->
+
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
+<!--    </android.support.constraint.ConstraintLayout>-->
+<!--</ScrollView>-->

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recyclerview_id_operated_routes_provider_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/operated_route_source_provider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="0.4"
+            android:textColor="#696969"
+            android:textSize="20dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_margin="20dp"
+            android:layout_weight=".1"
+            android:background="#696969"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/operated_route_destination_provider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="0.4"
+            android:textColor="#696969"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/delete_image_provider"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:layout_weight="0.1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/delete" />
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="8dp"
+        android:background="#696969" />
+
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
 import com.mukul.onnwaytransporter.MainActivity;
 import com.mukul.onnwaytransporter.networking.Post;
@@ -34,17 +35,25 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
 
     public CheckingPreRegistered checkingPreRegistered = new CheckingPreRegistered();
     private OtpView otpView;
+
+    String phone , otp , id , type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
+        phone = getIntent().getStringExtra("phone");
+        otp = getIntent().getStringExtra("otp");
+        id = getIntent().getStringExtra("id");
+        type = getIntent().getStringExtra("type");
+
 
 //        nextBtn = (Button) findViewById(R.id.nextBtn);
 //        nextBtn.setClickable(false);
 
         sharedData = new SharedData(OtpActivity.this);
         checkingPreRegistered.entered_mobile = NumberActivity.enteredPhone;
-        new Post().getIfUserRegistered(getApplication(), checkingPreRegistered);
+        //new Post().getIfUserRegistered(getApplication(), checkingPreRegistered);
 
 //        //otp
 //        OtpReader.bind(this,"ONNWAY");
@@ -76,23 +85,17 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
     }
 
 
-    public void next(View view) {
-        //startActivity(new Intent(this, FirstTimeProfileActivity.class));
-        Intent intent = new Intent(OtpActivity.this, SelectUserType.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
+
 
     @Override
     public void otpReceived(String messageText) {
 
-        //when otp received then this method called
-        String message = messageText;
+//when otp received then this method called
         Log.i("otp", messageText);
-        int length = message.length();
+        int length = messageText.length();
         Log.i("otp", "Length:" + length);
-        String substr = message.substring(length - 4, length);
+        String substr = messageText.substring(length - 4, length);
+
         String s1 = String.valueOf(substr.charAt(0));
         String s2 = String.valueOf(substr.charAt(1));
         String s3 = String.valueOf(substr.charAt(2));
@@ -101,9 +104,46 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
         otp2.setText(s2);
         otp3.setText(s3);
         otp4.setText(s4);
-        Toast.makeText(OtpActivity.this, "Otp Received", Toast.LENGTH_LONG).show();
 
-        new Handler().postDelayed(new Runnable() {
+        if (substr.equals(otp))
+        {
+
+            SharePreferenceUtils.getInstance().saveString("userId" , id);
+            SharePreferenceUtils.getInstance().saveString("type" , type);
+
+            if (type.equals("transporter"))
+            {
+                Intent intent = new Intent(OtpActivity.this, MainActivity.class);
+                startActivity(intent);
+                finishAffinity();
+                Toast.makeText(OtpActivity.this, "OTP Verified", Toast.LENGTH_LONG).show();
+            }
+            else if (type.equals("driver"))
+            {
+                Intent intent = new Intent(OtpActivity.this, DriverMainActivity.class);
+                startActivity(intent);
+                finishAffinity();
+                Toast.makeText(OtpActivity.this, "OTP Verified", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Intent intent = new Intent(OtpActivity.this, SelectUserType.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                Toast.makeText(OtpActivity.this, "OTP Verified", Toast.LENGTH_LONG).show();
+            }
+
+
+        }
+        else
+        {
+            Toast.makeText(OtpActivity.this, "Invalid OTP", Toast.LENGTH_LONG).show();
+        }
+
+
+
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (Post.cityName.equals("")){
@@ -128,7 +168,7 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
 //                nextBtn.setClickable(true);
 //                nextBtn.setBackgroundColor(getResources().getColor(R.color.red_active_button));
             }
-        }, 3000);
+        }, 3000);*/
 //        finish();
     }
 

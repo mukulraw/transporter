@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.mukul.onnwaytransporter.SelectUserType;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
+import com.mukul.onnwaytransporter.otp.NumberActivity;
 import com.mukul.onnwaytransporter.otp.NumberIntroActivity;
+import com.mukul.onnwaytransporter.otp.OtpActivity;
 import com.mukul.onnwaytransporter.otp.SharedData;
 import com.nabinbhandari.android.permissions.PermissionHandler;
 import com.nabinbhandari.android.permissions.Permissions;
@@ -49,7 +53,6 @@ public class SplashActivity extends AppCompatActivity {
 
         sharedData = new SharedData(SplashActivity.this);
         findUserType();
-        Toast.makeText(SplashActivity.this, currentUserType, Toast.LENGTH_LONG).show();
 
         String rationale = "Please provide location permission so that you can ...";
         Permissions.Options options = new Permissions.Options()
@@ -66,26 +69,47 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        Cursor cursor = sharedData.getAllData();
-                        if(cursor.getCount() == 0) {
-                            Intent intent = new Intent(SplashActivity.this, NumberIntroActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else{
-                            while (cursor.moveToNext()){
-                                if (cursor.getString(2).equals("1")){
-                                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    return;
-                                }else {
-                                    Intent intent = new Intent(SplashActivity.this, DriverMainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    return;
-                                }
+                        String userId = SharePreferenceUtils.getInstance().getString("userId");
+                        String type = SharePreferenceUtils.getInstance().getString("type");
+
+
+                        if (userId.length() > 0)
+                        {
+
+                            if (type.equals("transporter"))
+                            {
+                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+
                             }
+                            else if (type.equals("driver"))
+                            {
+                                Intent intent = new Intent(SplashActivity.this, DriverMainActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(SplashActivity.this, SelectUserType.class);
+                                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finishAffinity();
+
+                            }
+
                         }
+                        else
+                        {
+                            Intent intent = new Intent(SplashActivity.this, NumberActivity.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+
+
+
+
                     }
                 }, 1000);
             }

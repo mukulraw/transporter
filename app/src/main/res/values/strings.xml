@@ -92,6 +92,8 @@
 
     <string name="uploadImages">Set your image</string>
     <string name="msg_loading">Loading...</string>
+    <string name="alarm_notification" />
+    <string name="default_notification_channel_id">124</string>
 
     <string-array name="uploadImages">
         <item>Pick from gallery</item>

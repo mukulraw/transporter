@@ -60,16 +60,5 @@ public class SelectUserType extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent msg) {
 
-        switch(keyCode) {
-            case(KeyEvent.KEYCODE_BACK):
-                Intent intent = new Intent(SelectUserType.this, NumberActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-        }
-        return false;
-    }
 }

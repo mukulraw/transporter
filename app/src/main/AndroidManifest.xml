@@ -37,7 +37,7 @@
         android:value="AIzaSyDD5e-SJP_E8SDLOHYz79IR79pVy6YQOgg" />
 
     <application
-        android:name="com.mukul.onnwaytransporter.networking.AppController"
+        android:name=".networking.AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,20 +45,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.mukul.onnwaytransporter.otp.NumberIntroActivity"></activity>
+        <activity android:name=".otp.NumberIntroActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name="com.mukul.onnwaytransporter.profilerelated.KycProviderActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.uploadkycimage.KycMainPage" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.uploadkycimage.UploadImageActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.TestActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.AddTruckDetails" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetails" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.Image_Picker.FileUploadCamera" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.Image_Picker.FileUpload" /> <!-- <provider -->
+        <activity android:name=".profilerelated.KycProviderActivity" />
+        <activity android:name=".driver.profilerelated.uploadkycimage.KycMainPage" />
+        <activity android:name=".driver.profilerelated.uploadkycimage.UploadImageActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".driver.profilerelated.AddTruckDetails" />
+        <activity android:name=".driver.profilerelated.DriverTruckDetails" />
+        <activity android:name=".driver.Image_Picker.FileUploadCamera" />
+        <activity android:name=".driver.Image_Picker.FileUpload" /> <!-- <provider -->
         <!-- android:name="android.support.v4.content.FileProvider" -->
         <!-- android:authorities="com.sumit.myapplication.fileprovider" -->
         <!-- android:exported="false" -->
@@ -77,31 +77,31 @@
                 android:resource="@xml/provider_path" />
         </provider>
 
-        <activity android:name="com.mukul.onnwaytransporter.providerpartload.SelectTruckSpaceProvider" />
-        <activity android:name="com.mukul.onnwaytransporter.providerpartload.PartLoadMaterialDetails" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.KycDriverActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverOperatedRoutesActivity" />
+        <activity android:name=".providerpartload.SelectTruckSpaceProvider" />
+        <activity android:name=".providerpartload.PartLoadMaterialDetails" />
+        <activity android:name=".driver.profilerelated.KycDriverActivity" />
+        <activity android:name=".driver.profilerelated.DriverOperatedRoutesActivity" />
         <activity
-            android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverUpdateCity"
+            android:name=".driver.profilerelated.DriverUpdateCity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverUpdateMobile"
+            android:name=".driver.profilerelated.DriverUpdateMobile"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverUpdateName"
+            android:name=".driver.profilerelated.DriverUpdateName"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverAddRoutesActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverNamePhoneActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.OrderStatus.UploadPOD" />
-        <activity android:name="com.mukul.onnwaytransporter.OrderStatus.AssignTruck" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.postload.DriverPostPartLoad" />
-        <activity android:name="com.mukul.onnwaytransporter.driver.postload.DriverPostFullLoad" />
+        <activity android:name=".driver.profilerelated.DriverAddRoutesActivity" />
+        <activity android:name=".driver.profilerelated.DriverNamePhoneActivity" />
+        <activity android:name=".driver.profilerelated.DriverProfileActivity" />
+        <activity android:name=".OrderStatus.UploadPOD" />
+        <activity android:name=".OrderStatus.AssignTruck" />
+        <activity android:name=".driver.postload.DriverPostPartLoad" />
+        <activity android:name=".driver.postload.DriverPostFullLoad" />
         <activity
-            android:name="com.mukul.onnwaytransporter.driver.DriverMainActivity"
+            android:name=".driver.DriverMainActivity"
             android:label="Onnway Driver"
             android:theme="@style/AppTheme.NoActionBar"
             />
@@ -117,56 +117,56 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="com.mukul.onnwaytransporter.FetchDriverLocation" />
-        <activity android:name="com.mukul.onnwaytransporter.profilerelated.UpdateRoutesActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
+        <activity android:name=".FetchDriverLocation" />
+        <activity android:name=".profilerelated.UpdateRoutesActivity" />
+        <activity android:name=".GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
         <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
-        <activity android:name="com.mukul.onnwaytransporter.biddetails.SetBidDetailsActivity" />
-        <activity android:name="com.mukul.onnwaytransporter.MainActivity" />
+        <activity android:name=".biddetails.SetBidDetailsActivity" />
+        <activity android:name=".MainActivity" />
         <activity
-            android:name="com.mukul.onnwaytransporter.profilerelated.AddRoutesActivity"
+            android:name=".profilerelated.AddRoutesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.profilerelated.UpdateCityActivity"
+            android:name=".profilerelated.UpdateCityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.profilerelated.UpdateMobileActivity"
+            android:name=".profilerelated.UpdateMobileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.profilerelated.UpdateNameActivity"
+            android:name=".profilerelated.UpdateNameActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.profilerelated.NamePhoneActivity"
+            android:name=".profilerelated.NamePhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mukul.onnwaytransporter.ProfileActivity"
+            android:name=".ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mukul.onnwaytransporter.otp.OtpActivity"
+            android:name=".otp.OtpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.otp.NumberActivity"
+            android:name=".otp.NumberActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.mukul.onnwaytransporter.FirstTimeProfileActivity"
+            android:name=".FirstTimeProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.mukul.onnwaytransporter.SelectUserType" />
+        <activity android:name=".SelectUserType" />
         <activity
-            android:name="com.mukul.onnwaytransporter.testing.TestingActivity"
+            android:name=".testing.TestingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.mukul.onnwaytransporter.splash.SplashActivity"
+            android:name=".splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -180,6 +180,29 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:permission="">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/loggg" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <!--
+ Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
     </application>
 
 </manifest>

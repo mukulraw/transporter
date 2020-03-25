@@ -17,4 +17,5 @@
     <color name="red_inactive_button">#C55A5A</color>
 
     <color name="spinner_item">#2A2A2A</color>
+    <color name="transparent">#00000000</color>
 </resources>

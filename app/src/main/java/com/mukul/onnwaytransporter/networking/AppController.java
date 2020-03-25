@@ -1,12 +1,14 @@
 package com.mukul.onnwaytransporter.networking;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class AppController extends Application {
 
@@ -15,10 +17,22 @@ public class AppController extends Application {
     private static AppController mInstance;
     private ImageLoader mImageLoader;
 
+    private static Context context;
+
+    public String baseurl = "https://www.onnway.com/";
+
+    public static Context getContext() {
+        return context;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+
+        context = getApplicationContext();
+
+        com.nostra13.universalimageloader.core.ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
     }
 
     public static AppController getInstance() {

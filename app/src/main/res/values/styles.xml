@@ -1,12 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,20 +18,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
-    </style>
-
-    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
-    </style>
-
-
-    <!--Design for alert dialog(radio button) used when selecting the truck type-->
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!--item RadioButton or CheckBox color-->
         <item name="colorControlNormal">#000000</item>
@@ -46,22 +32,17 @@
         <item name="android:windowBackground">@drawable/custom_alert</item>
     </style>
 
-    <style name="MyAlertTheme" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-        <!--title and message color-->
-        <item name="android:textColorPrimary">#000000</item>
-        <!--buttons color-->
-        <item name="colorAccent">#E11F22</item>
-        <!--dialog background-->
-        <item name="android:windowBackground">@drawable/custom_alert</item>
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottomsheet_background</item>
+        <item name="android:layout_margin">8dp</item>
     </style>
 
-    <!-- tablayout making text into  small letter-->
-    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/montserrat_semibold</item>
     </style>
 
-    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">false</item>
+    <style name="monteserrat_semi_bold">
+        <item name="fontFamily">@font/montserrat_semibold</item>
     </style>
 
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
@@ -70,10 +51,6 @@
 
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">8sp</item>
-    </style>
-
-    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/montserrat_semibold</item>
     </style>
 
 </resources>

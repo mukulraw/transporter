@@ -102,7 +102,7 @@ public class AddRoutesActivity extends AppCompatActivity {
 
                     addRouteProvider.setClickable(true);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddRoutesActivity.this, R.style.MyAlertTheme);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddRoutesActivity.this, R.style.MyDialogTheme);
                     builder.setTitle("Are you sure want to add new route?")
                             .setMessage("You  can delete the added route whenever you want")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {

@@ -109,7 +109,7 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
         {
 
             SharePreferenceUtils.getInstance().saveString("userId" , id);
-            SharePreferenceUtils.getInstance().saveString("type" , type);
+            SharePreferenceUtils.getInstance().saveString("user" , type);
 
             if (type.equals("transporter"))
             {

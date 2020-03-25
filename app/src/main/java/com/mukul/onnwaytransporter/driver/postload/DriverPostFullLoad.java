@@ -380,7 +380,7 @@ public class DriverPostFullLoad extends AppCompatActivity {
 
                     postTruckBtn.setClickable(true);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DriverPostFullLoad.this, R.style.MyAlertTheme);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DriverPostFullLoad.this, R.style.MyDialogTheme);
                     builder.setTitle("Are you sure want to Post Truck?")
                             .setMessage("Note that after posting truck, you will not be able to add or edit the details of posted truck. So, make sure before pressing the confirm button")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {

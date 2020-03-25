@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:shape="rectangle">
+            <corners
+                android:radius="5dp"/>
+            <padding android:top="0dp" />
+            <solid
+                android:color="#efefef"
+                tools:targetApi="lollipop" />
+
+
+            <stroke
+                android:width="1dp"
+                android:color="#ffffff" />
+        </shape>
+    </item>
+</layer-list>

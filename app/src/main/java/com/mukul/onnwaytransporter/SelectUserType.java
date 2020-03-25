@@ -40,9 +40,8 @@ public class SelectUserType extends AppCompatActivity {
         truckProvider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SplashActivity.currentUserType = "1";
-                userType = "1";
-                Intent intent = new Intent(SelectUserType.this, FirstTimeProfileActivity.class);
+                Intent intent = new Intent(SelectUserType.this, Profile.class);
+                intent.putExtra("user" , "transporter");
                 startActivity(intent);
                 finish();
             }
@@ -52,9 +51,8 @@ public class SelectUserType extends AppCompatActivity {
         truckDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SplashActivity.currentUserType = "2";
-                userType = "2";
                 Intent intent = new Intent(SelectUserType.this, FirstTimeProfileActivity.class);
+                intent.putExtra("user" , "driver");
                 startActivity(intent);
                 finish();
             }

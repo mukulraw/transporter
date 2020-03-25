@@ -206,7 +206,7 @@ public class AddTruckDetails extends AppCompatActivity {
 
                     addTruckBtn.setClickable(true);
                     addTruckBtn.setBackground(getResources().getDrawable(R.color.active_button));
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTruckDetails.this, R.style.MyAlertTheme);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
                     builder.setTitle("Are you sure want to Add Truck?")
                             .setMessage("You will not be able to edit the details of truck So make sure before confirming")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {

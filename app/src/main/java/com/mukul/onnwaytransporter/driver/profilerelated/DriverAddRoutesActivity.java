@@ -102,7 +102,7 @@ public class DriverAddRoutesActivity extends AppCompatActivity {
 
                     addRouteDriver.setClickable(true);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DriverAddRoutesActivity.this, R.style.MyAlertTheme);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DriverAddRoutesActivity.this, R.style.MyDialogTheme);
                     builder.setTitle("Are you sure want to add new route?")
                             .setMessage("You delete the added route whenever you want")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {

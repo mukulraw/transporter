@@ -32,7 +32,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             app:cardElevation="8dp"
             android:layout_width="280dp"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp">
             <LinearLayout
@@ -42,9 +42,10 @@
                 android:gravity="center"
                 android:background="#D3D3D3">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Truck Provider"
+                    android:gravity="center"
                     android:fontFamily="@font/montserrat_bold"
                     android:textColor="#000000"
                     android:textSize="32sp"/>
@@ -54,12 +55,15 @@
                     android:background="#ffffff"
                     android:layout_margin="10dp"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat_semibold"
-                    android:text="If you have trucks and you want biddings"
-                    android:padding="4dp"
+                    android:text="If you provide own trucks or other trucks and want biddings"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:textSize="16sp"/>
 
@@ -82,7 +86,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             app:cardElevation="8dp"
             android:layout_width="280dp"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             app:cardCornerRadius="8dp">
             <LinearLayout
@@ -92,7 +96,8 @@
                 android:gravity="center"
                 android:background="#D3D3D3">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:text="Truck Driver"
                     android:fontFamily="@font/montserrat_bold"
@@ -104,12 +109,15 @@
                     android:background="#ffffff"
                     android:layout_margin="10dp"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat_semibold"
-                    android:text="If you have you own truck and you want biddings"
-                    android:padding="4dp"
+                    android:text="If you drive trucks"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="10dp"
                     android:textColor="#000000"
                     android:textSize="16sp"/>
 

@@ -70,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void run() {
 
                         String userId = SharePreferenceUtils.getInstance().getString("userId");
-                        String type = SharePreferenceUtils.getInstance().getString("type");
+                        String type = SharePreferenceUtils.getInstance().getString("user");
 
 
                         if (userId.length() > 0)

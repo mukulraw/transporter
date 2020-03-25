@@ -373,7 +373,7 @@ public class PostTruckFragment extends Fragment  {
 
                     postTruckBtn.setClickable(true);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertTheme);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
                     builder.setTitle("Are you sure want to Post Truck?")
                             .setMessage("Note that after posting truck, you will not be able to add or edit the details of posted truck. So, make sure before pressing the confirm button")
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {

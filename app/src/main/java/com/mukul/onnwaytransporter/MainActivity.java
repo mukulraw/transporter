@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     private MyOrderFragment myOrderFragment;
     private PostTruckFrag postTruckFrag;
 
-    private TextView profileName, profileMobile;
+    private TextView name, phone;
 
     private LinearLayout profileLl;
     public static String currenntMobileActive, currentUserName;
@@ -96,13 +96,13 @@ public class MainActivity extends AppCompatActivity
 
 
         //NavBar
-        profileName = (TextView) view.findViewById(R.id.user_profile_name);
-        profileMobile = (TextView) view.findViewById(R.id.user_profile_phone);
+        name = view.findViewById(R.id.user_profile_name);
+        phone = view.findViewById(R.id.user_profile_phone);
 
 
         //Bottom navigationn bar
-        myBottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
-        myFrameLayout = (FrameLayout) findViewById(R.id.main_frame);
+        myBottomNav = findViewById(R.id.bottom_nav);
+        myFrameLayout = findViewById(R.id.main_frame);
 
         //constructor for fragments of bottom navigation bar
         myBidFragment = new MyBidFragment();
@@ -150,10 +150,6 @@ public class MainActivity extends AppCompatActivity
         //Profile Activity Button
         profileLl = (LinearLayout) view.findViewById(R.id.profile_ll);
 
-
-        profileMobile.setText("+91 " + currenntMobileActive);
-        profileName.setText(currentUserName);
-
         //handling the profile activity
         profileLl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +159,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
         
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+        name.setText(SharePreferenceUtils.getInstance().getString("name"));
 
     }
 
@@ -248,20 +254,14 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_logout) {
-//            SelectUserType.userType = -1;
-            //Clearing shared prefrences
-//            SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
-//            SaveSharedPreference.setPhoneNo(getApplicationContext(), "Not found no");
-//            SaveSharedPreference.setCounterBid(this, "1");
-//            SaveSharedPreference.setCounterPosted(this, "1");
-            SplashActivity.currentUserType = "";
-            deleteData();
+
+            SharePreferenceUtils.getInstance().deletePref();
             startActivity(new Intent(this, SplashActivity.class));
-            finish();
+            finishAffinity();
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

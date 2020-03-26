@@ -43,7 +43,6 @@ public class SelectUserType extends AppCompatActivity {
                 Intent intent = new Intent(SelectUserType.this, Profile.class);
                 intent.putExtra("user" , "transporter");
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -54,7 +53,6 @@ public class SelectUserType extends AppCompatActivity {
                 Intent intent = new Intent(SelectUserType.this, FirstTimeProfileActivity.class);
                 intent.putExtra("user" , "driver");
                 startActivity(intent);
-                finish();
             }
         });
     }

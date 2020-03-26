@@ -72,7 +72,7 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
 //
         //shared prefernces getting state of phone no and session
         String s1=SaveSharedPreference.getPhoneNoStatus(getApplicationContext());
-        Toast.makeText(this, ""+s1, Toast.LENGTH_SHORT).show();
+
         otp1 = findViewById(R.id.otp_et1);
         otp2 = findViewById(R.id.otp_et2);
         otp3 = findViewById(R.id.otp_et3);

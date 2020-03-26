@@ -52,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         sharedData = new SharedData(SplashActivity.this);
-        findUserType();
+        //findUserType();
 
         String rationale = "Please provide location permission so that you can ...";
         Permissions.Options options = new Permissions.Options()

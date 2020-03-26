@@ -190,7 +190,7 @@ public class Profile extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<updateProfileBean> call = cr.update_loader_profile(
+        Call<updateProfileBean> call = cr.update_provider_profile(
                 SharePreferenceUtils.getInstance().getString("userId"),
                 n,
                 e,

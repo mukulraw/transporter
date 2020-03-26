@@ -24,8 +24,8 @@ public interface AllApiIneterface {
     );
 
     @Multipart
-    @POST("android/update_loader_profile.php")
-    Call<updateProfileBean> update_loader_profile(
+    @POST("android/update_provider_profile.php")
+    Call<updateProfileBean> update_provider_profile(
             @Part("user_id") String user_id,
             @Part("name") String name,
             @Part("email") String email,

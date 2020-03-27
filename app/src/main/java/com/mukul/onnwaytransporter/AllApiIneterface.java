@@ -1,6 +1,9 @@
 package com.mukul.onnwaytransporter;
 
 
+import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
+import com.mukul.onnwaytransporter.bidsPOJO.bidsBean;
+import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
 import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
 
 import java.util.List;
@@ -35,5 +38,25 @@ public interface AllApiIneterface {
             @Part("user") String user
     );
 
+    @Multipart
+    @POST("android/getBiddings.php")
+    Call<bidsBean> getBiddings(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("android/getBidDetails.php")
+    Call<bidDetailsBean> getBidDetails(
+            @Part("user_id") String user_id,
+            @Part("id") String id
+    );
+
+    @Multipart
+    @POST("android/placeBid.php")
+    Call<placeBidBean> placeBid(
+            @Part("user_id") String user_id,
+            @Part("id") String id,
+            @Part("amount") String amount
+    );
 
 }

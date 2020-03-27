@@ -71,14 +71,14 @@ public class SetBidDetailsActivity extends AppCompatActivity implements OnMapRea
         enterbid=findViewById(R.id.enter_bid);
 
         //todo
-        source.setText(MyBidFragment.arrsource[RecyclerAdapterBid.quote_id]);
+        /*source.setText(MyBidFragment.arrsource[RecyclerAdapterBid.quote_id]);
         destination.setText(MyBidFragment.arrdestination[RecyclerAdapterBid.quote_id]);
         int dist = (int) results[0] / 1000;
         distance.setText(Integer.toString(dist) + " kms approx");
 //        distance.setText(MyBidFragment.arrweight[RecyclerAdapterBid.quote_id]);
         vehicle.setText(MyBidFragment.arrtrucktype[RecyclerAdapterBid.quote_id]);
         material.setText(MyBidFragment.arrmaterial[RecyclerAdapterBid.quote_id]);
-        date.setText(MyBidFragment.arrdate[RecyclerAdapterBid.quote_id]);
+        date.setText(MyBidFragment.arrdate[RecyclerAdapterBid.quote_id]);*/
 
 
         //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
@@ -153,7 +153,7 @@ public class SetBidDetailsActivity extends AppCompatActivity implements OnMapRea
         else
         {
             Map<String,String> map=new HashMap<>();
-            map.put("quote_id",""+MyBidFragment.arrquoteid[RecyclerAdapterBid.quote_id]);
+            //map.put("quote_id",""+MyBidFragment.arrquoteid[RecyclerAdapterBid.quote_id]);
             String mobile_no= SaveSharedPreference.getPhoneNoStatus(getApplicationContext());
             map.put("mobile_no",mobile_no);
             map.put("bid_price",sEnterBid);

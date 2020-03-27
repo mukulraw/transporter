@@ -70,11 +70,11 @@ public class RecyclerAdapterBid extends RecyclerView.Adapter<ViewHolder>
 
     public void removeItem(int pos)
     {
-        bidUsers.remove(pos);
+        /*bidUsers.remove(pos);
         MyBidFragment.recyclerView.removeViewAt(pos);
         MyBidFragment.recyclerAdapterBid.notifyItemRemoved(pos);
         MyBidFragment.recyclerAdapterBid.notifyItemRangeChanged(pos,bidUsers.size());
         notifyItemRemoved(pos);
-
+*/
     }
 }

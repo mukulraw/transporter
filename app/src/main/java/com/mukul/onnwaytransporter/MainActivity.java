@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity
 //            buffer.append("Name" + cursor.getString(0));
             currenntMobileActive = cursor.getString(1);
         }
-        Toast.makeText(MainActivity.this, currenntMobileActive, Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, currenntMobileActive, Toast.LENGTH_LONG).show();
     }
 
     public void findName() {
@@ -352,7 +352,7 @@ public class MainActivity extends AppCompatActivity
             currentUserName = cursor.getString(0);
         }
 
-        Toast.makeText(MainActivity.this, currentUserName, Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, currentUserName, Toast.LENGTH_LONG).show();
     }
     public void deleteData() {
         Integer deletedRow = sharedData.deleteData(currenntMobileActive);

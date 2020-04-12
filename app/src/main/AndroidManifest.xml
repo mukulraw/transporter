@@ -45,7 +45,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BidDetails"></activity>
+        <activity android:name=".TruckDetails"></activity>
+        <activity android:name=".BidDetails" />
         <activity android:name=".Profile" />
         <activity android:name=".otp.NumberIntroActivity" />
 
@@ -104,8 +105,7 @@
         <activity android:name=".driver.postload.DriverPostFullLoad" />
         <activity
             android:name=".driver.DriverMainActivity"
-            android:label="Onnway Driver"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Onnway Driver" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.file_paths").
@@ -157,14 +157,12 @@
         <activity
             android:name=".FirstTimeProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".SelectUserType" />
         <activity
             android:name=".testing.TestingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".splash.SplashActivity"

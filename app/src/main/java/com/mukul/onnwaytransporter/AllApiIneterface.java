@@ -4,6 +4,10 @@ package com.mukul.onnwaytransporter;
 import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
 import com.mukul.onnwaytransporter.bidsPOJO.bidsBean;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
+import com.mukul.onnwaytransporter.postLoadPOJO.postLoadBean;
+import com.mukul.onnwaytransporter.postedTrucksPOJO.postedTrucksBean;
+import com.mukul.onnwaytransporter.truckDetailsPOJO.truckDetailsBean;
+import com.mukul.onnwaytransporter.truckTypePOJO.truckTypeBean;
 import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
 
 import java.util.List;
@@ -57,6 +61,42 @@ public interface AllApiIneterface {
             @Part("user_id") String user_id,
             @Part("id") String id,
             @Part("amount") String amount
+    );
+
+    @Multipart
+    @POST("android/getTrucks.php")
+    Call<List<truckTypeBean>> getTrucks(
+            @Part("type") String type
+    );
+
+    @Multipart
+    @POST("android/post_full_load.php")
+    Call<postLoadBean> post_full_load(
+            @Part("user_id") String user_id,
+            @Part("laod_type") String laod_type,
+            @Part("source") String source,
+            @Part("destination") String destination,
+            @Part("truck_type") String truck_type,
+            @Part("schedule") String schedule,
+            @Part("weight") String weight,
+            @Part("load_passing") String load_passing,
+            @Part("remarks") String remarks,
+            @Part("length") String length,
+            @Part("width") String width,
+            @Part("height") String height,
+            @Part("quantity") String quantity
+    );
+
+    @Multipart
+    @POST("android/getPostedTrucks.php")
+    Call<postedTrucksBean> getPostedTrucks(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("android/getTruckDetails.php")
+    Call<truckDetailsBean> getTruckDetails(
+            @Part("id") String id
     );
 
 }

@@ -91,7 +91,24 @@ public class BidDetails extends AppCompatActivity {
                 material.setText(item.getMaterial());
                 weight.setText(item.getWeight());
 
+                if (item.getBid().length() > 0)
+                {
+                    amount.setText(item.getBid());
+                    amount.setClickable(false);
+                    amount.setFocusable(false);
+                    confirm.setVisibility(View.GONE);
+                }
+                else
+                {
+                    amount.setClickable(true);
+                    amount.setFocusable(true);
+                    confirm.setVisibility(View.VISIBLE);
+                }
+
                 progress.setVisibility(View.GONE);
+
+
+
 
             }
 
@@ -110,6 +127,9 @@ public class BidDetails extends AppCompatActivity {
 
                 if (a.length() > 0)
                 {
+
+                    progress.setVisibility(View.VISIBLE);
+
                     AppController b = (AppController) getApplicationContext();
 
                     Retrofit retrofit = new Retrofit.Builder()

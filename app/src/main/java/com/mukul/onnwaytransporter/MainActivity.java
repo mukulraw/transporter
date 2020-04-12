@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
     private PostTruckFragment postTruckFragment;
     private PostedTruckFragment postedTruckFragment;
     private MyOrderFragment myOrderFragment;
-    private PostTruckFrag postTruckFrag;
+    private FindTruckFragment postTruckFrag;
 
     private TextView name, phone;
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         postTruckFragment = new PostTruckFragment();
         postedTruckFragment = new PostedTruckFragment();
         myOrderFragment = new MyOrderFragment();
-        postTruckFrag=new PostTruckFrag();
+        postTruckFrag=new FindTruckFragment();
         //set the default fragment of bottom navigation bar to be myBidFragment
         setFragment(myBidFragment);
 
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     //method to set the fragment layout for the selected icon
-    private void setFragment(Fragment fragment) {
+    public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();

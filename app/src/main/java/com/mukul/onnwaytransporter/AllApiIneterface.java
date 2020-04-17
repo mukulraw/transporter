@@ -3,6 +3,7 @@ package com.mukul.onnwaytransporter;
 
 import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
 import com.mukul.onnwaytransporter.bidsPOJO.bidsBean;
+import com.mukul.onnwaytransporter.orderDetailsPOJO.orderDetailsBean;
 import com.mukul.onnwaytransporter.ordersPOJO.ordersBean;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
 import com.mukul.onnwaytransporter.postLoadPOJO.postLoadBean;
@@ -110,6 +111,12 @@ public interface AllApiIneterface {
     @POST("android/getCompletedOrders.php")
     Call<ordersBean> getCompletedOrders(
             @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("android/providerOrderDetails.php")
+    Call<orderDetailsBean> providerOrderDetails(
+            @Part("id") String id
     );
 
 }

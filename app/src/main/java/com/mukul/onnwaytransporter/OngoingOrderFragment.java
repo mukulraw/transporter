@@ -140,7 +140,7 @@ public class OngoingOrderFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context , OrderDetails.class);
-                    intent.putExtra("id" , item.getId());
+                    intent.putExtra("id" , item.getAid());
                     context.startActivity(intent);
                 }
             });

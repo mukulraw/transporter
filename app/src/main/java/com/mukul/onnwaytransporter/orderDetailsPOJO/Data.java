@@ -1,11 +1,11 @@
-package com.mukul.onnwaytransporter.ordersPOJO;
+package com.mukul.onnwaytransporter.orderDetailsPOJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Datum {
+public class Data {
     @SerializedName("id")
     @Expose
     private String id;
@@ -117,9 +117,6 @@ public class Datum {
     @SerializedName("doc")
     @Expose
     private List<Doc> doc = null;
-    @SerializedName("aid")
-    @Expose
-    private String aid;
 
     public String getId() {
         return id;
@@ -415,13 +412,5 @@ public class Datum {
 
     public void setDoc(List<Doc> doc) {
         this.doc = doc;
-    }
-
-    public String getAid() {
-        return aid;
-    }
-
-    public void setAid(String aid) {
-        this.aid = aid;
     }
 }

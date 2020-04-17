@@ -2,8 +2,11 @@ package com.mukul.onnwaytransporter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
@@ -21,17 +24,20 @@ import com.mukul.onnwaytransporter.tablayout.ViewPagerAdapter;
  */
 public class MyOrderFragment extends Fragment {
 
+    /*
+     * This fragment is the main fragment of the MyOrder fragment
+     * Here, we are having TabLayout with two options i.e. the Ongoing order option and the PastOrder option
+     * You can find the code of the Ongoing and Past fragment in the com.sumit.onnwayloader.myorder.OngoingOrderFragment
+     * and com.sumit.onnwayloader.myorder.PastOrderFragment
+     * */
 
-    //initialization
-    Toolbar toolbar;
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
 
     public MyOrderFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -44,16 +50,20 @@ public class MyOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_order, container, false);
-        // toolbar=view.findViewById(R.id.toolbar);
-        //((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        viewPager = view.findViewById(R.id.view_pager);
-        viewPagerAdapter.addFragment(new UpComingFragment(), "Upcoming");
-        viewPagerAdapter.addFragment(new PastFragment(), "Past");
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout = view.findViewById(R.id.tablayout_id);
-        tabLayout.setupWithViewPager(viewPager);
 
+        //for view pager
+        viewPager = view.findViewById(R.id.my_order_view_pager);
+        viewPagerAdapter.addFragment(new OngoingOrderFragment(), "Ongoing");
+        viewPagerAdapter.addFragment(new PastOrderFragment(), "Past");
+        viewPager.setAdapter(viewPagerAdapter);
+
+        //for tablayout
+        tabLayout = view.findViewById(R.id.my_order_tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#2E2E2E"));
+        tabLayout.setTabTextColors(Color.parseColor("#2E2E2E"), Color.parseColor("#444444"));
         return view;
     }
+
 
 }

@@ -45,7 +45,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TruckDetails"></activity>
+        <activity android:name=".OrderDetails"></activity>
+        <activity android:name=".TruckDetails" />
         <activity android:name=".BidDetails" />
         <activity android:name=".Profile" />
         <activity android:name=".otp.NumberIntroActivity" />

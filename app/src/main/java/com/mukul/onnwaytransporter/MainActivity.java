@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mukul.onnwaytransporter.webview.AboutOnwayFragment;
 import com.mukul.onnwaytransporter.webview.ContactUsFragment;
 import com.mukul.onnwaytransporter.webview.FAQFragment;
@@ -254,6 +255,19 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_logout) {
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        FirebaseInstanceId.getInstance().deleteInstanceId();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
 
             SharePreferenceUtils.getInstance().deletePref();
             startActivity(new Intent(this, SplashActivity.class));

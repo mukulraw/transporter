@@ -14,6 +14,7 @@ import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -117,6 +118,28 @@ public interface AllApiIneterface {
     @POST("android/providerOrderDetails.php")
     Call<orderDetailsBean> providerOrderDetails(
             @Part("id") String id
+    );
+
+    @Multipart
+    @POST("android/addVehicleNumber.php")
+    Call<ordersBean> addVehicleNumber(
+            @Part("assign_id") String assign_id,
+            @Part("vehicle_number") String vehicle_number,
+            @Part("driver_number") String driver_number
+    );
+
+    @Multipart
+    @POST("android/uploadDocuments.php")
+    Call<ordersBean> uploadDocuments(
+            @Part("assign_id") String assign_id,
+            @Part MultipartBody.Part file
+    );
+
+    @Multipart
+    @POST("android/uploadPOD.php")
+    Call<ordersBean> uploadPOD(
+            @Part("assign_id") String assign_id,
+            @Part MultipartBody.Part file
     );
 
 }

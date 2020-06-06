@@ -181,18 +181,26 @@ public class MyBidFragment extends Fragment {
                 calendar.setTime(date);
                 calendar.add(Calendar.HOUR, 1);
 
+                Date date1 = sdf.parse(item.getCurrent());
+
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.setTime(date1);
+
                 Date startDate = calendar.getTime();
 
-                Date currentTime = Calendar.getInstance().getTime();
+                Date currentTime = calendar2.getTime();
 
                 //long diffInMs = currentTime.getTime() - startDate.getTime();
                 long diffInMs = startDate.getTime() - currentTime.getTime();
 
-                Log.d("ms1" , String.valueOf(startDate.getTime()));
-                Log.d("ms" , String.valueOf(currentTime.getTime()));
 
                 if (diffInMs > 0)
                 {
+
+                    Log.d("ms1" , String.valueOf(startDate.getTime()));
+                    Log.d("ms" , String.valueOf(currentTime.getTime()));
+
+
                     long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
 
                     CountDownTimer timer = new CountDownTimer(diffInMs , 1000) {

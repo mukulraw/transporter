@@ -38,11 +38,8 @@ public interface AllApiIneterface {
     Call<updateProfileBean> update_provider_profile(
             @Part("user_id") String user_id,
             @Part("name") String name,
-            @Part("email") String email,
-            @Part("city") String city,
-            @Part("type") String type,
-            @Part("company") String company,
-            @Part("user") String user
+            @Part("transport_name") String transport_name,
+            @Part("city") String city
     );
 
     @Multipart

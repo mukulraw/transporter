@@ -36,8 +36,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Profile extends AppCompatActivity {
 
-    EditText name , email , city , company;
-    RadioGroup type;
+    EditText name , transport , city;
     Button submit;
     ProgressBar progress;
     private int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -66,10 +65,8 @@ public class Profile extends AppCompatActivity {
             }
         });
         name = findViewById(R.id.editText9);
-        email = findViewById(R.id.editText10);
+        transport = findViewById(R.id.editText10);
         city = findViewById(R.id.editText11);
-        company = findViewById(R.id.editText12);
-        type = findViewById(R.id.textView63);
         submit = findViewById(R.id.button);
         progress = findViewById(R.id.progressBar);
 
@@ -94,66 +91,22 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-                RadioButton btn = type.findViewById(checkedId);
-
-                if (btn.getText().toString().equals("Company"))
-                {
-                    comp = true;
-                    company.setVisibility(View.VISIBLE);
-                    t = btn.getText().toString();
-                }
-                else
-                {
-                    comp = false;
-                    company.setVisibility(View.GONE);
-                    t = btn.getText().toString();
-                }
-
-            }
-        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String n = name.getText().toString();
-                String e = email.getText().toString();
+                String t = transport.getText().toString();
                 String c = city.getText().toString();
-                String co = company.getText().toString();
 
                 if (n.length() > 0)
                 {
-                    if (e.length() > 0 )
+                    if (t.length() > 0 )
                     {
                         if (c.length() > 0)
                         {
-                            int iidd = type.getCheckedRadioButtonId();
-                            if (iidd > -1)
-                            {
-                                if (comp)
-                                {
-                                    if (co.length() > 0)
-                                    {
-                                        update(n , e , c , t , co);
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(Profile.this, "Invalid company name", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                                else
-                                {
-                                    update(n , e , c , t , "");
-                                }
-                            }
-                            else
-                            {
-                                Toast.makeText(Profile.this, "Please choose type", Toast.LENGTH_SHORT).show();
-                            }
+                                        update(n , t , c);
                         }
                         else
                         {
@@ -162,7 +115,7 @@ public class Profile extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(Profile.this, "Invalid email", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Profile.this, "Invalid transport name", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
@@ -176,7 +129,7 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    void update(String n , String e , String c , String t , String co)
+    void update(String n , String e , String c)
     {
         progress.setVisibility(View.VISIBLE);
 
@@ -194,10 +147,7 @@ public class Profile extends AppCompatActivity {
                 SharePreferenceUtils.getInstance().getString("userId"),
                 n,
                 e,
-                c,
-                t,
-                co,
-                user
+                c
         );
 
         call.enqueue(new Callback<updateProfileBean>() {

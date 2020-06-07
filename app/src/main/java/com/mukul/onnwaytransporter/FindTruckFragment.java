@@ -203,7 +203,7 @@ public class FindTruckFragment extends Fragment
                 fullLoad.setTextColor(Color.parseColor("#000000"));
                 fullLoad.setBackgroundResource(R.drawable.white_back_round);
 
-                truck.setVisibility(View.INVISIBLE);
+                //truck.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -216,7 +216,7 @@ public class FindTruckFragment extends Fragment
                 fullLoad.setBackgroundResource(R.drawable.black_back_round);
                 partLoad.setTextColor(Color.parseColor("#000000"));
                 partLoad.setBackgroundResource(R.drawable.white_back_round);
-                truck.setVisibility(View.VISIBLE);
+                //truck.setVisibility(View.VISIBLE);
             }
         });
 

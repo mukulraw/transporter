@@ -219,7 +219,7 @@ public class MyBidFragment extends Fragment {
                 }
                 else
                 {
-                    holder.freight.setText(" - ");
+                    holder.freight.setText("Bid ended");
                 }
 
 
@@ -237,9 +237,19 @@ public class MyBidFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context , BidDetails.class);
-                    intent.putExtra("id" , item.getId());
-                    context.startActivity(intent);
+
+                    if (!holder.freight.getText().equals("Bid ended"))
+                    {
+                        Intent intent = new Intent(context , BidDetails.class);
+                        intent.putExtra("id" , item.getId());
+                        context.startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "This bid has ended", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
             });
 

@@ -37,6 +37,7 @@ public interface AllApiIneterface {
     @POST("android/update_provider_profile.php")
     Call<updateProfileBean> update_provider_profile(
             @Part("user_id") String user_id,
+            @Part("user") String user,
             @Part("name") String name,
             @Part("transport_name") String transport_name,
             @Part("city") String city

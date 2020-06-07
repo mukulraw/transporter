@@ -145,6 +145,7 @@ public class Profile extends AppCompatActivity {
 
         Call<updateProfileBean> call = cr.update_provider_profile(
                 SharePreferenceUtils.getInstance().getString("userId"),
+                user,
                 n,
                 e,
                 c

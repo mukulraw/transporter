@@ -140,4 +140,7 @@ public interface AllApiIneterface {
             @Part MultipartBody.Part file
     );
 
+    @GET("android/getMaterial.php")
+    Call<List<truckTypeBean>> getMaterial();
+
 }

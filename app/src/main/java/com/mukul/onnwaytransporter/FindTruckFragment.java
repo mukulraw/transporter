@@ -106,7 +106,7 @@ public class FindTruckFragment extends Fragment
 
 
     //TextView
-    private TextView sourceAddress, destinationAddress, schedulePickupDate;
+    private TextView sourceAddress, destinationAddress, schedulePickupDate , sel_truck;
 
     //Buttons
     private LinearLayout openTruckBtn, containerBtn, trailerBtn;
@@ -139,6 +139,8 @@ public class FindTruckFragment extends Fragment
 
     String tid = "";
 
+    String capcaity , length , width , trucktitle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -161,7 +163,7 @@ public class FindTruckFragment extends Fragment
         truck = view.findViewById(R.id.truck);
         laodpassing = view.findViewById(R.id.passing);
         bar = view.findViewById(R.id.progressBar4);
-
+        sel_truck = view.findViewById(R.id.sel_truck);
         //imageview
 
 
@@ -430,14 +432,19 @@ public class FindTruckFragment extends Fragment
 
 
 
-                                    /*Intent intent = new Intent(getContext(), MaterialActivity.class);
+                                    Intent intent = new Intent(getContext(), Materials.class);
                                     intent.putExtra("source" , srcAddress);
                                     intent.putExtra("destination" , destAddress);
                                     intent.putExtra("tid" , tid);
-                                    intent.putExtra("loadtype" , loadType);
+                                    intent.putExtra("passing" , laodpassing.getText().toString());
+                                    intent.putExtra("loadtype" , "part");
                                     intent.putExtra("date" , pickUpDate);
+                                    intent.putExtra("capcaity" , capcaity);
+                                    intent.putExtra("length" , length);
+                                    intent.putExtra("width" , width);
+                                    intent.putExtra("trucktitle" , trucktitle);
                                     startActivity(intent);
-*/
+
 
                                     }
                                     else
@@ -971,7 +978,7 @@ public class FindTruckFragment extends Fragment
                 @Override
                 public void onClick(View v) {
 
-                    checktruckType(item.getId() , item.getType());
+                    checktruckType(item.getId() , item.getType() , item.getTitle() , item.getCapcacity() , item.getBox_length() , item.getBox_width() , item.getTitle());
                     dialog.dismiss();
 
                 }
@@ -1002,9 +1009,18 @@ public class FindTruckFragment extends Fragment
         }
     }
 
-    private void checktruckType(String id, String type)
+    private void checktruckType(String id, String type , String title , String capcaity , String length , String width , String trucktitle)
     {
         this.tid = id;
+        this.capcaity = capcaity;
+        this.length = length;
+        this.width = width;
+        this.trucktitle = trucktitle;
+
+
+        sel_truck.setText(type + " - " + title);
+        sel_truck.setVisibility(View.VISIBLE);
+
 
         if (type.equals("open truck"))
         {

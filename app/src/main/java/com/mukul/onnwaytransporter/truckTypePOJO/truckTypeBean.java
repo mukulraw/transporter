@@ -13,10 +13,21 @@ public class truckTypeBean {
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("max_load")
+    @Expose
+    private String max_load;
     @SerializedName("created")
     @Expose
     private String created;
-
+    @SerializedName("capcacity")
+    @Expose
+    private String capcacity;
+    @SerializedName("box_length")
+    @Expose
+    private String box_length;
+    @SerializedName("box_width")
+    @Expose
+    private String box_width;
     public String getId() {
         return id;
     }
@@ -47,5 +58,37 @@ public class truckTypeBean {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getMax_load() {
+        return max_load;
+    }
+
+    public void setMax_load(String max_load) {
+        this.max_load = max_load;
+    }
+
+    public String getBox_length() {
+        return box_length;
+    }
+
+    public String getBox_width() {
+        return box_width;
+    }
+
+    public String getCapcacity() {
+        return capcacity;
+    }
+
+    public void setBox_length(String box_length) {
+        this.box_length = box_length;
+    }
+
+    public void setBox_width(String box_width) {
+        this.box_width = box_width;
+    }
+
+    public void setCapcacity(String capcacity) {
+        this.capcacity = capcacity;
     }
 }

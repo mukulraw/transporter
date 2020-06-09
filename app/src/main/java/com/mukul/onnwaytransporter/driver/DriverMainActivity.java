@@ -28,12 +28,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mukul.onnwaytransporter.FindTruckFragment;
 import com.mukul.onnwaytransporter.FindTruckFragment2;
+import com.mukul.onnwaytransporter.MainActivity;
 import com.mukul.onnwaytransporter.MyOrderFragment;
 import com.mukul.onnwaytransporter.MyOrderFragment2;
 import com.mukul.onnwaytransporter.PostedTruckFragment;
+import com.mukul.onnwaytransporter.ProfileActivity;
 import com.mukul.onnwaytransporter.SharePreferenceUtils;
+import com.mukul.onnwaytransporter.Web;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity;
 import com.mukul.onnwaytransporter.BuildConfig;
 import com.mukul.onnwaytransporter.R;
@@ -45,6 +49,8 @@ import com.mukul.onnwaytransporter.webview.PrivacyPolicyfragment;
 import com.mukul.onnwaytransporter.webview.TermsAndConditionsFragment;
 import com.mukul.onnwaytransporter.otp.SharedData;
 import com.mukul.onnwaytransporter.splash.SplashActivity;
+
+import java.io.IOException;
 
 public class DriverMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -155,6 +161,18 @@ public class DriverMainActivity extends AppCompatActivity
 
             }
         });
+
+        profileLl = (LinearLayout) view.findViewById(R.id.profile_ll);
+
+        //handling the profile activity
+        profileLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DriverMainActivity.this, DriverProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -176,27 +194,7 @@ public class DriverMainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.driver_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.file_paths.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -204,21 +202,37 @@ public class DriverMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home_driver) {
-            setFragment(loadRequestDriverFragment);
-        } else if (id == R.id.nav_about) {
-            setFragment(new AboutOnwayFragment());
-        } else if (id == R.id.nav_faq_driver) {
-            setFragment(new FAQFragment());
-        } else if (id == R.id.nav_contact_driver) {
-            setFragment(new ContactUsFragment());
-        } else if (id == R.id.nav_terms_and_condition_driver) {
-            setFragment(new TermsAndConditionsFragment());
-        } else if (id == R.id.nav_payment_terms_driver) {
-            setFragment(new PaymentTermsFragment());
-        } else if (id == R.id.nav_privacy_policy_driver) {
-            setFragment(new PrivacyPolicyfragment());
-        } else if (id == R.id.nav_share_driver) {
+        if (id == R.id.nav_about) {
+            Intent intent = new Intent(DriverMainActivity.this , Web.class);
+            intent.putExtra("title" , "About Onnway");
+            intent.putExtra("url" , "https://www.onnway.com/aboutonway.php");
+            startActivity(intent);
+        } else if (id == R.id.nav_faq) {
+            Intent intent = new Intent(DriverMainActivity.this , Web.class);
+            intent.putExtra("title" , "FAQs");
+            intent.putExtra("url" , "https://www.onnway.com/faqonnway.php");
+            startActivity(intent);
+        } else if (id == R.id.nav_contact) {
+            Intent intent = new Intent(DriverMainActivity.this , Web.class);
+            intent.putExtra("title" , "Contact Us");
+            intent.putExtra("url" , "https://www.onnway.com/contactonnway.php");
+            startActivity(intent);
+        } else if (id == R.id.nav_terms_and_condition) {
+            Intent intent = new Intent(DriverMainActivity.this , Web.class);
+            intent.putExtra("title" , "Terms and Conditions");
+            intent.putExtra("url" , "https://www.onnway.com/termsonnway.php");
+            startActivity(intent);
+        } else if (id == R.id.nav_payment_terms) {
+            Intent intent = new Intent(DriverMainActivity.this , Web.class);
+            intent.putExtra("title" , "Payment Terms");
+            intent.putExtra("url" , "https://www.onnway.com/paymentonnway.php");
+            startActivity(intent);
+        } else if (id == R.id.nav_privacy_policy) {
+            Intent intent = new Intent(DriverMainActivity.this , Web.class);
+            intent.putExtra("title" , "Privacy Policy");
+            intent.putExtra("url" , "https://www.onnway.com/privacyonnway.php");
+            startActivity(intent);
+        } else if (id == R.id.nav_share) {
             try {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
@@ -230,17 +244,28 @@ public class DriverMainActivity extends AppCompatActivity
             } catch(Exception e) {
                 //e.toString();
             }
-        } else if (id == R.id.nav_logout_driver) {
-            deleteData();
-            SplashActivity.currentUserType = "";
+        } else if (id == R.id.nav_logout) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        FirebaseInstanceId.getInstance().deleteInstanceId();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+
+            SharePreferenceUtils.getInstance().deletePref();
             startActivity(new Intent(this, SplashActivity.class));
-            finish();
+            finishAffinity();
 
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 
     //method to set the fragment layout for the selected icon

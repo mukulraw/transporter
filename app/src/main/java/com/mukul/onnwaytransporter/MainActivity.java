@@ -6,17 +6,24 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
 import android.view.View;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -110,7 +117,7 @@ public class MainActivity extends AppCompatActivity
         postTruckFragment = new PostTruckFragment();
         postedTruckFragment = new PostedTruckFragment();
         myOrderFragment = new MyOrderFragment();
-        postTruckFrag=new FindTruckFragment();
+        postTruckFrag = new FindTruckFragment();
         //set the default fragment of bottom navigation bar to be myBidFragment
         setFragment(myBidFragment);
 
@@ -119,28 +126,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
 
-                    case R.id.my_bids :
+                    case R.id.my_bids:
                         //sets the color of bottom navigation bar to coloPrimary on clicking the mybid icon
                         //myBottomNav.setItemBackgroundResource(R.color.colorPrimary);
 //                        hideSoftKeyboard(MainActivity.this);
                         setFragment(myBidFragment);
                         return true;
-                    case R.id.post_truck :
+                    case R.id.post_truck:
 //                        hideSoftKeyboard(MainActivity.this);
                         //setFragment(postTruckFragment);
                         setFragment(postTruckFrag);
                         return true;
-                    case R.id.posted_truck :
+                    case R.id.posted_truck:
 //                        hideSoftKeyboard(MainActivity.this);
                         setFragment(postedTruckFragment);
                         return true;
-                    case R.id.my_orders :
+                    case R.id.my_orders:
 //                        hideSoftKeyboard(MainActivity.this);
                         setFragment(myOrderFragment);
                         return true;
-                    default :
+                    default:
                         return false;
                 }
 
@@ -159,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        
+
 
     }
 
@@ -190,40 +197,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.file_paths.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if (id == R.id.nav_about) {
 
-        if (id == R.id.nav_home) {
-            //to be changed
-            // Handle the camera action
-            setFragment(myBidFragment);
-        } else if (id == R.id.nav_about) {
-            setFragment(new AboutOnwayFragment());
+            Intent intent = new Intent(MainActivity.this , Web.class);
+            intent.putExtra("title" , "About Onnway");
+            intent.putExtra("url" , "https://www.onnway.com/aboutonway.php");
+            startActivity(intent);
 
         } else if (id == R.id.nav_faq) {
             setFragment(new FAQFragment());
@@ -245,11 +231,11 @@ public class MainActivity extends AppCompatActivity
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                String shareMessage= "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                String shareMessage = "\nLet me recommend you this application\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "choose one"));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 //e.toString();
             }
 
@@ -289,7 +275,6 @@ public class MainActivity extends AppCompatActivity
 //    }
 
 
-
     //share the app
     private void shareApplication() {
         ApplicationInfo app = getApplicationContext().getApplicationInfo();
@@ -312,7 +297,7 @@ public class MainActivity extends AppCompatActivity
                 if (!tempFile.mkdirs())
                     return;
             //Get application's name and convert to lowercase
-            tempFile = new File(tempFile.getPath() + "/" + getString(app.labelRes).replace(" ","").toLowerCase() + ".apk");
+            tempFile = new File(tempFile.getPath() + "/" + getString(app.labelRes).replace(" ", "").toLowerCase() + ".apk");
             //If file doesn't exists create new
             if (!tempFile.exists()) {
                 if (!tempFile.createNewFile()) {
@@ -342,12 +327,12 @@ public class MainActivity extends AppCompatActivity
 
     public void findMobile() {
         Cursor cursor = sharedData.getAllData();
-        if(cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             return;
         }
 
         StringBuffer buffer = new StringBuffer();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
 //            buffer.append("Name" + cursor.getString(0));
             currenntMobileActive = cursor.getString(1);
         }
@@ -356,21 +341,22 @@ public class MainActivity extends AppCompatActivity
 
     public void findName() {
         Cursor cursor = sharedData.getAllData();
-        if(cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             return;
         }
 
 //        StringBuffer buffer = new StringBuffer();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
 //            buffer.append("Name" + cursor.getString(0));
             currentUserName = cursor.getString(0);
         }
 
         //Toast.makeText(MainActivity.this, currentUserName, Toast.LENGTH_LONG).show();
     }
+
     public void deleteData() {
         Integer deletedRow = sharedData.deleteData(currenntMobileActive);
-        if(deletedRow > 0){
+        if (deletedRow > 0) {
             //deleted
             Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
         }

@@ -49,6 +49,9 @@ public class Data {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("material")
+    @Expose
+    private String material;
 
     public String getId() {
         return id;
@@ -170,4 +173,11 @@ public class Data {
         this.created = created;
     }
 
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
 }

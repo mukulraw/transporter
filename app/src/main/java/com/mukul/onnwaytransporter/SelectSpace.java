@@ -297,7 +297,8 @@ public class SelectSpace extends AppCompatActivity {
                                         length,
                                         width,
                                         height,
-                                        ""
+                                        "",
+                                        mid
                                 );
 
                                 call.enqueue(new Callback<postLoadBean>() {

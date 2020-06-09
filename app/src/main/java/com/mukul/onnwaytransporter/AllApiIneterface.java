@@ -85,7 +85,8 @@ public interface AllApiIneterface {
             @Part("length") String length,
             @Part("width") String width,
             @Part("height") String height,
-            @Part("quantity") String quantity
+            @Part("quantity") String quantity,
+            @Part("mid") String mid
     );
 
     @Multipart
@@ -97,6 +98,12 @@ public interface AllApiIneterface {
     @Multipart
     @POST("android/getTruckDetails.php")
     Call<truckDetailsBean> getTruckDetails(
+            @Part("id") String id
+    );
+
+    @Multipart
+    @POST("android/cancel_posted_truck.php")
+    Call<truckDetailsBean> cancel_posted_truck(
             @Part("id") String id
     );
 

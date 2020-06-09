@@ -138,6 +138,18 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/start_order.php")
+    Call<orderDetailsBean> start_order(
+            @Part("id") String id
+    );
+
+    @Multipart
+    @POST("android/complete.php")
+    Call<orderDetailsBean> complete(
+            @Part("id") String id
+    );
+
+    @Multipart
     @POST("android/addVehicleNumber.php")
     Call<ordersBean> addVehicleNumber(
             @Part("assign_id") String assign_id,

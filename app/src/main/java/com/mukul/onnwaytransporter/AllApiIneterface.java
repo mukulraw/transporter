@@ -114,8 +114,20 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/getActiveOrders2.php")
+    Call<ordersBean> getActiveOrders2(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
     @POST("android/getCompletedOrders.php")
     Call<ordersBean> getCompletedOrders(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("android/getCompletedOrders2.php")
+    Call<ordersBean> getCompletedOrders2(
             @Part("user_id") String user_id
     );
 

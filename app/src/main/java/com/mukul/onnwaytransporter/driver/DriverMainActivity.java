@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.mukul.onnwaytransporter.FindTruckFragment;
 import com.mukul.onnwaytransporter.FindTruckFragment2;
 import com.mukul.onnwaytransporter.MyOrderFragment;
+import com.mukul.onnwaytransporter.MyOrderFragment2;
 import com.mukul.onnwaytransporter.PostedTruckFragment;
 import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity;
@@ -58,7 +59,7 @@ public class DriverMainActivity extends AppCompatActivity
     private  PostedTruckDriverFragment postedTruckDriverFragment;
 
     private PostedTruckFragment postedTruckFragment;
-    private MyOrderFragment myOrderFragment;
+    private MyOrderFragment2 myOrderFragment;
     private FindTruckFragment2 postTruckFrag;
 
     private TextView name, phone;
@@ -121,7 +122,7 @@ public class DriverMainActivity extends AppCompatActivity
 
 
         postedTruckFragment = new PostedTruckFragment();
-        myOrderFragment = new MyOrderFragment();
+        myOrderFragment = new MyOrderFragment2();
         postTruckFrag=new FindTruckFragment2();
 
         //set the default fragment of bottom navigation bar to be myBidFragment

@@ -46,7 +46,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectSpace"></activity>
+        <activity android:name=".SelectSpace2"></activity>
+        <activity android:name=".Materials2" />
+        <activity android:name=".SelectSpace" />
         <activity android:name=".Materials" />
         <activity android:name=".OrderDetails" />
         <activity android:name=".TruckDetails" />

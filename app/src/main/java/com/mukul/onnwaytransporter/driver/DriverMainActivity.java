@@ -28,6 +28,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mukul.onnwaytransporter.FindTruckFragment;
+import com.mukul.onnwaytransporter.FindTruckFragment2;
+import com.mukul.onnwaytransporter.MyOrderFragment;
+import com.mukul.onnwaytransporter.PostedTruckFragment;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity;
 import com.mukul.onnwaytransporter.BuildConfig;
 import com.mukul.onnwaytransporter.R;
@@ -45,17 +50,25 @@ public class DriverMainActivity extends AppCompatActivity
 
     SharedData sharedData;
     private BottomNavigationView driverBottomNav;
-    private FrameLayout driverFrameLayout;
+
+    FrameLayout driverFrameLayout;
 
     private LoadRequestDriverFragment loadRequestDriverFragment;
     private MyOrderDriverFragment myOrderDriverFragment;
     private  PostedTruckDriverFragment postedTruckDriverFragment;
+
+    private PostedTruckFragment postedTruckFragment;
+    private MyOrderFragment myOrderFragment;
+    private FindTruckFragment2 postTruckFrag;
+
+    private TextView name, phone;
+
+    private LinearLayout profileLl;
+
     public static String currenntMobileActive;
     public static String currentUserName;
 
-    private LinearLayout profilell;
 
-    private TextView profileName, profilePhone;
 
 
     @Override
@@ -87,29 +100,18 @@ public class DriverMainActivity extends AppCompatActivity
 
         //nav header
 
-        NavigationView navigationViewDriver = (NavigationView) findViewById(R.id.nav_view_driver);
+        NavigationView navigationViewDriver = (NavigationView) findViewById(R.id.nav_view);
         navigationViewDriver.setNavigationItemSelectedListener(this);
         View view = navigationViewDriver.getHeaderView(0);
+        name = view.findViewById(R.id.user_profile_name);
+        phone = view.findViewById(R.id.user_profile_phone);
 
         //bottom navigation bar
         driverBottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav_driver);
         driverFrameLayout = (FrameLayout)findViewById(R.id.main_frame_driver);
 
         //nav header
-        profilell = (LinearLayout) view.findViewById(R.id.profile_ll_driver);
 
-        profileName = (TextView) view.findViewById(R.id.profile_name_driver);
-        profilePhone = (TextView) view.findViewById(R.id.profile_phone_driver);
-        profileName.setText(currentUserName);
-        profilePhone.setText("+91 " + currenntMobileActive);
-
-        profilell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DriverMainActivity.this, DriverProfileActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         //constructor for the fragments
@@ -117,8 +119,13 @@ public class DriverMainActivity extends AppCompatActivity
         myOrderDriverFragment= new MyOrderDriverFragment();
         postedTruckDriverFragment = new PostedTruckDriverFragment();
 
+
+        postedTruckFragment = new PostedTruckFragment();
+        myOrderFragment = new MyOrderFragment();
+        postTruckFrag=new FindTruckFragment2();
+
         //set the default fragment of bottom navigation bar to be myBidFragment
-        setFragment(loadRequestDriverFragment);
+        setFragment(postTruckFrag);
 
         //changing the fragments on clicking the icon of the bottom navigation bar
         driverBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -131,15 +138,15 @@ public class DriverMainActivity extends AppCompatActivity
                         //sets the color of bottom navigation bar to coloPrimary on clicking the mybid icon
                         //myBottomNav.setItemBackgroundResource(R.color.colorPrimary);
 //                        hideSoftKeyboard(DriverMainActivity.this);
-                        setFragment(loadRequestDriverFragment);
+                        setFragment(postTruckFrag);
                         return true;
                     case R.id.posted_truck_driver :
 //                        hideSoftKeyboard(DriverMainActivity.this);
-                        setFragment(postedTruckDriverFragment);
+                        setFragment(postedTruckFragment);
                         return true;
                     case R.id.my_order_driver :
 //                        hideSoftKeyboard(DriverMainActivity.this);
-                        setFragment(myOrderDriverFragment);
+                        setFragment(myOrderFragment);
                         return true;
                     default :
                         return false;
@@ -147,6 +154,15 @@ public class DriverMainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+        name.setText(SharePreferenceUtils.getInstance().getString("name"));
+
     }
 
     @Override
@@ -227,7 +243,7 @@ public class DriverMainActivity extends AppCompatActivity
     }
 
     //method to set the fragment layout for the selected icon
-    private void setFragment(Fragment fragment) {
+    public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame_driver, fragment);
         fragmentTransaction.commit();

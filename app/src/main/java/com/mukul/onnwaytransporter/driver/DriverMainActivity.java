@@ -168,8 +168,8 @@ public class DriverMainActivity extends AppCompatActivity
         profileLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DriverMainActivity.this, DriverProfileActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(DriverMainActivity.this, DriverProfileActivity.class);
+                //startActivity(intent);
             }
         });
 

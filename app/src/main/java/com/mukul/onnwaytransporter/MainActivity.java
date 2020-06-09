@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mukul.onnwaytransporter.driver.DriverMainActivity;
 import com.mukul.onnwaytransporter.webview.AboutOnwayFragment;
 import com.mukul.onnwaytransporter.webview.ContactUsFragment;
 import com.mukul.onnwaytransporter.webview.FAQFragment;
@@ -162,8 +163,8 @@ public class MainActivity extends AppCompatActivity
         profileLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -205,44 +206,48 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_about) {
-
             Intent intent = new Intent(MainActivity.this , Web.class);
             intent.putExtra("title" , "About Onnway");
             intent.putExtra("url" , "https://www.onnway.com/aboutonway.php");
             startActivity(intent);
-
         } else if (id == R.id.nav_faq) {
-            setFragment(new FAQFragment());
-
+            Intent intent = new Intent(MainActivity.this , Web.class);
+            intent.putExtra("title" , "FAQs");
+            intent.putExtra("url" , "https://www.onnway.com/faqonnway.php");
+            startActivity(intent);
         } else if (id == R.id.nav_contact) {
-            setFragment(new ContactUsFragment());
-
+            Intent intent = new Intent(MainActivity.this , Web.class);
+            intent.putExtra("title" , "Contact Us");
+            intent.putExtra("url" , "https://www.onnway.com/contactonnway.php");
+            startActivity(intent);
         } else if (id == R.id.nav_terms_and_condition) {
-            setFragment(new TermsAndConditionsFragment());
-
+            Intent intent = new Intent(MainActivity.this , Web.class);
+            intent.putExtra("title" , "Terms and Conditions");
+            intent.putExtra("url" , "https://www.onnway.com/termsonnway.php");
+            startActivity(intent);
         } else if (id == R.id.nav_payment_terms) {
-            setFragment(new PaymentTermsFragment());
-
+            Intent intent = new Intent(MainActivity.this , Web.class);
+            intent.putExtra("title" , "Payment Terms");
+            intent.putExtra("url" , "https://www.onnway.com/paymentonnway.php");
+            startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
-            setFragment(new PrivacyPolicyfragment());
-
+            Intent intent = new Intent(MainActivity.this , Web.class);
+            intent.putExtra("title" , "Privacy Policy");
+            intent.putExtra("url" , "https://www.onnway.com/privacyonnway.php");
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
             try {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                String shareMessage = "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+                String shareMessage= "\nLet me recommend you this application\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "choose one"));
-            } catch (Exception e) {
+            } catch(Exception e) {
                 //e.toString();
             }
-
-
         } else if (id == R.id.nav_logout) {
-
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {

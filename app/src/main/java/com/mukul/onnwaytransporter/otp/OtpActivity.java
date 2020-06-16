@@ -35,7 +35,7 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
     private TextView mobileTv;
 
     public CheckingPreRegistered checkingPreRegistered = new CheckingPreRegistered();
-    private OtpView otpView;
+
 
     String phone , otp , id , type;
     @Override

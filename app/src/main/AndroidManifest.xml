@@ -46,7 +46,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Web"></activity>
+        <activity android:name=".GettingStarted"></activity>
+        <activity android:name=".Web" />
         <activity android:name=".OrderDetails2" />
         <activity android:name=".SelectSpace2" />
         <activity android:name=".Materials2" />

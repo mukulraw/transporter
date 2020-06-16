@@ -69,7 +69,7 @@ public class NumberActivity extends AppCompatActivity {
     {
         mPhoneNumber = ePhoneNumber.getText().toString().trim();
 
-        if(!mPhoneNumber.isEmpty())
+        if(mPhoneNumber.length() == 10)
         {
             sendOTP();
         }
@@ -78,24 +78,7 @@ public class NumberActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid Mobile Number", Toast.LENGTH_SHORT).show();
         }
 
-        /*if(mPhoneNumber.isEmpty())
-        {
-            ePhoneNumber.setError("Please Fill");
-            Toast.makeText(this, "Please Enter the phone number", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            enteredPhone = mPhoneNumber;
-            //geting otp from server
-            new Post().doPost(this,mPhoneNumber);
-            SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
-            SaveSharedPreference.setPhoneNo(getApplicationContext(), mPhoneNumber);
-            //todo sending to the next OtpActivity
-//            startActivity(new Intent(this,OtpActivity.class));
-            Intent intent = new Intent(NumberActivity.this, OtpActivity.class);
-            startActivity(intent);
-            finish();
-        }*/
+
 
     }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.mukul.onnwaytransporter.GettingStarted;
 import com.mukul.onnwaytransporter.SelectUserType;
 import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
@@ -104,7 +105,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Intent intent = new Intent(SplashActivity.this, NumberActivity.class);
+                            Intent intent = new Intent(SplashActivity.this, GettingStarted.class);
                             startActivity(intent);
                             finishAffinity();
                         }

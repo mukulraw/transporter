@@ -507,11 +507,11 @@ public class PostDriverData {
                     }
 
                     // Toast.makeText(context, ""+arrpostedTruckDate[0]+arrpostedTruckDate[1], Toast.LENGTH_SHORT).show();
-                    TruckDetailsRecyclerAdapter truckDetailsRecyclerAdapter=new TruckDetailsRecyclerAdapter(SampleTruckDetails.sampleTruckDetails);
+                    //TruckDetailsRecyclerAdapter truckDetailsRecyclerAdapter=new TruckDetailsRecyclerAdapter(SampleTruckDetails.sampleTruckDetails);
                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(truckDetailsRecyclerAdapter);
+                    //recyclerView.setAdapter(truckDetailsRecyclerAdapter);
                     SaveSharedPreference.setCounterUpcoming(context, "1");
                 }
                 catch (Exception ex) {

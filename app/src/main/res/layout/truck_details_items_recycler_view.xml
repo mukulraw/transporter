@@ -2,18 +2,15 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/truck_details_driver"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    android:background="#FFFFFF"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="6dp">
+    app:cardCornerRadius="4dp"
+    app:cardUseCompatPadding="true">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF">
-
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/truck_image_driver"
@@ -21,22 +18,26 @@
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/truckimage"
+            android:src="@drawable/ic_truck"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_truck_details_driver"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/ll_truck_details_driver"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/truck_image_driver"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Truck Type"
                 android:textColor="#2A2A2A"
@@ -44,8 +45,8 @@
 
             <TextView
                 android:id="@+id/driver_truck_type"
-                android:layout_width="284dp"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Truck type goes here"
                 android:textColor="#787878"
@@ -54,34 +55,38 @@
             <View
                 android:id="@+id/line1"
                 android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:background="#787878"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp"/>
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="#787878" />
 
         </LinearLayout>
+
         <ImageView
             android:id="@+id/registration_number_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/itemtypeimage"
+            android:src="@drawable/aboutimage"
+            app:layout_constraintBottom_toBottomOf="@+id/ll_registration_number"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/ll_registration_number" />
+
         <LinearLayout
             android:id="@+id/ll_registration_number"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/registration_number_image"
             app:layout_constraintTop_toBottomOf="@+id/ll_truck_details_driver">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Registration Number"
                 android:textColor="#2A2A2A"
@@ -89,8 +94,8 @@
 
             <TextView
                 android:id="@+id/registration_number"
-                android:layout_width="284dp"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="registration number goes here"
                 android:textColor="#787878"
@@ -99,34 +104,40 @@
             <View
                 android:id="@+id/line2"
                 android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:background="#787878"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp"/>
+                android:background="#787878" />
 
         </LinearLayout>
+
         <ImageView
             android:id="@+id/driver_details"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="140dp"
-            android:src="@drawable/itemtypeimage"
+            android:src="@drawable/ic_user"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/ll_driver_name_and_number" />
+
         <LinearLayout
             android:id="@+id/ll_driver_name_and_number"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/driver_details"
             app:layout_constraintTop_toBottomOf="@+id/ll_registration_number">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Driver Details"
                 android:textColor="#2A2A2A"
@@ -135,13 +146,13 @@
             <LinearLayout
                 android:id="@+id/ll1"
                 android:layout_width="match_parent"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Name: "
                     android:textColor="#2A2A2A"
@@ -149,15 +160,16 @@
 
                 <TextView
                     android:id="@+id/driver_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:gravity="center_vertical"
                     android:text="name goes here "
                     android:textColor="#787878"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="8dp"/>
+                    android:textSize="12sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll2"
                 android:layout_width="match_parent"
@@ -167,7 +179,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Number: "
                     android:textColor="#2A2A2A"
@@ -175,24 +187,16 @@
 
                 <TextView
                     android:id="@+id/driver_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="19dp"
-                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="number goes here "
                     android:textColor="#787878"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="8dp"/>
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
 
-            <View
-                android:id="@+id/line3"
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:background="#787878"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp"/>
         </LinearLayout>
 
 

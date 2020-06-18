@@ -16,7 +16,6 @@ public class TruckDetailsViewHolder extends RecyclerView.ViewHolder{
     public TruckDetailsViewHolder(@NonNull View itemView) {
         super(itemView);
         truckDetailsCardHolder=itemView.findViewById(R.id.truck_details_driver);
-
         truckType=itemView.findViewById(R.id.driver_truck_type);
         registrationNumber=itemView.findViewById(R.id.registration_number);
         driverName=itemView.findViewById(R.id.driver_name);

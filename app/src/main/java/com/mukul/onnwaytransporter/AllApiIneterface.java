@@ -3,6 +3,7 @@ package com.mukul.onnwaytransporter;
 
 import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
 import com.mukul.onnwaytransporter.bidsPOJO.bidsBean;
+import com.mukul.onnwaytransporter.myTrucksPOJO.myTrucksBean;
 import com.mukul.onnwaytransporter.orderDetailsPOJO.orderDetailsBean;
 import com.mukul.onnwaytransporter.ordersPOJO.ordersBean;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
@@ -181,6 +182,12 @@ public interface AllApiIneterface {
             @Part("driver_mobile_no") String driver_mobile_no,
             @Part MultipartBody.Part file1,
             @Part MultipartBody.Part file2
+    );
+
+    @Multipart
+    @POST("android/mytrucksprovider.php")
+    Call<myTrucksBean> mytrucksprovider(
+            @Part("user_id") String user_id
     );
 
     @GET("android/getMaterial.php")

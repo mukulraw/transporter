@@ -7,14 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mukul.onnwaytransporter.R;
+import com.mukul.onnwaytransporter.myTrucksPOJO.Datum;
 
 import java.util.List;
 
 public class TruckDetailsRecyclerAdapter extends RecyclerView.Adapter<TruckDetailsViewHolder> {
 
-    private List<TruckDetailsUser> truckDetailsUsers;
+    private List<Datum> truckDetailsUsers;
 
-    public TruckDetailsRecyclerAdapter(List<TruckDetailsUser> truckDetailsUsers){
+    public TruckDetailsRecyclerAdapter(List<Datum> truckDetailsUsers){
         this.truckDetailsUsers=truckDetailsUsers;
     }
 
@@ -28,11 +29,11 @@ public class TruckDetailsRecyclerAdapter extends RecyclerView.Adapter<TruckDetai
 
     @Override
     public void onBindViewHolder(@NonNull TruckDetailsViewHolder truckDetailsViewHolder, int i) {
-        TruckDetailsUser sampleTruckDetails=truckDetailsUsers.get(i);
-        truckDetailsViewHolder.truckType.setText(sampleTruckDetails.truckType);
-        truckDetailsViewHolder.registrationNumber.setText(sampleTruckDetails.registrationNumber);
-        truckDetailsViewHolder.driverName.setText(sampleTruckDetails.driverName);
-        truckDetailsViewHolder.driverNumber.setText(sampleTruckDetails.driverNumber);
+        Datum sampleTruckDetails=truckDetailsUsers.get(i);
+        truckDetailsViewHolder.truckType.setText(sampleTruckDetails.getTrucktype());
+        truckDetailsViewHolder.registrationNumber.setText(sampleTruckDetails.getTruckRegNo());
+        truckDetailsViewHolder.driverName.setText(sampleTruckDetails.getDriverName());
+        truckDetailsViewHolder.driverNumber.setText(sampleTruckDetails.getDriverMobileNo());
 
     }
 

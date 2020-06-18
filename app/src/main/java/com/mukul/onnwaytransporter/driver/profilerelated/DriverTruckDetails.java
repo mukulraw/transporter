@@ -3,24 +3,41 @@ package com.mukul.onnwaytransporter.driver.profilerelated;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.mukul.onnwaytransporter.AllApiIneterface;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.drivernetworking.PostDriverData;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverOperatedRoutesRecyclerView.SampleOperatedRoutesDriver;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetailsRecyclerView.SampleTruckDetails;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetailsRecyclerView.TruckDetailsRecyclerAdapter;
 import com.mukul.onnwaytransporter.R;
+import com.mukul.onnwaytransporter.myTrucksPOJO.myTrucksBean;
+import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.preferences.SaveSharedPreference;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DriverTruckDetails extends AppCompatActivity {
     private FloatingActionButton addTruckDetails;
@@ -28,19 +45,14 @@ public class DriverTruckDetails extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     TruckDetailsRecyclerAdapter truckDetailsRecyclerAdapter;
+    ProgressBar progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_truck_details);
         //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(105, 105, 105));
-        }
-        //adding toolbar
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_truck_details_driver);
+        toolbar = findViewById(R.id.toolbar_truck_details_driver);
         toolbar.setTitle("Truck Details");
         toolbar.setNavigationIcon(R.drawable.ic_next_back);
         toolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
@@ -51,27 +63,12 @@ public class DriverTruckDetails extends AppCompatActivity {
             }
         });
 
-
-
-        recyclerView=findViewById(R.id.truck_details_driver_recycler_view);
-
-
-        if(SaveSharedPreference.getCounterPostedStatus((this)).equals("0")) {
-            new PostDriverData().doDriverDetailsData(DriverTruckDetails.this,recyclerView);
-        }
-        else {
-
-            if(SampleOperatedRoutesDriver.sampleOperatedRoutes== null) {
-                new PostDriverData().doDriverDetailsData(DriverTruckDetails.this,recyclerView);
-            }else
-            {
-                setRecyclerBid();
-            }
-        }
+        progress = findViewById(R.id.progressBar3);
+        recyclerView = findViewById(R.id.truck_details_driver_recycler_view);
 
 
         //adding more truck details
-        addTruckDetails=(FloatingActionButton) findViewById(R.id.add_truck_details_driver);
+        addTruckDetails = findViewById(R.id.add_truck_details_driver);
 
         //calling events for clicking on linear layout
         addTruckDetails.setOnClickListener(new View.OnClickListener() {
@@ -83,12 +80,46 @@ public class DriverTruckDetails extends AppCompatActivity {
         });
 
     }
-    public void setRecyclerBid() {
-        truckDetailsRecyclerAdapter = new TruckDetailsRecyclerAdapter(SampleTruckDetails.sampleTruckDetails);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(truckDetailsRecyclerAdapter);
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<myTrucksBean> call = cr.mytrucksprovider(SharePreferenceUtils.getInstance().getString("userId"));
+
+        call.enqueue(new Callback<myTrucksBean>() {
+            @Override
+            public void onResponse(Call<myTrucksBean> call, Response<myTrucksBean> response) {
+
+                truckDetailsRecyclerAdapter = new TruckDetailsRecyclerAdapter(response.body().getData());
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DriverTruckDetails.this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(truckDetailsRecyclerAdapter);
+
+                progress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailure(Call<myTrucksBean> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
     }
+
 
 }

@@ -28,7 +28,6 @@ public class DriverTruckDetails extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     TruckDetailsRecyclerAdapter truckDetailsRecyclerAdapter;
-    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +39,11 @@ public class DriverTruckDetails extends AppCompatActivity {
             window.setStatusBarColor(Color.rgb(105, 105, 105));
         }
         //adding toolbar
-        toolbar= (Toolbar) findViewById(R.id.toolbar_truck_details_driver);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_truck_details_driver);
         toolbar.setTitle("Truck Details");
-        toolbar.setNavigationIcon(R.drawable.backimagegray);
+        toolbar.setNavigationIcon(R.drawable.ic_next_back);
+        toolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,12 +52,11 @@ public class DriverTruckDetails extends AppCompatActivity {
         });
 
 
+
         recyclerView=findViewById(R.id.truck_details_driver_recycler_view);
-        swipeRefreshLayout=findViewById(R.id.swipe_refresh_layout_truck_details_driver);
 
 
         if(SaveSharedPreference.getCounterPostedStatus((this)).equals("0")) {
-            Toast.makeText(this, "hiiiiiii", Toast.LENGTH_SHORT).show();
             new PostDriverData().doDriverDetailsData(DriverTruckDetails.this,recyclerView);
         }
         else {
@@ -69,13 +69,7 @@ public class DriverTruckDetails extends AppCompatActivity {
             }
         }
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new PostDriverData().doDriverDetailsData(DriverTruckDetails.this,recyclerView);
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+
         //adding more truck details
         addTruckDetails=(FloatingActionButton) findViewById(R.id.add_truck_details_driver);
 

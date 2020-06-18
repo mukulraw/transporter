@@ -28,7 +28,9 @@ public class loginBean {
     @SerializedName("type")
     @Expose
     private String type;
-
+    @SerializedName("city")
+    @Expose
+    private String city;
 
     public String getStatus() {
         return status;
@@ -92,5 +94,13 @@ public class loginBean {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

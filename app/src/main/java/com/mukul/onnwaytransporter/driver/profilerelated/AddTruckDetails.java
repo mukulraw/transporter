@@ -1,349 +1,793 @@
 package com.mukul.onnwaytransporter.driver.profilerelated;
 
+import android.app.Dialog;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.mukul.onnwaytransporter.AllApiIneterface;
+import com.mukul.onnwaytransporter.BuildConfig;
+import com.mukul.onnwaytransporter.FindTruckFragment;
+import com.mukul.onnwaytransporter.OrderDetails;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.drivernetworking.PostDriverData;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetailsRecyclerView.AddTruckDetailsUser;
 import com.mukul.onnwaytransporter.MainActivity;
 import com.mukul.onnwaytransporter.R;
+import com.mukul.onnwaytransporter.networking.AppController;
+import com.mukul.onnwaytransporter.ordersPOJO.ordersBean;
+import com.mukul.onnwaytransporter.truckTypePOJO.truckTypeBean;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AddTruckDetails extends AppCompatActivity {
     public AddTruckDetailsUser addTruckDetailsUser;
-    private LinearLayout truck_ll_driver, container_ll_driver, trailer_ll_driver;
+    private LinearLayout openTruckBtn, containerBtn, trailerBtn;
 
-    private TextInputLayout ll_registrationNumber;
-    private TextInputLayout ll_driverName;
-    private TextInputLayout ll_driverNumber;
+    String tid = "";
 
     private EditText registrationNumber,driverName, driverNumber;
     private TextView displaySelectedTruck;
     private Button addTruckBtn;
-    int flagTruckType=0, flagDriverName, flagDriverNumber, flagRegistrationNumber;
+    ImageView front , back;
+
+    File f1 , f2;
+    Uri uri1 , uri2;
+
+    ProgressBar progress;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_truck_details);
         //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(105, 105, 105));
-        }
 
-        //adding toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_add_truck_details_driver);
+
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle("Add Truck Details");
-        mToolbar.setNavigationIcon(R.drawable.backimagegray);
-
+        mToolbar.setNavigationIcon(R.drawable.ic_next_back);
+        mToolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+
         //Linear Layout of truck types
-        truck_ll_driver = (LinearLayout) findViewById(R.id.truck_ll_driver);
-        container_ll_driver = (LinearLayout) findViewById(R.id.container_ll_driver);
-        trailer_ll_driver = (LinearLayout) findViewById(R.id.trailer_ll_driver);
-
-        //layout
-        ll_registrationNumber=(TextInputLayout)findViewById(R.id.input_driver_truck_reg_no);
-        ll_driverName=(TextInputLayout) findViewById(R.id.ll_driver_name);
-        ll_driverNumber=(TextInputLayout) findViewById(R.id.ll_input_driver_number);
-
+        front = findViewById(R.id.front);
+        progress = findViewById(R.id.progressBar3);
+        back = findViewById(R.id.back);
+        openTruckBtn = findViewById(R.id.open_truck_btn);
+        containerBtn = findViewById(R.id.container_btn);
+        trailerBtn = findViewById(R.id.trailer_btn);
         //edit text
-        registrationNumber=(EditText)findViewById(R.id.input_truck_reg_no);
-        flagRegistrationNumber = 1;
-        driverName=(EditText)findViewById(R.id.input_driver_name);
-        flagDriverName=1;
-        driverNumber=(EditText)findViewById(R.id.input_driver_number);
-        flagDriverNumber=1;
+        registrationNumber= findViewById(R.id.input_truck_reg_no);
+        driverName= findViewById(R.id.name);
+        driverNumber=findViewById(R.id.mobile);
         //display selected truck
-        displaySelectedTruck=(TextView)findViewById(R.id.display_selected_truck_driver);
-
+        displaySelectedTruck= findViewById(R.id.sel_truck);
         //add truck btn
-        addTruckBtn=(Button)findViewById(R.id.add_truck_details_btn);
+        addTruckBtn= findViewById(R.id.add_truck_details_btn);
         //handling alertDialog for Truck
-        truck_ll_driver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //hide keyboard if active
-                //hideSoftKeyboard(DriverPostFullLoad.this);
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
-                final String[] singleChoiceItems = getResources().getStringArray(R.array.truck_type);
-                int itemSelected = -1; // no item selected
-                final String[] selectedTruck = new String[1]; // selected item will be stored in this array
-                builder.setTitle("Select the type of Truck")
-                        .setSingleChoiceItems(singleChoiceItems, itemSelected, new DialogInterface.OnClickListener() {
-                            @Override
-                            //when the item is clicked in the alertDialog
-                            public void onClick(DialogInterface dialogInterface, int selectedIndex) {
-                                selectedTruck[0] = singleChoiceItems[selectedIndex];
-                            }
-                        })
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            //after pressing the Ok button
-                            public void onClick(DialogInterface dialog, int which) {
-                                flagTruckType = 1;
-                                if(selectedTruck[0] == null){
-                                    flagTruckType = 0;
-                                    addTruckBtn.setBackground(getResources().getDrawable(R.color.inactive_button));
-                                }
-                                displaySelectedTruck.setText("Selected Truck : " + selectedTruck[0]); // change the textview of displaySelectedText
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .show();
+
+        openTruckBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getOpenTruckType();
+//                openTruckBtn.setBackgroundColor(Color.parseColor("#FF1001"));
+//                containerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                trailerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
         });
 
-        //handling alertDialog for Container
-        container_ll_driver.setOnClickListener(new View.OnClickListener() {
+        containerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //hide keyboard if active
-                //hideSoftKeyboard(DriverPostFullLoad.this);
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
-                final String[] singleChoiceItems = getResources().getStringArray(R.array.container_type);
-                int itemSelected = -1; // no item selected
-                final String[] selectedTruck = new String[1]; // selected item will be stored in this array
-                builder.setTitle("Select the type of Container")
-                        .setSingleChoiceItems(singleChoiceItems, itemSelected, new DialogInterface.OnClickListener() {
-                            @Override
-                            //when the item is clicked in the alertDialog
-                            public void onClick(DialogInterface dialogInterface, int selectedIndex) {
-                                selectedTruck[0] = singleChoiceItems[selectedIndex];
-                            }
-                        })
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            //after pressing the Ok button
-                            public void onClick(DialogInterface dialog, int which) {
-                                flagTruckType = 1;
-                                if(selectedTruck[0] == null){
-                                    flagTruckType = 0;
-                                    addTruckBtn.setBackground(getResources().getDrawable(R.color.inactive_button));
-                                }
-                                displaySelectedTruck.setText("Selected Container : " + selectedTruck[0]); // change the textview of displaySelectedText
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .show();
+            public void onClick(View view) {
+                getContainerType();
+//                openTruckBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                containerBtn.setBackgroundColor(Color.parseColor("#FF1001"));
+//                trailerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
         });
 
-        //handling alertDialog for Trailer
-        trailer_ll_driver.setOnClickListener(new View.OnClickListener() {
+        trailerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //hide keyboard if active
-                //  hideSoftKeyboard(DriverPostFullLoad.this);
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
-                final String[] singleChoiceItems = getResources().getStringArray(R.array.trailer_type);
-                int itemSelected = -1;// no item selected
-                final String[] selectedTruck = new String[1];// selected item will be stored in this array
-                builder.setTitle("Select the type of Trailer")
-                        .setSingleChoiceItems(singleChoiceItems, itemSelected, new DialogInterface.OnClickListener() {
-                            @Override
-                            //when the item is clicked in the alertDialog
-                            public void onClick(DialogInterface dialogInterface, int selectedIndex) {
-                                selectedTruck[0] = singleChoiceItems[selectedIndex];
-                            }
-                        })
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            //after pressing the Ok button
-                            public void onClick(DialogInterface dialog, int which) {
-                                flagTruckType = 1;
-                                if(selectedTruck[0] == null){
-                                    flagTruckType = 0;
-                                    addTruckBtn.setBackground(getResources().getDrawable(R.color.inactive_button));
-                                }
-                                displaySelectedTruck.setText("Selected Trailer : " + selectedTruck[0]);// change the textview of displaySelectedText
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .show();
+            public void onClick(View view) {
+                getTrailerType();
+//                openTruckBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                containerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                trailerBtn.setBackgroundColor(Color.parseColor("#FF1001"));
             }
         });
+
         //handling add truck button
         addTruckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (flagTruckType == 1&& submitUserDetails()) {
 
-                    addTruckBtn.setClickable(true);
-                    addTruckBtn.setBackground(getResources().getDrawable(R.color.active_button));
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
-                    builder.setTitle("Are you sure want to Add Truck?")
-                            .setMessage("You will not be able to edit the details of truck So make sure before confirming")
-                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
 
-//                                    progressBar.setVisibility(View.VISIBLE);
-                                    //Handle the activity on Click of Confirm Button
-                                    addTruckDetailsUser = new AddTruckDetailsUser();
-                                    addTruckDetailsUser.mobile_no = MainActivity.currenntMobileActive;
-                                    addTruckDetailsUser.reg_no = registrationNumber.getText().toString();
-                                    addTruckDetailsUser.driverName = driverName.getText().toString();
-                                    addTruckDetailsUser.driverNumber = driverNumber.getText().toString();
-                                    addTruckDetailsUser.truckType = (String) findVehicleType(displaySelectedTruck.getText().toString());
-                                    Toast.makeText(AddTruckDetails.this, addTruckDetailsUser.truckType, Toast.LENGTH_SHORT).show();
-                                    new PostDriverData().doPostTruckDetails(AddTruckDetails.this, addTruckDetailsUser);
-//                                    Fragment frg = null;
-//                                    frg = ((AppCompatActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.main_frame);
-//                                    final FragmentTransaction ft = ((AppCompatActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-//                                    ft.detach(frg);
-//                                    ft.attach(frg);
-//                                    ft.commit();
-//                                    flagSource = flagDest = flagSchDate = flagTruckType = 0;
-//                                    Intent intent = new Intent(DriverPostFullLoad.this, DriverPostFullLoad.class);
-//                                    startActivity(intent);
-                                    finish();
-                                    startActivity(getIntent());
+                String r = registrationNumber.getText().toString();
+                String n = driverName.getText().toString();
+                String m = driverNumber.getText().toString();
 
+                if (tid.length() > 0)
+                {
+                    if (f1 != null)
+                    {
+                        if (f2 != null)
+                        {
+                            if (r.length() > 0)
+                            {
+                                if (n.length() > 0)
+                                {
+                                    if (m.length() > 0)
+                                    {
+
+                                        MultipartBody.Part body = null;
+
+                                        try {
+
+                                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                            body = MultipartBody.Part.createFormData("front", f1.getName(), reqFile1);
+
+
+                                        } catch (Exception e1) {
+                                            e1.printStackTrace();
+                                        }
+
+                                        MultipartBody.Part body2 = null;
+
+                                        try {
+
+                                            RequestBody reqFile12 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                            body2 = MultipartBody.Part.createFormData("back", f2.getName(), reqFile12);
+
+
+                                        } catch (Exception e1) {
+                                            e1.printStackTrace();
+                                        }
+
+                                        progress.setVisibility(View.VISIBLE);
+
+                                        AppController b = (AppController) getApplicationContext();
+
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(b.baseurl)
+                                                .addConverterFactory(ScalarsConverterFactory.create())
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+
+                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                        Call<ordersBean> call = cr.store_trucks_provider(
+                                                SharePreferenceUtils.getInstance().getString("userId"),
+                                                tid,
+                                                r,
+                                                n,
+                                                m,
+                                                body,
+                                                body2
+                                        );
+
+                                        call.enqueue(new Callback<ordersBean>() {
+                                            @Override
+                                            public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
+
+                                                if (response.body().getStatus().equals("1"))
+                                                {
+                                                    Toast.makeText(AddTruckDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(AddTruckDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+
+
+
+                                                progress.setVisibility(View.GONE);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<ordersBean> call, Throwable t) {
+                                                progress.setVisibility(View.GONE);
+                                            }
+                                        });
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(AddTruckDetails.this, "Invalid driver mobile", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //Handle the activity on Click of Cancel Button
+                                else
+                                {
+                                    Toast.makeText(AddTruckDetails.this, "Invalid driver name", Toast.LENGTH_SHORT).show();
                                 }
-                            })
-                            .show();
+                            }
+                            else
+                            {
+                                Toast.makeText(AddTruckDetails.this, "Invalid registration number", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(AddTruckDetails.this, "Please select a back image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(AddTruckDetails.this, "Please select a front image", Toast.LENGTH_SHORT).show();
+                    }
                 }
+                else
+                {
+                    Toast.makeText(AddTruckDetails.this, "Invalid vehicle type", Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }
         });
+
+        front.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddTruckDetails.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f1 = new File(file);
+                            try {
+                                f1.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(AddTruckDetails.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 1);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddTruckDetails.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f2 = new File(file);
+                            try {
+                                f2.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri2 = FileProvider.getUriForFile(Objects.requireNonNull(AddTruckDetails.this), BuildConfig.APPLICATION_ID + ".provider", f2);
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri2);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 3);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 4);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
     }
-    private String findVehicleType(String truckType){
-        String truckTypeNumber = "";
-        if(truckType.equals("Selected Truck : 3.5 MT/14'x6'x6'")){
-            truckTypeNumber = "11";
-        } else if (truckType.equals("Selected Truck : 4.5 MT/17'x6'x6'")) {
-            truckTypeNumber = "12";
-        } else if (truckType.equals("Selected Truck : 7.5 MT/19'x6'x6'")) {
-            truckTypeNumber = "13";
-        } else if (truckType.equals("Selected Truck : 9 MT/18'x7'x7'")) {
-            truckTypeNumber = "14";
-        } else if (truckType.equals("Selected Truck : 15 MT/22'x7'x7'")) {
-            truckTypeNumber = "15";
-        } else if (truckType.equals("Selected Truck : 20 MT/24'x7'x7'")) {
-            truckTypeNumber = "16";
-        } else if (truckType.equals("Selected Container : 6.5 MT/20'x8'x8'")) {
-            truckTypeNumber = "31";
-        } else if (truckType.equals("Selected Container : 8 MT/24'x8'x8'")) {
-            truckTypeNumber = "32";
-        } else if (truckType.equals("Selected Container : 14 MT/32'x8'x10'")) {
-            truckTypeNumber = "33";
-        } else if (truckType.equals("Selected Trailer : 20 MT/40'x8'x8'")) {
-            truckTypeNumber = "51";
-        } else if (truckType.equals("Selected Trailer : 20 MT/40'x8'x7'")) {
-            truckTypeNumber = "52";
-        } else if (truckType.equals("Selected Trailer : 25 MT/40'x8'x8'")) {
-            truckTypeNumber = "53";
-        } else if (truckType.equals("Selected Trailer : 25 MT/40'x8'x7'")) {
-            truckTypeNumber = "54";
-        } else if (truckType.equals("Selected Trailer : 32 MT/40'x8'x7'")) {
-            truckTypeNumber = "55";
-        } else if (truckType.equals("Selected Trailer : 32 MT/40'x8'x8'")) {
-            truckTypeNumber = "56";
-        }
-        return truckTypeNumber;
-    }
-    private boolean submitUserDetails() {
-        int count = 0;
-        if (validateRegistartionNumber()) {
-            ++count;
-        }
 
-        if (validateDriverName()) {
-            ++count;
-        }
 
-        if (validateDriverNumber()) {
-            ++count;
-        }
+    private void getOpenTruckType() {
 
-        if(count == 3){
-            Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
+        final Dialog dialog = new Dialog(AddTruckDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.truck_type_dialog);
+        dialog.show();
+
+        TextView title = dialog.findViewById(R.id.textView10);
+        final RecyclerView grid = dialog.findViewById(R.id.recyclerView);
+        final ProgressBar progress = dialog.findViewById(R.id.progressBar2);
+
+        title.setText("Open Truck Size");
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call = cr.getTrucks("open truck");
+
+        call.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this , response.body() , "open truck" , dialog);
+                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this , 3);
+
+                grid.setAdapter(adapter);
+                grid.setLayoutManager(manager);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
     }
 
-    private boolean validateRegistartionNumber() {
-        if (registrationNumber.getText().toString().trim().isEmpty()) {
-            ll_registrationNumber.setError(getString(R.string.err_msg_name));
-            requestFocus(registrationNumber);
-            return false;
-        } else {
-            ll_registrationNumber.setErrorEnabled(false);
+    private void getContainerType() {
+        final Dialog dialog = new Dialog(AddTruckDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.truck_type_dialog);
+        dialog.show();
+
+        TextView title = dialog.findViewById(R.id.textView10);
+        final RecyclerView grid = dialog.findViewById(R.id.recyclerView);
+        final ProgressBar progress = dialog.findViewById(R.id.progressBar2);
+
+        title.setText("Container Size");
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call = cr.getTrucks("container");
+
+        call.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this , response.body() , "container" , dialog);
+                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this , 3);
+
+                grid.setAdapter(adapter);
+                grid.setLayoutManager(manager);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void getTrailerType() {
+        final Dialog dialog = new Dialog(AddTruckDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.truck_type_dialog);
+        dialog.show();
+
+        TextView title = dialog.findViewById(R.id.textView10);
+        final RecyclerView grid = dialog.findViewById(R.id.recyclerView);
+        final ProgressBar progress = dialog.findViewById(R.id.progressBar2);
+
+        title.setText("Trailer Size");
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call = cr.getTrucks("trailer");
+
+        call.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this , response.body() , "trailer" , dialog);
+                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this , 3);
+
+                grid.setAdapter(adapter);
+                grid.setLayoutManager(manager);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder>
+    {
+        Context context;
+        List<truckTypeBean> list = new ArrayList<>();
+        String type;
+        Dialog dialog;
+
+        TruckAdapter(Context context, List<truckTypeBean> list, String type , Dialog dialog)
+        {
+            this.context = context;
+            this.list = list;
+            this.type = type;
+            this.dialog = dialog;
         }
 
-        return true;
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.truck_list_model , parent , false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+            final truckTypeBean item = list.get(position);
+
+            if (tid.equals(item.getId()))
+            {
+                holder.card.setCardBackgroundColor(Color.parseColor("#F5DEDE"));
+            }
+            else
+            {
+                holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+
+            if (type.equals("open truck"))
+            {
+                holder.image.setImageResource(R.drawable.ic_truck);
+            }
+            else if (type.equals("container"))
+            {
+                holder.image.setImageResource(R.drawable.ic_container);
+            }
+            else
+            {
+                holder.image.setImageResource(R.drawable.ic_trailer);
+            }
+
+            holder.text.setText(item.getTitle());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    checktruckType(item.getId() , item.getType() , item.getTitle() , item.getCapcacity() , item.getBox_length() , item.getBox_width() , item.getTitle());
+                    dialog.dismiss();
+
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder
+        {
+
+            ImageView image;
+            TextView text;
+            CardView card;
+
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                image = itemView.findViewById(R.id.image);
+                text = itemView.findViewById(R.id.text);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
+    private void checktruckType(String id, String type , String title , String capcaity , String length , String width , String trucktitle)
+    {
+        this.tid = id;
+
+
+        displaySelectedTruck.setText(type + " - " + title);
+        displaySelectedTruck.setVisibility(View.VISIBLE);
+
+
+        if (type.equals("open truck"))
+        {
+            openTruckBtn.setBackgroundResource(R.drawable.red_back_round);
+            containerBtn.setBackgroundResource(0);
+            trailerBtn.setBackgroundResource(0);
+        }
+        else if (type.equals("container"))
+        {
+            openTruckBtn.setBackgroundResource(0);
+            containerBtn.setBackgroundResource(R.drawable.red_back_round);
+            trailerBtn.setBackgroundResource(0);
+        }
+        else
+        {
+            openTruckBtn.setBackgroundResource(0);
+            containerBtn.setBackgroundResource(0);
+            trailerBtn.setBackgroundResource(R.drawable.red_back_round);
+        }
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
+            uri1 = data.getData();
+
+            Log.d("uri", String.valueOf(uri1));
+
+            String ypath = getPath(AddTruckDetails.this, uri1);
+            assert ypath != null;
+            f1 = new File(ypath);
+
+            Log.d("path", ypath);
+
+
+            front.setImageURI(uri1);
+
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
+            front.setImageURI(uri1);
+        }
+
+
+
+        if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
+            uri2 = data.getData();
+            back.setImageURI(uri2);
+            Log.d("uri", String.valueOf(uri2));
+
+            String ypath = getPath(AddTruckDetails.this, uri2);
+            assert ypath != null;
+            f2 = new File(ypath);
+
+
+
+        } else if (requestCode == 3 && resultCode == RESULT_OK) {
+            back.setImageURI(uri2);
+        }
+
+
     }
 
 
-    private boolean validateDriverName(){
-        if (driverName.getText().toString().trim().isEmpty()) {
-            ll_driverName.setError(getString(R.string.err_msg_transport));
-            requestFocus(driverName);
-            return false;
-        } else {
-            ll_driverName.setErrorEnabled(false);
+    private static String getPath(final Context context, final Uri uri) {
+
+        // DocumentProvider
+        if (DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+
+                // TODO handle non-primary volumes
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[]{
+                        split[1]
+                };
+
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
         }
 
-        return true;
+        return null;
     }
-    private boolean validateDriverNumber(){
-        if (driverNumber.getText().toString().trim().isEmpty()) {
-            ll_driverNumber.setError(getString(R.string.err_msg_city));
-            requestFocus(driverNumber);
-            return false;
-        } else {
-            ll_driverNumber.setErrorEnabled(false);
-        }
 
-        return true;
+    private static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    private static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    private static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    private static String getDataColumn(Context context, Uri uri, String selection,
+                                        String[] selectionArgs) {
+
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
         }
+        return null;
     }
+
 }

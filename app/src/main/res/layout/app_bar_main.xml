@@ -11,12 +11,29 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="?attr/actionBarSize">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/toolbar_background"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/loggg"
+                android:padding="4dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/white_back_round"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

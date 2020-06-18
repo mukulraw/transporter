@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mukul.onnwaytransporter.driver.profilerelated.AddTruckDetails;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetails;
 import com.mukul.onnwaytransporter.profilerelated.KycProviderActivity;
@@ -22,11 +23,13 @@ import com.mukul.onnwaytransporter.profilerelated.UpdateRoutesActivity;
 import com.mukul.onnwaytransporter.otp.SharedData;
 import com.mukul.onnwaytransporter.splash.SplashActivity;
 
+import java.io.IOException;
+
 public class ProfileActivity extends AppCompatActivity {
 
     SharedData sharedData;
 
-    private TextView userName, userPhone;
+    private TextView userName, userPhone , user_city;
     private TextView transportName;
     private LinearLayout truckDetails, addTruck, addCity, addoperatedRoutes, logout, changeProfile;
     private LinearLayout kycProvider;
@@ -36,18 +39,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(105, 105, 105));
-        }
 
         //adding toolbar
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(getString(R.string.my_account));
-        mToolbar.setNavigationIcon(R.drawable.backimage);
-
+        mToolbar.setTitle("Profile");
+        mToolbar.setNavigationIcon(R.drawable.ic_next_back);
+        mToolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,11 +56,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         //textview
         userName = (TextView) findViewById(R.id.user_name);
+        user_city = (TextView) findViewById(R.id.user_city);
         userPhone = (TextView) findViewById(R.id.user_phone);
         transportName = (TextView) findViewById(R.id.transport_name);
 
-        userName.setText(MainActivity.currentUserName);
-        userPhone.setText("+91 " + MainActivity.currenntMobileActive);
+
+
 
         //Image view as button
         changeProfile = (LinearLayout) findViewById(R.id.change_profile);
@@ -135,9 +133,21 @@ public class ProfileActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteData();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            FirebaseInstanceId.getInstance().deleteInstanceId();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+
+                SharePreferenceUtils.getInstance().deletePref();
                 startActivity(new Intent(ProfileActivity.this, SplashActivity.class));
-                finish();
+                finishAffinity();
             }
         });
     }
@@ -147,5 +157,14 @@ public class ProfileActivity extends AppCompatActivity {
             //deleted
             Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userPhone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+        userName.setText(SharePreferenceUtils.getInstance().getString("name"));
+        transportName.setText(SharePreferenceUtils.getInstance().getString("email"));
+        user_city.setText(SharePreferenceUtils.getInstance().getString("city"));
     }
 }

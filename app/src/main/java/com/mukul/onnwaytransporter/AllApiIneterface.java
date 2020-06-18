@@ -171,6 +171,18 @@ public interface AllApiIneterface {
             @Part MultipartBody.Part file
     );
 
+    @Multipart
+    @POST("android/store_trucks_provider.php")
+    Call<ordersBean> store_trucks_provider(
+            @Part("user_id") String user_id,
+            @Part("trucktype") String trucktype,
+            @Part("truck_reg_no") String truck_reg_no,
+            @Part("driver_name") String driver_name,
+            @Part("driver_mobile_no") String driver_mobile_no,
+            @Part MultipartBody.Part file1,
+            @Part MultipartBody.Part file2
+    );
+
     @GET("android/getMaterial.php")
     Call<List<truckTypeBean>> getMaterial();
 

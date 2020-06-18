@@ -161,8 +161,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".otp.NumberActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".FirstTimeProfileActivity"
             android:screenOrientation="portrait"

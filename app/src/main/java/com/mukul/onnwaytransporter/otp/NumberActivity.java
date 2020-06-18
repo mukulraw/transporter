@@ -48,9 +48,9 @@ public class NumberActivity extends AppCompatActivity {
         setContentView(R.layout.activity_number);
 
         //finding and checking the regex
-        ePhoneNumber=(EditText) findViewById(R.id.mPhoneNumber);
+        ePhoneNumber=findViewById(R.id.cardView);
 //        materialTextField=findViewById(R.id.materialTextField);
-        progress = findViewById(R.id.progressBar3);
+        progress = findViewById(R.id.progressBar4);
         ePhoneNumber.requestFocus();
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -112,10 +112,10 @@ public class NumberActivity extends AppCompatActivity {
 
                 if (response.body().getStatus().equals("1")) {
 
-
                     SharePreferenceUtils.getInstance().saveString("phone" , response.body().getPhone());
                     SharePreferenceUtils.getInstance().saveString("name" , response.body().getName());
                     SharePreferenceUtils.getInstance().saveString("email" , response.body().getEmail());
+                    SharePreferenceUtils.getInstance().saveString("city" , response.body().getCity());
 
                     Intent intent = new Intent(NumberActivity.this, OtpActivity.class);
                     intent.putExtra("phone", mPhoneNumber);

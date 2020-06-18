@@ -202,7 +202,11 @@ public class DriverMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_about) {
+        if (id == R.id.nav_home) {
+            Intent intent = new Intent(DriverMainActivity.this , ProfileActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_about) {
             Intent intent = new Intent(DriverMainActivity.this , Web.class);
             intent.putExtra("title" , "About Onnway");
             intent.putExtra("url" , "https://www.onnway.com/aboutonway.php");

@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.mukul.onnwaytransporter.OrderStatus.AssignTruckData;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
 import com.mukul.onnwaytransporter.FetchDriverData;
 import com.mukul.onnwaytransporter.MainActivity;
@@ -34,6 +35,7 @@ import com.mukul.onnwaytransporter.recyclerview.PostedTruckRecyclerAdapter;
 import com.mukul.onnwaytransporter.recyclerview.PostedUser;
 import com.mukul.onnwaytransporter.recyclerview.SamplePostedTruck;
 import com.mukul.onnwaytransporter.preferences.SaveSharedPreference;
+import com.mukul.onnwaytransporter.routesPOJO.Device;
 import com.mukul.onnwaytransporter.splash.SplashActivity;
 import com.mukul.onnwaytransporter.recyclerview.SampleUpcomingUsers;
 import com.mukul.onnwaytransporter.recyclerview.UpcomingRecyclerAdapter;
@@ -802,7 +804,7 @@ public class Post {
     public void doOperatedRoutesProvider(final Context context,final RecyclerView recyclerViewOperatedRoute) {
         String url = "https://www.onnway.com/android/fetch_provider_source_des.php";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("mobile_no", MainActivity.currenntMobileActive);
+        params.put("mobile_no", SharePreferenceUtils.getInstance().getString("userId"));
 
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -834,12 +836,12 @@ public class Post {
                     }
 
                     //Toast.makeText(context, ""+arrpostedTruckDate[0]+arrpostedTruckDate[1], Toast.LENGTH_SHORT).show();
-                    RecyclerAdapterRoutesProvider recyclerAdapterRoutesProvider=new RecyclerAdapterRoutesProvider(SampleOperatedRoutesProvider.sampleOperatedRoutesProviders,context);
+                    /*RecyclerAdapterRoutesProvider recyclerAdapterRoutesProvider=new RecyclerAdapterRoutesProvider(SampleOperatedRoutesProvider.sampleOperatedRoutesProviders,context);
                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
                     recyclerViewOperatedRoute.setLayoutManager(linearLayoutManager);
                     recyclerViewOperatedRoute.setHasFixedSize(true);
                     recyclerViewOperatedRoute.setAdapter(recyclerAdapterRoutesProvider);
-                    SaveSharedPreference.setCounterUpcoming(context, "1");
+                    SaveSharedPreference.setCounterUpcoming(context, "1");*/
                 }
                 catch (Exception ex) {
 
@@ -870,7 +872,7 @@ public class Post {
         String url = "https://www.onnway.com/android/provider_source_des.php";
 
         Map<String, String> params = new HashMap<>();
-        params.put("mobile_no", addRoutesdataDetailsProvider.mobile_no_provider);
+        params.put("mobile_no", SharePreferenceUtils.getInstance().getString("userId"));
         //params.put("type", addRoutesDataDetails.type);
         params.put("source", addRoutesdataDetailsProvider.source_provider);
         params.put("destination", addRoutesdataDetailsProvider.destination_provider);
@@ -879,8 +881,6 @@ public class Post {
 
             @Override
             public void onResponse(JSONObject response) {
-
-                Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
                 //progressBar.setVisibility(View.INVISIBLE);
                 progressDialog.dismiss();
 
@@ -898,7 +898,7 @@ public class Post {
 
     //delete Operated routes
 
-    public void deleteOperatedRoutes(Context context, OperatedRoutesUserProvider operatedRoutesUserProvider) {
+    public void deleteOperatedRoutes(final Context context, Device operatedRoutesUserProvider) {
 
         progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Deleting Routes");
@@ -909,10 +909,10 @@ public class Post {
         String url = "https://www.onnway.com/android/provider_delete_source_des.php";
 
         Map<String, String> params = new HashMap<>();
-        params.put("mobile_no", MainActivity.currenntMobileActive);
+        params.put("mobile_no", SharePreferenceUtils.getInstance().getString("userId"));
         //params.put("type", addRoutesDataDetails.type);
-        params.put("source", operatedRoutesUserProvider.operatedRouteSourceProvider);
-        params.put("destination", operatedRoutesUserProvider.operatedRouteDestinationProvider);
+        params.put("source", operatedRoutesUserProvider.getSource());
+        params.put("destination", operatedRoutesUserProvider.getDestination());
 
 
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
@@ -923,6 +923,7 @@ public class Post {
                // Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
                 //progressBar.setVisibility(View.INVISIBLE);
                 progressDialog.dismiss();
+
 
             }
         }, new Response.ErrorListener() {

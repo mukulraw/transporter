@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Build;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,7 +16,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -51,24 +52,18 @@ public class AddRoutesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_routes);
 
-        //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(105, 105, 105));
-        }
 
-        //adding toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_add_route);
-        mToolbar.setTitle(getString(R.string.add_route));
-        mToolbar.setNavigationIcon(R.drawable.backimagegray);
-
+        Toolbar mToolbar = findViewById(R.id.toolbar_add_route);
+        mToolbar.setTitle("Add Route");
+        mToolbar.setNavigationIcon(R.drawable.ic_next_back);
+        mToolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
 
         addRouteProvider=(Button)findViewById(R.id.addRouteBtnProvider);
 
@@ -119,7 +114,7 @@ public class AddRoutesActivity extends AppCompatActivity {
                                     addRoutesdataDetailsProvider.source_provider = sourceLocTv.getText().toString();
                                     addRoutesdataDetailsProvider.destination_provider= destLocTv.getText().toString();
 
-                                    Toast.makeText(AddRoutesActivity.this, addRoutesdataDetailsProvider.source_provider, Toast.LENGTH_SHORT).show();
+
                                     new Post().doAddRoutesProvider(AddRoutesActivity.this, addRoutesdataDetailsProvider);
                                     finish();
                                    // startActivity(getIntent());
@@ -151,7 +146,7 @@ public class AddRoutesActivity extends AppCompatActivity {
 
     private void getLocation() {
 
-        Places.initialize(AddRoutesActivity.this, "AIzaSyDD5e-SJP_E8SDLOHYz79IR79pVy6YQOgg");
+        Places.initialize(AddRoutesActivity.this, "AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY");
 
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(AddRoutesActivity.this);
@@ -161,7 +156,7 @@ public class AddRoutesActivity extends AppCompatActivity {
         // Start the autocomplete intent.
         Intent intent = new Autocomplete.IntentBuilder(
                 AutocompleteActivityMode.FULLSCREEN, fields)
-                .setCountry("ind")
+                .setCountry("IN")
                 .setTypeFilter(TypeFilter.CITIES)
                 .build(AddRoutesActivity.this);
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
@@ -169,7 +164,8 @@ public class AddRoutesActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(locationIdentification == 1) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (locationIdentification == 1) {
             if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
                     flagSource = 1;
@@ -178,17 +174,17 @@ public class AddRoutesActivity extends AppCompatActivity {
 //                    }
                     Place place = Autocomplete.getPlaceFromIntent(data);
                     sourceLocTv.setText(place.getName());
-                    Toast.makeText(AddRoutesActivity.this,place.toString(), Toast.LENGTH_SHORT).show();
+
                 } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                     // TODO: Handle the error.
                     Status status = Autocomplete.getStatusFromIntent(data);
-                    Toast.makeText(AddRoutesActivity.this,status.toString(),Toast.LENGTH_SHORT).show();
+
                 } else if (resultCode == RESULT_CANCELED) {
                     // The user canceled the operation.
                 }
             }
         }
-        if(locationIdentification == 2) {
+        if (locationIdentification == 2) {
 
             if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
@@ -199,11 +195,11 @@ public class AddRoutesActivity extends AppCompatActivity {
 //                        postTruckBtn.setBackground(getResources().getDrawable(R.color.active_button));
 //                    }
                     destLocTv.setText(place.getName());
-                    Toast.makeText(AddRoutesActivity.this,place.toString(), Toast.LENGTH_SHORT).show();
+
                 } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                     // TODO: Handle the error.
                     Status status = Autocomplete.getStatusFromIntent(data);
-                    Toast.makeText(AddRoutesActivity.this,status.toString(),Toast.LENGTH_SHORT).show();
+
                 } else if (resultCode == RESULT_CANCELED) {
                     // The user canceled the operation.
                 }

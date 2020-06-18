@@ -14,6 +14,7 @@ import android.widget.Toolbar;
 
 import com.mukul.onnwaytransporter.MainActivity;
 import com.mukul.onnwaytransporter.R;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 
 public class NamePhoneActivity extends AppCompatActivity {
 
@@ -52,8 +53,8 @@ public class NamePhoneActivity extends AppCompatActivity {
         userName = (TextView) findViewById(R.id.user_name_tv);
         userPhone = (TextView) findViewById(R.id.user_phone_tv);
 
-        userName.setText(MainActivity.currentUserName);
-        userPhone.setText("+91 " + MainActivity.currenntMobileActive);
+        userPhone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+        userName.setText(SharePreferenceUtils.getInstance().getString("name"));
 
         //calling events for clickking on linear layout
         nameLL.setOnClickListener(new View.OnClickListener() {

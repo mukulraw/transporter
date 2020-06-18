@@ -7,17 +7,15 @@
     tools:context=".profilerelated.AddRoutesActivity"
     android:background="#FFFFFF">
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_add_route"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="#FFFFFF"
+        android:background="@color/colorPrimary"
         android:elevation="8dp"
-        android:minHeight="?attr/actionBarSize"
-        android:titleTextColor="#696969"
-        app:layout_constraintTop_toTopOf="parent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+        app:titleTextColor="#ffffff"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/source_ll"
@@ -43,7 +41,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:text="Enter Source Location"
-            android:fontFamily="@font/robotomedium"
             android:gravity="center_vertical"
             android:textSize="18sp"
             android:textColor="#696969"
@@ -75,7 +72,6 @@
             android:layout_height="match_parent"
             android:text="Enter Drop Location"
             android:layout_marginLeft="16dp"
-            android:fontFamily="@font/robotomedium"
             android:textSize="18sp"
             android:gravity="center_vertical"
             android:textColor="#696969"

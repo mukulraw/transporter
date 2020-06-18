@@ -102,13 +102,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //add city
-        addCity.setOnClickListener(new View.OnClickListener() {
+        /*addCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, UpdateCityActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //add operated routes
         addoperatedRoutes.setOnClickListener(new View.OnClickListener() {

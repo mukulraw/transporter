@@ -9,6 +9,7 @@ import com.mukul.onnwaytransporter.ordersPOJO.ordersBean;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
 import com.mukul.onnwaytransporter.postLoadPOJO.postLoadBean;
 import com.mukul.onnwaytransporter.postedTrucksPOJO.postedTrucksBean;
+import com.mukul.onnwaytransporter.routesPOJO.routesBean;
 import com.mukul.onnwaytransporter.truckDetailsPOJO.truckDetailsBean;
 import com.mukul.onnwaytransporter.truckTypePOJO.truckTypeBean;
 import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
@@ -187,6 +188,12 @@ public interface AllApiIneterface {
     @Multipart
     @POST("android/mytrucksprovider.php")
     Call<myTrucksBean> mytrucksprovider(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("android/fetch_provider_source_des.php")
+    Call<routesBean> fetch_provider_source_des(
             @Part("user_id") String user_id
     );
 

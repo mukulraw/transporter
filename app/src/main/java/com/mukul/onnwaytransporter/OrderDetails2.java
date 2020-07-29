@@ -82,6 +82,8 @@ public class OrderDetails2 extends AppCompatActivity {
 
     String oid;
 
+    String sourceLAT = "" , sourceLNG = "" , destinationLAT = "" , destinationLNG = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -494,6 +496,10 @@ public class OrderDetails2 extends AppCompatActivity {
                 Data item = response.body().getData();
 
                 oid = item.getId();
+                sourceLAT = item.getSourceLAT();
+                sourceLNG = item.getSourceLNG();
+                destinationLAT = item.getDestinationLAT();
+                destinationLNG = item.getDestinationLNG();
 
                 truck.setText(item.getTruckType());
                 source.setText(item.getPickupAddress() + ", " + item.getPickupCity() + ", " + item.getPickupPincode() + ", " + item.getSource());

@@ -111,6 +111,19 @@ public class Data {
     @SerializedName("paid")
     @Expose
     private String paid;
+    @SerializedName("sourceLAT")
+    @Expose
+    private String sourceLAT;
+    @SerializedName("sourceLNG")
+    @Expose
+    private String sourceLNG;
+    @SerializedName("destinationLAT")
+    @Expose
+    private String destinationLAT;
+    @SerializedName("destinationLNG")
+    @Expose
+    private String destinationLNG;
+
     @SerializedName("pod")
     @Expose
     private List<Pod> pod = null;
@@ -412,5 +425,37 @@ public class Data {
 
     public void setDoc(List<Doc> doc) {
         this.doc = doc;
+    }
+
+    public String getDestinationLAT() {
+        return destinationLAT;
+    }
+
+    public String getDestinationLNG() {
+        return destinationLNG;
+    }
+
+    public void setDestinationLAT(String destinationLAT) {
+        this.destinationLAT = destinationLAT;
+    }
+
+    public void setDestinationLNG(String destinationLNG) {
+        this.destinationLNG = destinationLNG;
+    }
+
+    public void setSourceLAT(String sourceLAT) {
+        this.sourceLAT = sourceLAT;
+    }
+
+    public void setSourceLNG(String sourceLNG) {
+        this.sourceLNG = sourceLNG;
+    }
+
+    public String getSourceLAT() {
+        return sourceLAT;
+    }
+
+    public String getSourceLNG() {
+        return sourceLNG;
     }
 }

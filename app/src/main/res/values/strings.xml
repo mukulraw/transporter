@@ -94,6 +94,12 @@
     <string name="msg_loading">Loading...</string>
     <string name="alarm_notification" />
     <string name="default_notification_channel_id">124</string>
+    <string name="location_updated">Location Updated: %1$s</string>
+    <string name="launch_activity">Launch app</string>
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="ok">OK</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core         functionality.</string>
+    <string name="settings">Settings</string>
 
     <string-array name="uploadImages">
         <item>Pick from gallery</item>

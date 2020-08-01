@@ -3,21 +3,34 @@ package com.mukul.onnwaytransporter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.orderDetailsPOJO.Data;
 import com.mukul.onnwaytransporter.orderDetailsPOJO.Doc;
@@ -59,34 +73,68 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class OrderDetails2 extends AppCompatActivity {
+public class OrderDetails2 extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
-    TextView orderid , orderdate , truck , source , destination , material , weight , date , status , fare , distance , paid;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    TextView vehiclenumber , drivernumber;
+    // Used in checking for runtime permissions.
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
-    Button add , upload1 , upload2;
+    // The BroadcastReceiver used to listen from broadcasts from the service.
+    private MyReceiver myReceiver;
+
+    // A reference to the service used to get location updates.
+    private LocationUpdatesService mService = null;
+
+    // Tracks the bound state of the service.
+    private boolean mBound = false;
 
 
+    // Monitors the state of the connection to the service.
+    private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
-    RecyclerView pod , documents;
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            LocationUpdatesService.LocalBinder binder = (LocationUpdatesService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+            mBound = false;
+        }
+    };
+
+    TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid;
+
+    TextView vehiclenumber, drivernumber;
+
+    Button add, upload1, upload2;
+
+
+    RecyclerView pod, documents;
 
     ProgressBar progress;
 
     String id;
 
-    Button change;
+    Button startend;
 
     private Uri uri1;
     private File f1;
 
     String oid;
 
-    String sourceLAT = "" , sourceLNG = "" , destinationLAT = "" , destinationLNG = "";
+    String sourceLAT = "", sourceLNG = "", destinationLAT = "", destinationLNG = "";
+
+    TextView navigate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myReceiver = new MyReceiver();
         setContentView(R.layout.activity_order_details2);
 
         id = getIntent().getStringExtra("id");
@@ -102,6 +150,7 @@ public class OrderDetails2 extends AppCompatActivity {
             }
         });
 
+        navigate = findViewById(R.id.imageButton);
         orderid = findViewById(R.id.textView16);
         orderdate = findViewById(R.id.textView17);
         truck = findViewById(R.id.textView19);
@@ -115,7 +164,7 @@ public class OrderDetails2 extends AppCompatActivity {
         distance = findViewById(R.id.textView11);
         paid = findViewById(R.id.textView32);
         progress = findViewById(R.id.progressBar);
-        change = findViewById(R.id.button);
+        startend = findViewById(R.id.button);
 
         vehiclenumber = findViewById(R.id.textView291);
         drivernumber = findViewById(R.id.textView35);
@@ -126,6 +175,13 @@ public class OrderDetails2 extends AppCompatActivity {
 
         pod = findViewById(R.id.pod);
         documents = findViewById(R.id.recyclerView2);
+
+        // Check that the user hasn't revoked permissions by going to Settings.
+        if (Utils.requestingLocationUpdates(this)) {
+            if (!checkPermissions()) {
+                requestPermissions();
+            }
+        }
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,10 +205,8 @@ public class OrderDetails2 extends AppCompatActivity {
                         String v = vnum.getText().toString();
                         String d = dnum.getText().toString();
 
-                        if (v.length() > 0)
-                        {
-                            if (d.length() > 0)
-                            {
+                        if (v.length() > 0) {
+                            if (d.length() > 0) {
 
                                 bar.setVisibility(View.VISIBLE);
 
@@ -166,19 +220,16 @@ public class OrderDetails2 extends AppCompatActivity {
 
                                 AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                                Call<ordersBean> call = cr.addVehicleNumber(id , v , d);
+                                Call<ordersBean> call = cr.addVehicleNumber(id, v, d);
 
                                 call.enqueue(new Callback<ordersBean>() {
                                     @Override
                                     public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                                        if (response.body().getStatus().equals("1"))
-                                        {
+                                        if (response.body().getStatus().equals("1")) {
                                             dialog.dismiss();
                                             onResume();
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
 
@@ -191,14 +242,10 @@ public class OrderDetails2 extends AppCompatActivity {
                                     }
                                 });
 
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(OrderDetails2.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(OrderDetails2.this, "Invalid Vehicle Number", Toast.LENGTH_SHORT).show();
                         }
 
@@ -209,163 +256,7 @@ public class OrderDetails2 extends AppCompatActivity {
             }
         });
 
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (change.getText().toString().equals("start"))
-                {
-                    if (oid.length() > 0)
-                    {
-
-
-                        new AlertDialog.Builder(OrderDetails2.this)
-                                .setTitle("Start Booking")
-                                .setMessage("Are you sure you want to start this Booking?")
-
-                                // Specifying a listener allows you to take an action before dismissing the dialog.
-                                // The dialog is automatically dismissed when a dialog button is clicked.
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(final DialogInterface dialog, int which) {
-
-                                        progress.setVisibility(View.VISIBLE);
-
-                                        AppController b = (AppController) getApplicationContext();
-
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl(b.baseurl)
-                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
-
-                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                        Call<orderDetailsBean> call = cr.start_order(oid);
-
-                                        call.enqueue(new Callback<orderDetailsBean>() {
-                                            @Override
-                                            public void onResponse(Call<orderDetailsBean> call, Response<orderDetailsBean> response) {
-
-                                                if (response.body().getStatus().equals("1"))
-                                                {
-                                                    dialog.dismiss();
-                                                    onResume();
-
-                                                    change.setText("complete");
-
-
-                                                }
-                                                else
-                                                {
-                                                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                                progress.setVisibility(View.GONE);
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<orderDetailsBean> call, Throwable t) {
-                                                progress.setVisibility(View.GONE);
-                                            }
-                                        });
-
-
-                                    }
-                                })
-
-                                // A null listener allows the button to dismiss the dialog and take no further action.
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .show();
-
-
-
-
-
-                    }
-                }
-                else
-                {
-                    if (oid.length() > 0)
-                    {
-
-
-                        new AlertDialog.Builder(OrderDetails2.this)
-                                .setTitle("Complete Booking")
-                                .setMessage("Are you sure you want to complete this Booking?")
-
-                                // Specifying a listener allows you to take an action before dismissing the dialog.
-                                // The dialog is automatically dismissed when a dialog button is clicked.
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(final DialogInterface dialog, int which) {
-
-                                        progress.setVisibility(View.VISIBLE);
-
-                                        AppController b = (AppController) getApplicationContext();
-
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl(b.baseurl)
-                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
-
-                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                        Call<orderDetailsBean> call = cr.complete(oid);
-
-                                        call.enqueue(new Callback<orderDetailsBean>() {
-                                            @Override
-                                            public void onResponse(Call<orderDetailsBean> call, Response<orderDetailsBean> response) {
-
-                                                if (response.body().getStatus().equals("1"))
-                                                {
-                                                    dialog.dismiss();
-
-                                                    finish();
-
-
-                                                }
-                                                else
-                                                {
-                                                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                                progress.setVisibility(View.GONE);
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<orderDetailsBean> call, Throwable t) {
-                                                progress.setVisibility(View.GONE);
-                                            }
-                                        });
-
-
-                                    }
-                                })
-
-                                // A null listener allows the button to dismiss the dialog and take no further action.
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .show();
-
-
-
-
-
-                    }
-                }
-
-
-
-
-            }
-        });
 
         upload1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -469,11 +360,31 @@ public class OrderDetails2 extends AppCompatActivity {
             }
         });
 
+        navigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Uri gmmIntentUri = Uri.parse("geo:" + sourceLAT + "," + sourceLNG);
+
+// Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+// Make the Intent explicit by setting the Google Maps package
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+// Attempt to start an activity that can handle the Intent
+                startActivity(mapIntent);
+
+            }
+        });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
+                new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
 
         progress.setVisibility(View.VISIBLE);
 
@@ -515,36 +426,30 @@ public class OrderDetails2 extends AppCompatActivity {
                 vehiclenumber.setText(item.getVehicleNumber());
                 drivernumber.setText(item.getDriverNumber());
 
-                if (item.getVehicleNumber().length() > 0)
-                {
+                if (item.getVehicleNumber().length() > 0) {
                     add.setVisibility(View.GONE);
                     vehiclenumber.setVisibility(View.VISIBLE);
                     drivernumber.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     add.setVisibility(View.VISIBLE);
                     vehiclenumber.setVisibility(View.GONE);
                     drivernumber.setVisibility(View.GONE);
                 }
 
-                if (item.getStatus().equals("started"))
-                {
-                    change.setText("complete");
-                }
-                else
-                {
-                    change.setText("start");
+                if (item.getStatus().equals("started")) {
+                    startend.setText("FINISH");
+                } else {
+                    startend.setText("START");
                 }
 
 
-                PODAdapter adapter = new PODAdapter(OrderDetails2.this , item.getPod());
-                GridLayoutManager manager = new GridLayoutManager(OrderDetails2.this , 2);
+                PODAdapter adapter = new PODAdapter(OrderDetails2.this, item.getPod());
+                GridLayoutManager manager = new GridLayoutManager(OrderDetails2.this, 2);
                 pod.setAdapter(adapter);
                 pod.setLayoutManager(manager);
 
-                DocAdapter adapter2 = new DocAdapter(OrderDetails2.this , item.getDoc());
-                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails2.this , 2);
+                DocAdapter adapter2 = new DocAdapter(OrderDetails2.this, item.getDoc());
+                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails2.this, 2);
                 documents.setAdapter(adapter2);
                 documents.setLayoutManager(manager2);
 
@@ -560,14 +465,12 @@ public class OrderDetails2 extends AppCompatActivity {
 
     }
 
-    class PODAdapter extends RecyclerView.Adapter<PODAdapter.ViewHolder>
-    {
+    class PODAdapter extends RecyclerView.Adapter<PODAdapter.ViewHolder> {
 
         List<Pod> list = new ArrayList<>();
         Context context;
 
-        public PODAdapter(Context context , List<Pod> list)
-        {
+        public PODAdapter(Context context, List<Pod> list) {
             this.context = context;
             this.list = list;
         }
@@ -587,7 +490,7 @@ public class OrderDetails2 extends AppCompatActivity {
 
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
             ImageLoader loader = ImageLoader.getInstance();
-            loader.displayImage(item.getName() , holder.image , options);
+            loader.displayImage(item.getName(), holder.image, options);
 
         }
 
@@ -596,9 +499,9 @@ public class OrderDetails2 extends AppCompatActivity {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView image;
+
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
@@ -606,14 +509,12 @@ public class OrderDetails2 extends AppCompatActivity {
         }
     }
 
-    class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder>
-    {
+    class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> {
 
         List<Doc> list = new ArrayList<>();
         Context context;
 
-        public DocAdapter(Context context , List<Doc> list)
-        {
+        public DocAdapter(Context context, List<Doc> list) {
             this.context = context;
             this.list = list;
         }
@@ -633,7 +534,7 @@ public class OrderDetails2 extends AppCompatActivity {
 
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
             ImageLoader loader = ImageLoader.getInstance();
-            loader.displayImage(item.getName() , holder.image , options);
+            loader.displayImage(item.getName(), holder.image, options);
 
         }
 
@@ -642,9 +543,9 @@ public class OrderDetails2 extends AppCompatActivity {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView image;
+
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
@@ -691,7 +592,7 @@ public class OrderDetails2 extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadDocuments(id , body);
+            Call<ordersBean> call = cr.uploadDocuments(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -734,7 +635,7 @@ public class OrderDetails2 extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadDocuments(id , body);
+            Call<ordersBean> call = cr.uploadDocuments(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -753,7 +654,6 @@ public class OrderDetails2 extends AppCompatActivity {
             });
 
         }
-
 
 
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
@@ -791,7 +691,7 @@ public class OrderDetails2 extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadPOD(id , body);
+            Call<ordersBean> call = cr.uploadPOD(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -834,7 +734,7 @@ public class OrderDetails2 extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadPOD(id , body);
+            Call<ordersBean> call = cr.uploadPOD(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -952,6 +852,410 @@ public class OrderDetails2 extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
+
+
+        startend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (startend.getText().toString().equals("START")) {
+                    if (oid.length() > 0) {
+
+
+                        new AlertDialog.Builder(OrderDetails2.this)
+                                .setTitle("Start Booking")
+                                .setMessage("Are you sure you want to start this Booking?")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(final DialogInterface dialog, int which) {
+
+                                        progress.setVisibility(View.VISIBLE);
+
+                                        AppController b = (AppController) getApplicationContext();
+
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(b.baseurl)
+                                                .addConverterFactory(ScalarsConverterFactory.create())
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+
+                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                        Call<orderDetailsBean> call = cr.start_order(oid);
+
+                                        call.enqueue(new Callback<orderDetailsBean>() {
+                                            @Override
+                                            public void onResponse(Call<orderDetailsBean> call, Response<orderDetailsBean> response) {
+
+                                                if (response.body().getStatus().equals("1")) {
+
+                                                    SharePreferenceUtils.getInstance().saveString("order" , oid);
+
+                                                    if (!checkPermissions()) {
+                                                        Log.d("orderrr" , oid);
+
+                                                        requestPermissions();
+                                                    } else {
+                                                        mService.requestLocationUpdates();
+                                                    }
+
+                                                    dialog.dismiss();
+                                                    onResume();
+
+
+                                                } else {
+                                                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                                progress.setVisibility(View.GONE);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<orderDetailsBean> call, Throwable t) {
+                                                progress.setVisibility(View.GONE);
+                                            }
+                                        });
+
+
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+
+
+                    }
+                } else {
+                    if (oid.length() > 0) {
+
+
+                        new AlertDialog.Builder(OrderDetails2.this)
+                                .setTitle("Complete Booking")
+                                .setMessage("Are you sure you want to complete this Booking?")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(final DialogInterface dialog, int which) {
+
+                                        progress.setVisibility(View.VISIBLE);
+
+                                        AppController b = (AppController) getApplicationContext();
+
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(b.baseurl)
+                                                .addConverterFactory(ScalarsConverterFactory.create())
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+
+                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                        Call<orderDetailsBean> call = cr.complete(oid);
+
+                                        call.enqueue(new Callback<orderDetailsBean>() {
+                                            @Override
+                                            public void onResponse(Call<orderDetailsBean> call, Response<orderDetailsBean> response) {
+
+                                                if (response.body().getStatus().equals("1")) {
+                                                    dialog.dismiss();
+
+                                                    SharePreferenceUtils.getInstance().saveString("order" , "");
+                                                    mService.removeLocationUpdates();
+
+                                                    finish();
+
+
+                                                } else {
+                                                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                                progress.setVisibility(View.GONE);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<orderDetailsBean> call, Throwable t) {
+                                                progress.setVisibility(View.GONE);
+                                            }
+                                        });
+
+
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+
+
+                    }
+                }
+
+
+            }
+        });
+
+
+        /*startend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (startend.getText().toString().equals("START"))
+                {
+
+                    progress.setVisibility(View.VISIBLE);
+
+                    Bean b = (Bean) getApplicationContext();
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(b.baseurl)
+                            .addConverterFactory(ScalarsConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                    Call<deliveryDetailsBean> call = cr.changeDeliveryStatus(del_id , "out for delivery");
+
+                    call.enqueue(new Callback<deliveryDetailsBean>() {
+                        @Override
+                        public void onResponse(Call<deliveryDetailsBean> call, Response<deliveryDetailsBean> response) {
+
+                            if (response.body().getStatus().equals("1"))
+                            {
+
+                                SharePreferenceUtils.getInstance().saveString("order" , order);
+
+                                if (!checkPermissions()) {
+                                    Log.d("orderrr" , order);
+
+                                    requestPermissions();
+                                } else {
+                                    mService.requestLocationUpdates();
+                                }
+                            }
+                            Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            progress.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<deliveryDetailsBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                }
+                else
+                {
+
+                    progress.setVisibility(View.VISIBLE);
+
+                    Bean b = (Bean) getApplicationContext();
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(b.baseurl)
+                            .addConverterFactory(ScalarsConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                    Call<deliveryDetailsBean> call = cr.changeDeliveryStatus(del_id , "delivered");
+
+                    call.enqueue(new Callback<deliveryDetailsBean>() {
+                        @Override
+                        public void onResponse(Call<deliveryDetailsBean> call, Response<deliveryDetailsBean> response) {
+
+                            if (response.body().getStatus().equals("1"))
+                            {
+                                SharePreferenceUtils.getInstance().saveString("order" , "");
+                                mService.removeLocationUpdates();
+                                finish();
+                            }
+                            Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                            progress.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onFailure(Call<deliveryDetailsBean> call, Throwable t) {
+                            progress.setVisibility(View.GONE);
+                        }
+                    });
+
+
+                }
+
+            }
+        });*/
+
+        // Restore the state of the buttons when the activity (re)launches.
+        setButtonsState(Utils.requestingLocationUpdates(this));
+
+        // Bind to the service. If the service is in foreground mode, this signals to the service
+        // that since this activity is in the foreground, the service can exit foreground mode.
+        bindService(new Intent(this, LocationUpdatesService.class), mServiceConnection,
+                Context.BIND_AUTO_CREATE);
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        if (mBound) {
+            // Unbind from the service. This signals to the service that this activity is no longer
+            // in the foreground, and the service can respond by promoting itself to a foreground
+            // service.
+            unbindService(mServiceConnection);
+            mBound = false;
+        }
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+        super.onStop();
+    }
+
+    /**
+     * Returns the current state of the permissions needed.
+     */
+    private boolean checkPermissions() {
+        return  PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    private void requestPermissions() {
+        boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+
+        // Provide an additional rationale to the user. This would happen if the user denied the
+        // request previously, but didn't check the "Don't ask again" checkbox.
+        if (shouldProvideRationale) {
+            Log.i(TAG, "Displaying permission rationale to provide additional context.");
+            Snackbar.make(
+                    findViewById(R.id.activity_main),
+                    R.string.permission_rationale,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Request permission
+                            ActivityCompat.requestPermissions(OrderDetails2.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    REQUEST_PERMISSIONS_REQUEST_CODE);
+                        }
+                    })
+                    .show();
+        } else {
+            Log.i(TAG, "Requesting permission");
+            // Request permission. It's possible this can be auto answered if device policy
+            // sets the permission in a given state or the user denied the permission
+            // previously and checked "Never ask again".
+            ActivityCompat.requestPermissions(OrderDetails2.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    /**
+     * Callback received when a permissions request has been completed.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        Log.i(TAG, "onRequestPermissionResult");
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length <= 0) {
+                // If user interaction was interrupted, the permission request is cancelled and you
+                // receive empty arrays.
+                Log.i(TAG, "User interaction was cancelled.");
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission was granted.
+                mService.requestLocationUpdates();
+            } else {
+                // Permission denied.
+                setButtonsState(false);
+                Snackbar.make(
+                        findViewById(R.id.activity_main),
+                        R.string.permission_denied_explanation,
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.settings, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Build intent that displays the App settings screen.
+                                Intent intent = new Intent();
+                                intent.setAction(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",
+                                        BuildConfig.APPLICATION_ID, null);
+                                intent.setData(uri);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    /**
+     * Receiver for broadcasts sent by {@link LocationUpdatesService}.
+     */
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Location location = intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
+            if (location != null) {
+                /*Toast.makeText(MainActivity.this, Utils.getLocationText(location),
+                        Toast.LENGTH_SHORT).show();*/
+            }
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        // Update the buttons state depending on whether location updates are being requested.
+        if (s.equals(Utils.KEY_REQUESTING_LOCATION_UPDATES)) {
+            setButtonsState(sharedPreferences.getBoolean(Utils.KEY_REQUESTING_LOCATION_UPDATES,
+                    false));
+        }
+    }
+
+    private void setButtonsState(boolean requestingLocationUpdates) {
+        if (requestingLocationUpdates) {
+            startend.setText("FINISH");
+        } else {
+            startend.setText("START");
+        }
     }
 
 }

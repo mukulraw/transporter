@@ -174,6 +174,15 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/addLogs.php")
+    Call<ordersBean> addLogs(
+            @Part("delivery_id") String delivery_id,
+            @Part("order_id") String order_id,
+            @Part("lat") String lat,
+            @Part("lng") String lng
+    );
+
+    @Multipart
     @POST("android/store_trucks_provider.php")
     Call<ordersBean> store_trucks_provider(
             @Part("user_id") String user_id,

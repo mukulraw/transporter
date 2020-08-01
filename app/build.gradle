@@ -96,4 +96,5 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
 
+
 }

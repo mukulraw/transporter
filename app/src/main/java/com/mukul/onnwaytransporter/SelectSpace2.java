@@ -1,9 +1,5 @@
 package com.mukul.onnwaytransporter;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,9 +10,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
 import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.postLoadPOJO.postLoadBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,16 +38,20 @@ public class SelectSpace2 extends AppCompatActivity {
 
     TextView weight;
 
-    String trucktitle , srcAddress , destAddress , pickUpDate , wei , mid , loadType;
-    String length , width , height , desc , tid , passing;
-    float capcaity , len , wid;
+    String trucktitle, srcAddress, destAddress, pickUpDate, wei, mid, loadType;
+    String length, width, height, desc, tid, passing;
+    float capcaity, len, wid;
 
     ProgressBar bar;
+
+    List<String> selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_space);
+
+        selected = new ArrayList<>();
 
         tid = getIntent().getStringExtra("tid");
         passing = getIntent().getStringExtra("passing");
@@ -59,9 +66,9 @@ public class SelectSpace2 extends AppCompatActivity {
         width = getIntent().getStringExtra("wid");
         height = getIntent().getStringExtra("hei");
         desc = getIntent().getStringExtra("desc");
-        capcaity = getIntent().getFloatExtra("capcaity" , 0);
-        len = getIntent().getFloatExtra("length" , 0);
-        wid = getIntent().getFloatExtra("width" , 0);
+        capcaity = getIntent().getFloatExtra("capcaity", 0);
+        len = getIntent().getFloatExtra("length", 0);
+        wid = getIntent().getFloatExtra("width", 0);
 
         bar = findViewById(R.id.progressBar6);
         partLoad1 = findViewById(R.id.part_load_card_1);
@@ -111,11 +118,13 @@ public class SelectSpace2 extends AppCompatActivity {
             public void onClick(View v) {
                 ++click1;
 //              Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click1 % 2 == 0) {
+                if (click1 % 2 == 0) {
                     click1 = 0;
                     partLoad1.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("1");
                 } else {
                     partLoad1.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("1");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea);
 
@@ -129,11 +138,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click2;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click2), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click2 % 2 == 0) {
+                if (click2 % 2 == 0) {
                     click2 = 0;
                     partLoad2.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("2");
                 } else {
                     partLoad2.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("2");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea1);
 
@@ -147,11 +158,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click3;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click3), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click3 % 2 == 0) {
+                if (click3 % 2 == 0) {
                     click3 = 0;
                     partLoad3.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("3");
                 } else {
                     partLoad3.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("3");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea2);
 
@@ -165,11 +178,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click4;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click4), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click4 % 2 == 0) {
+                if (click4 % 2 == 0) {
                     click4 = 0;
                     partLoad4.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("4");
                 } else {
                     partLoad4.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("4");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea3);
 
@@ -183,11 +198,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click5;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click5), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click5 % 2 == 0) {
+                if (click5 % 2 == 0) {
                     click5 = 0;
                     partLoad5.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("5");
                 } else {
                     partLoad5.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("5");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea4);
 
@@ -201,11 +218,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click6;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click6), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click6 % 2 == 0) {
+                if (click6 % 2 == 0) {
                     click6 = 0;
                     partLoad6.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("6");
                 } else {
                     partLoad6.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("6");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea5);
 
@@ -219,11 +238,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click7;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click7), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click7 % 2 == 0) {
+                if (click7 % 2 == 0) {
                     click7 = 0;
                     partLoad7.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("7");
                 } else {
                     partLoad7.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("7");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea6);
 
@@ -237,11 +258,13 @@ public class SelectSpace2 extends AppCompatActivity {
                 ++click8;
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click8), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(SelectTruckSpaceProvider.this, String.valueOf(click1), Toast.LENGTH_SHORT).show();
-                if(click8 % 2 == 0) {
+                if (click8 % 2 == 0) {
                     click8 = 0;
                     partLoad8.setCardBackgroundColor(Color.parseColor("#EDEDED"));
+                    selected.remove("8");
                 } else {
                     partLoad8.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    selected.add("8");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea7);
 
@@ -291,19 +314,26 @@ public class SelectSpace2 extends AppCompatActivity {
                                         width,
                                         height,
                                         "",
-                                        mid
+                                        mid,
+                                        truckTypeDetails.getText().toString(),
+                                        truckCapacity.getText().toString(),
+                                        boxLength.getText().toString(),
+                                        boxWidth.getText().toString(),
+                                        boxArea.getText().toString(),
+                                        selectedArea.getText().toString(),
+                                        remainingArea.getText().toString(),
+                                        android.text.TextUtils.join(",", selected)
                                 );
 
                                 call.enqueue(new Callback<postLoadBean>() {
                                     @Override
                                     public void onResponse(Call<postLoadBean> call, Response<postLoadBean> response) {
 
-                                        if (response.body().getStatus().equals("1"))
-                                        {
+                                        if (response.body().getStatus().equals("1")) {
                                             Toast.makeText(SelectSpace2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
 
-                                            Intent intent = new Intent(SelectSpace2.this , DriverMainActivity.class);
+                                            Intent intent = new Intent(SelectSpace2.this, DriverMainActivity.class);
                                             startActivity(intent);
                                             finishAffinity();
 
@@ -341,7 +371,7 @@ public class SelectSpace2 extends AppCompatActivity {
 
     }
 
-    private void submitPartLoadData () {
+    private void submitPartLoadData() {
         /*PartLoadDataDetails partLoadDataDetails = new PartLoadDataDetails();
         if(SplashActivity.currentUserType.equals("1")) {
             partLoadDataDetails.part_mobile_no = MainActivity.currenntMobileActive;
@@ -420,8 +450,9 @@ public class SelectSpace2 extends AppCompatActivity {
         new Post().doPostProviderPartLoad(SelectSpace.this, partLoadDataDetails);
         finish();*/
     }
+
     private double getTruckDetails(String truckType) {
-        if(truckType.equals("11")){
+        if (truckType.equals("11")) {
             truckTypeDetails.setText("Truck of 14' x 6' x 6'");
             truckCapacity.setText("3.5 MT");
             boxLength.setText("3.5 Foot");

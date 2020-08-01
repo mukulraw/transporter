@@ -88,7 +88,15 @@ public interface AllApiIneterface {
             @Part("width") String width,
             @Part("height") String height,
             @Part("quantity") String quantity,
-            @Part("mid") String mid
+            @Part("mid") String mid,
+            @Part("truckTypeDetails") String truckTypeDetails,
+            @Part("truckCapacity") String truckCapacity,
+            @Part("boxLength") String boxLength,
+            @Part("boxWidth") String boxWidth,
+            @Part("boxArea") String boxArea,
+            @Part("selectedArea") String selectedArea,
+            @Part("remainingArea") String remainingArea,
+            @Part("selected") String selected
     );
 
     @Multipart

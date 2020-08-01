@@ -337,6 +337,14 @@ public class FindTruckFragment extends Fragment
                                                         "",
                                                         "",
                                                         "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
+                                                        "",
                                                         ""
                                                 );
 

@@ -412,6 +412,16 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 destinationLAT = item.getDestinationLAT();
                 destinationLNG = item.getDestinationLNG();
 
+                Location startPoint=new Location("Source");
+                startPoint.setLatitude(Double.parseDouble(sourceLAT));
+                startPoint.setLongitude(Double.parseDouble(sourceLNG));
+
+                Location endPoint=new Location("Destination");
+                endPoint.setLatitude(Double.parseDouble(destinationLAT));
+                endPoint.setLongitude(Double.parseDouble(destinationLNG));
+
+                distance.setText((startPoint.distanceTo(endPoint) / 1000) + " km");
+
                 truck.setText(item.getTruckType());
                 source.setText(item.getPickupAddress() + ", " + item.getPickupCity() + ", " + item.getPickupPincode() + ", " + item.getSource());
                 destination.setText(item.getDropAddress() + ", " + item.getDropCity() + ", " + item.getDropPincode() + ", " + item.getDestination());

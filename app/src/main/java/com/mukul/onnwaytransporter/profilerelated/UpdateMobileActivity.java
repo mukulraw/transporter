@@ -68,7 +68,7 @@ public class UpdateMobileActivity extends AppCompatActivity {
                 changeProviderMobileDetails = new ChangeProviderMobileDetails();
                 changeProviderMobileDetails.providerCurrentMobile = MainActivity.currenntMobileActive;
                 changeProviderMobileDetails.providerChangedMobile = userMobileReq.getText().toString();
-                new Post().doPostChangePhone(UpdateMobileActivity.this, changeProviderMobileDetails);
+                new Post().doPostChangePhone(UpdateMobileActivity.this, userMobileReq.getText().toString());
                 finish();
             }
         });

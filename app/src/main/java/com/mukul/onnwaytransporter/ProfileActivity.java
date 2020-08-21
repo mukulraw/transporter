@@ -3,7 +3,9 @@ package com.mukul.onnwaytransporter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -29,10 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     SharedData sharedData;
 
-    private TextView userName, userPhone , user_city;
+    private TextView userName, userPhone, user_city;
     private TextView transportName;
     private LinearLayout truckDetails, addTruck, addCity, addoperatedRoutes, logout, changeProfile;
     private LinearLayout kycProvider;
+
+    LinearLayout transportNameHeading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         //adding toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle("Profile");
         mToolbar.setNavigationIcon(R.drawable.ic_next_back);
         mToolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
@@ -55,23 +59,21 @@ public class ProfileActivity extends AppCompatActivity {
         sharedData = new SharedData(ProfileActivity.this);
 
         //textview
-        userName = (TextView) findViewById(R.id.user_name);
-        user_city = (TextView) findViewById(R.id.user_city);
-        userPhone = (TextView) findViewById(R.id.user_phone);
-        transportName = (TextView) findViewById(R.id.transport_name);
-
-
+        userName = findViewById(R.id.user_name);
+        transportNameHeading = findViewById(R.id.transport_name_heading);
+        user_city = findViewById(R.id.user_city);
+        userPhone = findViewById(R.id.user_phone);
+        transportName = findViewById(R.id.transport_name);
 
 
         //Image view as button
-        changeProfile = (LinearLayout) findViewById(R.id.change_profile);
-        truckDetails = (LinearLayout) findViewById(R.id.truck_details);
-        addTruck = (LinearLayout) findViewById(R.id.add_truck);
-        addCity = (LinearLayout) findViewById(R.id.change_city);
-        addoperatedRoutes = (LinearLayout) findViewById(R.id.change_route);
-        kycProvider=(LinearLayout)findViewById(R.id.kyc_provider);
-        logout = (LinearLayout) findViewById(R.id.logout);
-
+        changeProfile = findViewById(R.id.change_profile);
+        truckDetails = findViewById(R.id.truck_details);
+        addTruck = findViewById(R.id.add_truck);
+        addCity = findViewById(R.id.change_city);
+        addoperatedRoutes = findViewById(R.id.change_route);
+        kycProvider = findViewById(R.id.kyc_provider);
+        logout = findViewById(R.id.logout);
 
 
         //change profile i.e. name and mobile
@@ -101,22 +103,30 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //add city
-        /*addCity.setOnClickListener(new View.OnClickListener() {
+        addCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, UpdateCityActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, EditProfile.class);
                 startActivity(intent);
             }
-        });*/
+        });
+
+        transportNameHeading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
 
         //add operated routes
         addoperatedRoutes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(DriverProfileActivity.this,"hello",Toast.LENGTH_LONG).show();
+                // Toast.makeText(DriverProfileActivity.this,"hello",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ProfileActivity.this, UpdateRoutesActivity.class);
-               startActivity(intent);
+                startActivity(intent);
             }
         });
         //kyc
@@ -151,9 +161,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
     public void deleteData() {
         Integer deletedRow = sharedData.deleteData(MainActivity.currenntMobileActive);
-        if(deletedRow > 0){
+        if (deletedRow > 0) {
             //deleted
             Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
         }

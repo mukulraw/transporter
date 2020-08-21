@@ -67,7 +67,7 @@ public class UpdateNameActivity extends AppCompatActivity {
                 changeProviderNameDetails = new ChangeProviderNameDetails();
                 changeProviderNameDetails.providerCurrentMobile = MainActivity.currenntMobileActive;
                 changeProviderNameDetails.providerChangedName = userNameReq.getText().toString();
-                new Post().doPostChangeName(UpdateNameActivity.this, changeProviderNameDetails);
+                new Post().doPostChangeName(UpdateNameActivity.this, userNameReq.getText().toString());
                 finish();
             }
         });

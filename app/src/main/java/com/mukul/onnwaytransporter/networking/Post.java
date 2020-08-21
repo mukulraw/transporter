@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -70,13 +72,13 @@ public class Post {
     String arrpostedTruckEndLoc[];
     PostedTruckRecyclerAdapter postedTruckRecyclerAdapter;
 
-   //upcoming fragment
-   public String arrupComingDate[], arrupComingtype[],
-           arrupComingStartLoc[], arrupComingEndLoc[],
-           arrmaterialType[], arrupComingWeight[],
-           arrupComingTotalAmount[], arrupComingDueAmount[],
-           arrupcomingStatus[], arrupComingTruckNumber[],
-           arrupComingDeliveryAddress[], arrupComingId[];
+    //upcoming fragment
+    public String arrupComingDate[], arrupComingtype[],
+            arrupComingStartLoc[], arrupComingEndLoc[],
+            arrmaterialType[], arrupComingWeight[],
+            arrupComingTotalAmount[], arrupComingDueAmount[],
+            arrupcomingStatus[], arrupComingTruckNumber[],
+            arrupComingDeliveryAddress[], arrupComingId[];
 
     public String arrPastDate[], arrPasttype[],
             arrPastStartLoc[], arrPastEndLoc[],
@@ -85,7 +87,7 @@ public class Post {
             arrPastStatus[], arrPastTruckNumber[],
             arrPastDeliveryAddress[], arrPastId[];
 
-    public String arrOperatedRouteSourceProvider[],arrOperatedRouteDestinationProvider[];
+    public String arrOperatedRouteSourceProvider[], arrOperatedRouteDestinationProvider[];
 
     private ProgressDialog progressDialog;
 
@@ -243,6 +245,7 @@ public class Post {
         });
         AppController.getInstance().addToRequestQueue(jsObjRequest);
     }
+
     public void doPostPostTruc(final Context context, PostTruckDataDetails postTruckDataDetails) {
 
         progressDialog = new ProgressDialog(context);
@@ -266,7 +269,7 @@ public class Post {
             @Override
             public void onResponse(JSONObject response) {
 
-               Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
 //               progressBar.setVisibility(View.INVISIBLE);
 //                progressDialog.dismiss();
 
@@ -283,7 +286,6 @@ public class Post {
     }
 
 
-
     //post setbid details
     public void doPostSetBidDetails(final Context context, Map<String, String> params) {
         progressDialog = new ProgressDialog(context);
@@ -298,7 +300,7 @@ public class Post {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
-                ((Activity)context).finish();
+                ((Activity) context).finish();
 
             }
         }, new Response.ErrorListener() {
@@ -311,14 +313,14 @@ public class Post {
         AppController.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-//provider posted truck
-    public void doPostPostedTruck(final Context context,final Map<String, String> params, final RecyclerView recyclerView, final SwipeRefreshLayout swipeRefreshLayout) {
+    //provider posted truck
+    public void doPostPostedTruck(final Context context, final Map<String, String> params, final RecyclerView recyclerView, final SwipeRefreshLayout swipeRefreshLayout) {
 
 
         progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Submitting!");
         progressDialog.setMessage("Please wait, while we are submitting the Bid!");
-       // progressDialog.show();
+        // progressDialog.show();
         progressDialog.setCancelable(false);
 
         String url = "https://www.onnway.com/android/mypostedtruckprovider.php";
@@ -329,56 +331,52 @@ public class Post {
                 progressDialog.dismiss();
 
 
-
                 try {
 
                     int count = 0;
 
-                    JSONArray jsonArray=response.getJSONArray("devices");
-                    int len=jsonArray.length();
+                    JSONArray jsonArray = response.getJSONArray("devices");
+                    int len = jsonArray.length();
                     //Toast.makeText(context, ""+jsonArray.length(), Toast.LENGTH_SHORT).show();
-                    arrpostedTrucktype=new String[jsonArray.length()];
-                    arrpostedTruckDate=new String[jsonArray.length()];
-                    arrpostedTruckStartLoc=new String[jsonArray.length()];
-                    arrpostedTruckEndLoc= new String[jsonArray.length()];
+                    arrpostedTrucktype = new String[jsonArray.length()];
+                    arrpostedTruckDate = new String[jsonArray.length()];
+                    arrpostedTruckStartLoc = new String[jsonArray.length()];
+                    arrpostedTruckEndLoc = new String[jsonArray.length()];
                     while (count < jsonArray.length()) {
 
-                        JSONObject jsonObject=jsonArray.getJSONObject(count);
-                        arrpostedTrucktype[count]=jsonObject.getString("trucktype");
-                        arrpostedTruckDate[count]=jsonObject.getString("sch_date");
-                        arrpostedTruckStartLoc[count]=jsonObject.getString("source");
-                        arrpostedTruckEndLoc[count]=jsonObject.getString("destination");
+                        JSONObject jsonObject = jsonArray.getJSONObject(count);
+                        arrpostedTrucktype[count] = jsonObject.getString("trucktype");
+                        arrpostedTruckDate[count] = jsonObject.getString("sch_date");
+                        arrpostedTruckStartLoc[count] = jsonObject.getString("source");
+                        arrpostedTruckEndLoc[count] = jsonObject.getString("destination");
                         count++;
                     }
 
-                    SamplePostedTruck.sampleposteduser=new ArrayList<>();
-                    SamplePostedTruck.sampleposteduser=new ArrayList<>();
-                    for(int i=0;i<arrpostedTruckEndLoc.length;i++)
-                    {
-                        PostedUser postedUser=new PostedUser();
-                        postedUser.postedTruckDate=arrpostedTruckDate[i];
-                        postedUser.postedTruckType=arrpostedTrucktype[i];
-                        postedUser.postedTruckStartLoc=arrpostedTruckStartLoc[i];
-                        postedUser.postedTruckEndLoc=arrpostedTruckEndLoc[i];
+                    SamplePostedTruck.sampleposteduser = new ArrayList<>();
+                    SamplePostedTruck.sampleposteduser = new ArrayList<>();
+                    for (int i = 0; i < arrpostedTruckEndLoc.length; i++) {
+                        PostedUser postedUser = new PostedUser();
+                        postedUser.postedTruckDate = arrpostedTruckDate[i];
+                        postedUser.postedTruckType = arrpostedTrucktype[i];
+                        postedUser.postedTruckStartLoc = arrpostedTruckStartLoc[i];
+                        postedUser.postedTruckEndLoc = arrpostedTruckEndLoc[i];
                         SamplePostedTruck.sampleposteduser.add(postedUser);
                     }
 
-                   // Toast.makeText(context, ""+arrpostedTruckDate[0]+arrpostedTruckDate[1], Toast.LENGTH_SHORT).show();
-                    postedTruckRecyclerAdapter=new PostedTruckRecyclerAdapter(SamplePostedTruck.sampleposteduser,context);
-                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
+                    // Toast.makeText(context, ""+arrpostedTruckDate[0]+arrpostedTruckDate[1], Toast.LENGTH_SHORT).show();
+                    postedTruckRecyclerAdapter = new PostedTruckRecyclerAdapter(SamplePostedTruck.sampleposteduser, context);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setAdapter(postedTruckRecyclerAdapter);
                     //SaveSharedPreference.setCounterPosted(context, "1");
-                   // Toast.makeText(context, ""+SaveSharedPreference.getCounterPostedStatus(context), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(context, ""+SaveSharedPreference.getCounterPostedStatus(context), Toast.LENGTH_SHORT).show();
                     SaveSharedPreference.setCounterPosted(context, "1");
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
 
                 }
 
-               // ((Activity)context).finish();
+                // ((Activity)context).finish();
 
             }
         }, new Response.ErrorListener() {
@@ -393,7 +391,7 @@ public class Post {
 
     //upcoming
 
-    public void doUpcoming(final Context context,final RecyclerView recyclerView) {
+    public void doUpcoming(final Context context, final RecyclerView recyclerView) {
         String url = "https://www.onnway.com/android/ongoingorderprovider.php";
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobile_no", MainActivity.currenntMobileActive);
@@ -486,8 +484,7 @@ public class Post {
 
 
     //past order provider
-    public void doPast(final Context context,final RecyclerView recyclerView)
-    {
+    public void doPast(final Context context, final RecyclerView recyclerView) {
         String url = "https://www.onnway.com/android/pastorderprovider.php";
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobile_no", MainActivity.currenntMobileActive);
@@ -533,9 +530,9 @@ public class Post {
                         count++;
                     }
 
-                    SamplePastOrder.pastOrders =new ArrayList<>();
+                    SamplePastOrder.pastOrders = new ArrayList<>();
 //                    SampleUpcomingUsers.sampleupcominguser=new ArrayList<>();
-                    for(int i = 0; i < arrPastDueAmount.length; ++i) {
+                    for (int i = 0; i < arrPastDueAmount.length; ++i) {
                         PastOrder pastOrder = new PastOrder();
                         pastOrder.pastId = arrPastId[i];
                         pastOrder.pastDate = arrPastDate[i];
@@ -554,14 +551,13 @@ public class Post {
                     }
 
                     // Toast.makeText(context, ""+arrpostedTruckDate[0]+arrpostedTruckDate[1], Toast.LENGTH_SHORT).show();
-                    PastOrderRecyclerAdapter pastOrderRecyclerAdapter =new PastOrderRecyclerAdapter(SamplePastOrder.pastOrders);
-                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
+                    PastOrderRecyclerAdapter pastOrderRecyclerAdapter = new PastOrderRecyclerAdapter(SamplePastOrder.pastOrders);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setAdapter(pastOrderRecyclerAdapter);
                     SaveSharedPreference.setCounterPast(context, "1");
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
 
                 }
 
@@ -578,7 +574,7 @@ public class Post {
     }
 
     //driver posted truck
-    public void doPostPostedTruckDriver(final Context context,final Map<String, String> params, final RecyclerView recyclerView, final SwipeRefreshLayout swipeRefreshLayout) {
+    public void doPostPostedTruckDriver(final Context context, final Map<String, String> params, final RecyclerView recyclerView, final SwipeRefreshLayout swipeRefreshLayout) {
 
 
         progressDialog = new ProgressDialog(context);
@@ -598,46 +594,44 @@ public class Post {
 
                     int count = 0;
 
-                    JSONArray jsonArray=response.getJSONArray("devices");
-                    int len=jsonArray.length();
+                    JSONArray jsonArray = response.getJSONArray("devices");
+                    int len = jsonArray.length();
                     //Toast.makeText(context, ""+jsonArray.length(), Toast.LENGTH_SHORT).show();
-                    arrpostedTrucktype=new String[jsonArray.length()];
-                    arrpostedTruckDate=new String[jsonArray.length()];
-                    arrpostedTruckStartLoc=new String[jsonArray.length()];
-                    arrpostedTruckEndLoc= new String[jsonArray.length()];
+                    arrpostedTrucktype = new String[jsonArray.length()];
+                    arrpostedTruckDate = new String[jsonArray.length()];
+                    arrpostedTruckStartLoc = new String[jsonArray.length()];
+                    arrpostedTruckEndLoc = new String[jsonArray.length()];
                     while (count < jsonArray.length()) {
 
-                        JSONObject jsonObject=jsonArray.getJSONObject(count);
-                        arrpostedTrucktype[count]=jsonObject.getString("trucktype");
-                        arrpostedTruckDate[count]=jsonObject.getString("sch_date");
-                        arrpostedTruckStartLoc[count]=jsonObject.getString("source");
-                        arrpostedTruckEndLoc[count]=jsonObject.getString("destination");
+                        JSONObject jsonObject = jsonArray.getJSONObject(count);
+                        arrpostedTrucktype[count] = jsonObject.getString("trucktype");
+                        arrpostedTruckDate[count] = jsonObject.getString("sch_date");
+                        arrpostedTruckStartLoc[count] = jsonObject.getString("source");
+                        arrpostedTruckEndLoc[count] = jsonObject.getString("destination");
                         count++;
                     }
 
-                    SamplePostedTruck.sampleposteduser=new ArrayList<>();
-                    SamplePostedTruck.sampleposteduser=new ArrayList<>();
-                    for(int i=0;i<arrpostedTruckEndLoc.length;i++) {
-                        PostedUser postedUser=new PostedUser();
-                        postedUser.postedTruckDate=arrpostedTruckDate[i];
-                        postedUser.postedTruckType=arrpostedTrucktype[i];
-                        postedUser.postedTruckStartLoc=arrpostedTruckStartLoc[i];
-                        postedUser.postedTruckEndLoc=arrpostedTruckEndLoc[i];
+                    SamplePostedTruck.sampleposteduser = new ArrayList<>();
+                    SamplePostedTruck.sampleposteduser = new ArrayList<>();
+                    for (int i = 0; i < arrpostedTruckEndLoc.length; i++) {
+                        PostedUser postedUser = new PostedUser();
+                        postedUser.postedTruckDate = arrpostedTruckDate[i];
+                        postedUser.postedTruckType = arrpostedTrucktype[i];
+                        postedUser.postedTruckStartLoc = arrpostedTruckStartLoc[i];
+                        postedUser.postedTruckEndLoc = arrpostedTruckEndLoc[i];
                         SamplePostedTruck.sampleposteduser.add(postedUser);
                     }
 
                     // Toast.makeText(context, ""+arrpostedTruckDate[0]+arrpostedTruckDate[1], Toast.LENGTH_SHORT).show();
-                    postedTruckRecyclerAdapter=new PostedTruckRecyclerAdapter(SamplePostedTruck.sampleposteduser,context);
-                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
+                    postedTruckRecyclerAdapter = new PostedTruckRecyclerAdapter(SamplePostedTruck.sampleposteduser, context);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setAdapter(postedTruckRecyclerAdapter);
                     //SaveSharedPreference.setCounterPosted(context, "1");
                     // Toast.makeText(context, ""+SaveSharedPreference.getCounterPostedStatus(context), Toast.LENGTH_SHORT).show();
                     SaveSharedPreference.setCounterPosted(context, "1");
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
 
                 }
 
@@ -656,13 +650,13 @@ public class Post {
         context.startActivity(intent);
     }
 
-    public void doPostChangeName(final Context context, ChangeProviderNameDetails changeProviderNameDetails) {
+    public void doPostChangeName(final Context context, String changeProviderNameDetails) {
 
         String url = "https://www.onnway.com/android/requestnameprovider.php";
 
         Map<String, String> params = new HashMap<>();
-        params.put("mobile_no", changeProviderNameDetails.providerCurrentMobile);
-        params.put("change_name", changeProviderNameDetails.providerChangedName);
+        params.put("mobile_no", SharePreferenceUtils.getInstance().getString("userId"));
+        params.put("change_name", changeProviderNameDetails);
 
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
@@ -683,20 +677,20 @@ public class Post {
         AppController.getInstance().addToRequestQueue(jsObjRequest);
     }
 
-    public void doPostChangePhone(final Context context, ChangeProviderMobileDetails changeProviderMobileDetails) {
+    public void doPostChangePhone(final Context context, String changeProviderMobileDetails) {
 
         String url = "https://www.onnway.com/android/requestmobileprovider.php";
 
         Map<String, String> params = new HashMap<>();
-        params.put("mobile_no", changeProviderMobileDetails.providerCurrentMobile);
-        params.put("change_mobile", changeProviderMobileDetails.providerChangedMobile);
+        params.put("mobile_no", SharePreferenceUtils.getInstance().getString("userId"));
+        params.put("change_mobile", changeProviderMobileDetails);
 
         CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
 
-                Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Request sent successfully", Toast.LENGTH_LONG).show();
 //               progressBar.setVisibility(View.INVISIBLE);
 //                progressDialog.dismiss();
 
@@ -790,7 +784,7 @@ public class Post {
             }
         });
         AppController.getInstance().addToRequestQueue(jsObjRequest);
-        if(SplashActivity.currentUserType.equals("2")){
+        if (SplashActivity.currentUserType.equals("2")) {
             Intent intent = new Intent(context, DriverMainActivity.class);
             context.startActivity(intent);
         } else {
@@ -801,7 +795,7 @@ public class Post {
     }
 //fetch already added routes
 
-    public void doOperatedRoutesProvider(final Context context,final RecyclerView recyclerViewOperatedRoute) {
+    public void doOperatedRoutesProvider(final Context context, final RecyclerView recyclerViewOperatedRoute) {
         String url = "https://www.onnway.com/android/fetch_provider_source_des.php";
         Map<String, String> params = new HashMap<String, String>();
         params.put("mobile_no", SharePreferenceUtils.getInstance().getString("userId"));
@@ -815,10 +809,10 @@ public class Post {
                 try {
 
                     int count = 0;
-                    JSONArray jsonArray=response.getJSONArray("devices");
+                    JSONArray jsonArray = response.getJSONArray("devices");
 
-                    Toast.makeText(context, ""+jsonArray.length(), Toast.LENGTH_SHORT).show();
-                    arrOperatedRouteSourceProvider= new String[jsonArray.length()];
+                    Toast.makeText(context, "" + jsonArray.length(), Toast.LENGTH_SHORT).show();
+                    arrOperatedRouteSourceProvider = new String[jsonArray.length()];
                     arrOperatedRouteDestinationProvider = new String[jsonArray.length()];
                     while (count < jsonArray.length()) {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
@@ -827,10 +821,10 @@ public class Post {
                         count++;
                     }
 
-                    SampleOperatedRoutesProvider.sampleOperatedRoutesProviders=new ArrayList<>();
-                    for(int i = 0; i < arrOperatedRouteDestinationProvider.length; ++i) {
+                    SampleOperatedRoutesProvider.sampleOperatedRoutesProviders = new ArrayList<>();
+                    for (int i = 0; i < arrOperatedRouteDestinationProvider.length; ++i) {
                         OperatedRoutesUserProvider operatedRoutesUserProvider = new OperatedRoutesUserProvider();
-                        operatedRoutesUserProvider.operatedRouteSourceProvider= arrOperatedRouteSourceProvider[i];
+                        operatedRoutesUserProvider.operatedRouteSourceProvider = arrOperatedRouteSourceProvider[i];
                         operatedRoutesUserProvider.operatedRouteDestinationProvider = arrOperatedRouteDestinationProvider[i];
                         SampleOperatedRoutesProvider.sampleOperatedRoutesProviders.add(operatedRoutesUserProvider);
                     }
@@ -842,8 +836,7 @@ public class Post {
                     recyclerViewOperatedRoute.setHasFixedSize(true);
                     recyclerViewOperatedRoute.setAdapter(recyclerAdapterRoutesProvider);
                     SaveSharedPreference.setCounterUpcoming(context, "1");*/
-                }
-                catch (Exception ex) {
+                } catch (Exception ex) {
 
                 }
 
@@ -866,7 +859,7 @@ public class Post {
         progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Adding Routes");
         progressDialog.setMessage("Please wait, while we add route");
-       // progressDialog.show();
+        // progressDialog.show();
         progressDialog.setCancelable(false);
 
         String url = "https://www.onnway.com/android/provider_source_des.php";
@@ -920,7 +913,7 @@ public class Post {
             @Override
             public void onResponse(JSONObject response) {
 
-               // Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
                 //progressBar.setVisibility(View.INVISIBLE);
                 progressDialog.dismiss();
 
@@ -935,7 +928,6 @@ public class Post {
         });
         AppController.getInstance().addToRequestQueue(jsObjRequest);
     }
-
 
 
 }

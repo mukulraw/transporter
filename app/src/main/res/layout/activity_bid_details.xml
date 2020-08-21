@@ -61,11 +61,10 @@
                 app:cardUseCompatPadding="true">
 
                 <fragment
-                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:id="@+id/mapNearBy"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/myprofileimage"/>
+                    android:layout_height="200dp"/>
 
 
             </androidx.cardview.widget.CardView>

@@ -663,7 +663,7 @@ public class Post {
             @Override
             public void onResponse(JSONObject response) {
 
-                Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Request sent successfully", Toast.LENGTH_LONG).show();
 //               progressBar.setVisibility(View.INVISIBLE);
 //                progressDialog.dismiss();
             }

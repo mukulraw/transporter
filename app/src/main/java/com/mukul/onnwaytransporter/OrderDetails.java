@@ -62,13 +62,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class OrderDetails extends AppCompatActivity {
 
-    TextView orderid , orderdate , truck , source , destination , material , weight , date , status , fare , distance , paid;
+    TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid, balance;
 
-    TextView vehiclenumber , drivernumber;
+    TextView vehiclenumber, drivernumber;
 
-    Button add , upload1 , upload2;
+    Button add, upload1, upload2;
 
-    RecyclerView pod , documents;
+    RecyclerView pod, documents;
 
     ProgressBar progress;
 
@@ -98,6 +98,7 @@ public class OrderDetails extends AppCompatActivity {
         });
 
         orderid = findViewById(R.id.textView16);
+        balance = findViewById(R.id.textView44);
         orderdate = findViewById(R.id.textView17);
         truck = findViewById(R.id.textView19);
         source = findViewById(R.id.textView20);
@@ -143,56 +144,47 @@ public class OrderDetails extends AppCompatActivity {
                         String v = vnum.getText().toString();
                         String d = dnum.getText().toString();
 
-                        if (v.length() > 0)
-                        {
-                           if (d.length() > 0)
-                           {
+                        if (v.length() > 0) {
+                            if (d.length() > 0) {
 
-                               bar.setVisibility(View.VISIBLE);
+                                bar.setVisibility(View.VISIBLE);
 
-                               AppController b = (AppController) getApplicationContext();
+                                AppController b = (AppController) getApplicationContext();
 
-                               Retrofit retrofit = new Retrofit.Builder()
-                                       .baseUrl(b.baseurl)
-                                       .addConverterFactory(ScalarsConverterFactory.create())
-                                       .addConverterFactory(GsonConverterFactory.create())
-                                       .build();
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
 
-                               AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                               Call<ordersBean> call = cr.addVehicleNumber(id , v , d);
+                                Call<ordersBean> call = cr.addVehicleNumber(id, v, d);
 
-                               call.enqueue(new Callback<ordersBean>() {
-                                   @Override
-                                   public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
+                                call.enqueue(new Callback<ordersBean>() {
+                                    @Override
+                                    public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                                       if (response.body().getStatus().equals("1"))
-                                       {
-                                           dialog.dismiss();
-                                           onResume();
-                                       }
-                                       else
-                                       {
-                                           Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                       }
+                                        if (response.body().getStatus().equals("1")) {
+                                            dialog.dismiss();
+                                            onResume();
+                                        } else {
+                                            Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
 
-                                       bar.setVisibility(View.GONE);
-                                   }
+                                        bar.setVisibility(View.GONE);
+                                    }
 
-                                   @Override
-                                   public void onFailure(Call<ordersBean> call, Throwable t) {
-                                       bar.setVisibility(View.GONE);
-                                   }
-                               });
+                                    @Override
+                                    public void onFailure(Call<ordersBean> call, Throwable t) {
+                                        bar.setVisibility(View.GONE);
+                                    }
+                                });
 
-                           }
-                           else
-                           {
-                               Toast.makeText(OrderDetails.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
-                           }
-                        }
-                        else
-                        {
+                            } else {
+                                Toast.makeText(OrderDetails.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
                             Toast.makeText(OrderDetails.this, "Invalid Vehicle Number", Toast.LENGTH_SHORT).show();
                         }
 
@@ -339,48 +331,55 @@ public class OrderDetails extends AppCompatActivity {
                 weight.setText(item.getWeight());
                 date.setText(item.getSchedule());
                 status.setText(item.getStatus());
-                fare.setText(item.getFare());
-                paid.setText(item.getPaid());
+                fare.setText("₹ " + item.getFare());
+                paid.setText("₹ " + item.getPaid());
 
                 sourceLAT = item.getSourceLAT();
                 sourceLNG = item.getSourceLNG();
                 destinationLAT = item.getDestinationLAT();
                 destinationLNG = item.getDestinationLNG();
 
-                Location startPoint=new Location("Source");
+                Location startPoint = new Location("Source");
                 startPoint.setLatitude(Double.parseDouble(sourceLAT));
                 startPoint.setLongitude(Double.parseDouble(sourceLNG));
 
-                Location endPoint=new Location("Destination");
+                Location endPoint = new Location("Destination");
                 endPoint.setLatitude(Double.parseDouble(destinationLAT));
                 endPoint.setLongitude(Double.parseDouble(destinationLNG));
+
+                float tot = Float.parseFloat(item.getFare());
+                float pa = 0;
+                if (item.getPaid().length() > 0) {
+                    pa = Float.parseFloat(item.getPaid());
+                } else {
+                    pa = 0;
+                }
+
+                balance.setText("₹ " + (tot - pa));
 
                 distance.setText((startPoint.distanceTo(endPoint) / 1000) + " km");
 
                 vehiclenumber.setText(item.getVehicleNumber());
                 drivernumber.setText(item.getDriverNumber());
 
-                if (item.getVehicleNumber().length() > 0)
-                {
+                if (item.getVehicleNumber().length() > 0) {
                     add.setVisibility(View.GONE);
                     vehiclenumber.setVisibility(View.VISIBLE);
                     drivernumber.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     add.setVisibility(View.VISIBLE);
                     vehiclenumber.setVisibility(View.GONE);
                     drivernumber.setVisibility(View.GONE);
                 }
 
 
-                PODAdapter adapter = new PODAdapter(OrderDetails.this , item.getPod());
-                GridLayoutManager manager = new GridLayoutManager(OrderDetails.this , 2);
+                PODAdapter adapter = new PODAdapter(OrderDetails.this, item.getPod());
+                GridLayoutManager manager = new GridLayoutManager(OrderDetails.this, 2);
                 pod.setAdapter(adapter);
                 pod.setLayoutManager(manager);
 
-                DocAdapter adapter2 = new DocAdapter(OrderDetails.this , item.getDoc());
-                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails.this , 2);
+                DocAdapter adapter2 = new DocAdapter(OrderDetails.this, item.getDoc());
+                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails.this, 2);
                 documents.setAdapter(adapter2);
                 documents.setLayoutManager(manager2);
 
@@ -396,14 +395,12 @@ public class OrderDetails extends AppCompatActivity {
 
     }
 
-    class PODAdapter extends RecyclerView.Adapter<PODAdapter.ViewHolder>
-    {
+    class PODAdapter extends RecyclerView.Adapter<PODAdapter.ViewHolder> {
 
         List<Pod> list = new ArrayList<>();
         Context context;
 
-        public PODAdapter(Context context , List<Pod> list)
-        {
+        public PODAdapter(Context context, List<Pod> list) {
             this.context = context;
             this.list = list;
         }
@@ -423,7 +420,7 @@ public class OrderDetails extends AppCompatActivity {
 
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
             ImageLoader loader = ImageLoader.getInstance();
-            loader.displayImage(item.getName() , holder.image , options);
+            loader.displayImage(item.getName(), holder.image, options);
 
         }
 
@@ -432,9 +429,9 @@ public class OrderDetails extends AppCompatActivity {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView image;
+
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
@@ -442,14 +439,12 @@ public class OrderDetails extends AppCompatActivity {
         }
     }
 
-    class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder>
-    {
+    class DocAdapter extends RecyclerView.Adapter<DocAdapter.ViewHolder> {
 
         List<Doc> list = new ArrayList<>();
         Context context;
 
-        public DocAdapter(Context context , List<Doc> list)
-        {
+        public DocAdapter(Context context, List<Doc> list) {
             this.context = context;
             this.list = list;
         }
@@ -469,7 +464,7 @@ public class OrderDetails extends AppCompatActivity {
 
             DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
             ImageLoader loader = ImageLoader.getInstance();
-            loader.displayImage(item.getName() , holder.image , options);
+            loader.displayImage(item.getName(), holder.image, options);
 
         }
 
@@ -478,9 +473,9 @@ public class OrderDetails extends AppCompatActivity {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
             ImageView image;
+
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 image = itemView.findViewById(R.id.image);
@@ -527,7 +522,7 @@ public class OrderDetails extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadDocuments(id , body);
+            Call<ordersBean> call = cr.uploadDocuments(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -570,7 +565,7 @@ public class OrderDetails extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadDocuments(id , body);
+            Call<ordersBean> call = cr.uploadDocuments(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -589,7 +584,6 @@ public class OrderDetails extends AppCompatActivity {
             });
 
         }
-
 
 
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
@@ -627,7 +621,7 @@ public class OrderDetails extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadPOD(id , body);
+            Call<ordersBean> call = cr.uploadPOD(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override
@@ -670,7 +664,7 @@ public class OrderDetails extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<ordersBean> call = cr.uploadPOD(id , body);
+            Call<ordersBean> call = cr.uploadPOD(id, body);
 
             call.enqueue(new Callback<ordersBean>() {
                 @Override

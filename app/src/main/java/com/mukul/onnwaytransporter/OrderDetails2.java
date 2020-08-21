@@ -430,7 +430,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 weight.setText(item.getWeight());
                 date.setText(item.getSchedule());
                 status.setText(item.getStatus());
-                fare.setText(item.getFare());
+                fare.setText("₹ " + item.getFare());
                 paid.setText(item.getPaid());
 
                 vehiclenumber.setText(item.getVehicleNumber());

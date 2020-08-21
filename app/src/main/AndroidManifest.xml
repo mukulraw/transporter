@@ -47,7 +47,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GettingStarted"></activity>
+        <activity android:name=".BidDetails2"></activity>
+        <activity android:name=".GettingStarted" />
         <activity android:name=".Web" />
         <activity android:name=".OrderDetails2" />
         <activity android:name=".SelectSpace2" />
@@ -162,7 +163,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".otp.NumberActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".FirstTimeProfileActivity"
             android:screenOrientation="portrait"
@@ -216,7 +217,6 @@
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location" />
-
     </application>
 
 </manifest>

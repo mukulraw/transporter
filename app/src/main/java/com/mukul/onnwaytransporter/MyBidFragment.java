@@ -240,9 +240,21 @@ public class MyBidFragment extends Fragment {
 
                     if (!holder.freight.getText().equals("Bid ended"))
                     {
-                        Intent intent = new Intent(context , BidDetails.class);
-                        intent.putExtra("id" , item.getId());
-                        context.startActivity(intent);
+
+                        if (item.getLaodType().equals("full"))
+                        {
+                            Intent intent = new Intent(context , BidDetails.class);
+                            intent.putExtra("id" , item.getId());
+                            context.startActivity(intent);
+                        }
+                        else
+                        {
+                            Intent intent = new Intent(context , BidDetails2.class);
+                            intent.putExtra("id" , item.getId());
+                            context.startActivity(intent);
+                        }
+
+
                     }
                     else
                     {

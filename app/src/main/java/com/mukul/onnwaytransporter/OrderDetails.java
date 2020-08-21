@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -75,6 +76,8 @@ public class OrderDetails extends AppCompatActivity {
 
     private Uri uri1;
     private File f1;
+
+    String sourceLAT = "", sourceLNG = "", destinationLAT = "", destinationLNG = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -338,6 +341,21 @@ public class OrderDetails extends AppCompatActivity {
                 status.setText(item.getStatus());
                 fare.setText(item.getFare());
                 paid.setText(item.getPaid());
+
+                sourceLAT = item.getSourceLAT();
+                sourceLNG = item.getSourceLNG();
+                destinationLAT = item.getDestinationLAT();
+                destinationLNG = item.getDestinationLNG();
+
+                Location startPoint=new Location("Source");
+                startPoint.setLatitude(Double.parseDouble(sourceLAT));
+                startPoint.setLongitude(Double.parseDouble(sourceLNG));
+
+                Location endPoint=new Location("Destination");
+                endPoint.setLatitude(Double.parseDouble(destinationLAT));
+                endPoint.setLongitude(Double.parseDouble(destinationLNG));
+
+                distance.setText((startPoint.distanceTo(endPoint) / 1000) + " km");
 
                 vehiclenumber.setText(item.getVehicleNumber());
                 drivernumber.setText(item.getDriverNumber());

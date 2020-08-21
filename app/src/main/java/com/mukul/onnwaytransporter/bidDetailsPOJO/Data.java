@@ -106,6 +106,21 @@ public class Data {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("sourceLAT")
+    @Expose
+    private String sourceLAT;
+    @SerializedName("sourceLNG")
+    @Expose
+    private String sourceLNG;
+    @SerializedName("destinationLAT")
+    @Expose
+    private String destinationLAT;
+    @SerializedName("destinationLNG")
+    @Expose
+    private String destinationLNG;
+    @SerializedName("material_image")
+    @Expose
+    private String material_image;
 
     public String getId() {
         return id;
@@ -379,4 +394,43 @@ public class Data {
         this.created = created;
     }
 
+    public String getSourceLNG() {
+        return sourceLNG;
+    }
+
+    public String getSourceLAT() {
+        return sourceLAT;
+    }
+
+    public String getDestinationLNG() {
+        return destinationLNG;
+    }
+
+    public String getDestinationLAT() {
+        return destinationLAT;
+    }
+
+    public void setSourceLNG(String sourceLNG) {
+        this.sourceLNG = sourceLNG;
+    }
+
+    public void setSourceLAT(String sourceLAT) {
+        this.sourceLAT = sourceLAT;
+    }
+
+    public void setDestinationLNG(String destinationLNG) {
+        this.destinationLNG = destinationLNG;
+    }
+
+    public void setDestinationLAT(String destinationLAT) {
+        this.destinationLAT = destinationLAT;
+    }
+
+    public String getMaterial_image() {
+        return material_image;
+    }
+
+    public void setMaterial_image(String material_image) {
+        this.material_image = material_image;
+    }
 }

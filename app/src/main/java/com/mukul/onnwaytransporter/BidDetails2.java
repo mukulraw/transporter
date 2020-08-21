@@ -6,8 +6,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +17,8 @@ import com.mukul.onnwaytransporter.bidDetailsPOJO.Data;
 import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
 import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class BidDetails extends AppCompatActivity {
+public class BidDetails2 extends AppCompatActivity {
 
     TextView orderid , orderdate , truck , source , destination , material , weight, distance;
     Button confirm;
@@ -36,10 +38,13 @@ public class BidDetails extends AppCompatActivity {
 
     String sourceLAT = "", sourceLNG = "", destinationLAT = "", destinationLNG = "";
 
+    TextView dimension, equal, quantity, total, phototitle;
+    ImageView photo;
+
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bid_details);
+        setContentView(R.layout.activity_bid_details2);
 
         id = getIntent().getStringExtra("id");
 
@@ -54,7 +59,12 @@ public class BidDetails extends AppCompatActivity {
             }
         });
 
-
+        dimension = findViewById(R.id.textView134);
+        phototitle = findViewById(R.id.textView140);
+        equal = findViewById(R.id.textView135);
+        quantity = findViewById(R.id.textView137);
+        total = findViewById(R.id.textView139);
+        photo = findViewById(R.id.imageView18);
         orderid = findViewById(R.id.textView16);
         confirm = findViewById(R.id.button4);
         amount = findViewById(R.id.amount);
@@ -95,6 +105,7 @@ public class BidDetails extends AppCompatActivity {
                 material.setText(item.getMaterial());
                 weight.setText(item.getWeight());
 
+
                 sourceLAT = item.getSourceLAT();
                 sourceLNG = item.getSourceLNG();
                 destinationLAT = item.getDestinationLAT();
@@ -109,6 +120,30 @@ public class BidDetails extends AppCompatActivity {
                 endPoint.setLongitude(Double.parseDouble(destinationLNG));
 
                 distance.setText((startPoint.distanceTo(endPoint) / 1000) + " km");
+
+                dimension.setText(item.getLength() + " X " + item.getWidth() + " X " + item.getHeight());
+
+                if (item.getMaterial_image().length() > 0) {
+                    DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
+                    ImageLoader loader = ImageLoader.getInstance();
+                    loader.displayImage(item.getMaterial_image(), photo, options);
+
+                    photo.setVisibility(View.VISIBLE);
+                    phototitle.setVisibility(View.VISIBLE);
+                } else {
+                    photo.setVisibility(View.GONE);
+                    phototitle.setVisibility(View.GONE);
+                }
+
+
+                float ll = Float.parseFloat(item.getLength());
+                float ww = Float.parseFloat(item.getWidth());
+                float hh = Float.parseFloat(item.getHeight());
+                float qq = Float.parseFloat(item.getQuantity());
+
+                equal.setText("= " + (ll * ww * hh) + " cu.ft.");
+                quantity.setText(item.getQuantity());
+                total.setText((ll * ww * hh * qq) + " cu.ft.");
 
                 if (item.getBid().length() > 0)
                 {
@@ -167,13 +202,13 @@ public class BidDetails extends AppCompatActivity {
 
                             if (response.body().getStatus().equals("1"))
                             {
-                                Toast.makeText(BidDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BidDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
 
                             }
                             else
                             {
-                                Toast.makeText(BidDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BidDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             progress.setVisibility(View.GONE);
@@ -188,14 +223,13 @@ public class BidDetails extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(BidDetails.this, "Invalid Bid Amount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BidDetails2.this, "Invalid Bid Amount", Toast.LENGTH_SHORT).show();
                 }
 
 
 
             }
         });
-
 
     }
 }

@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +26,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,7 +58,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class OrderDetails extends AppCompatActivity {
+public class OrderDetails3 extends AppCompatActivity {
 
     TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid, balance;
 
@@ -78,12 +76,15 @@ public class OrderDetails extends AppCompatActivity {
     private File f1;
 
     String sourceLAT = "", sourceLNG = "", destinationLAT = "", destinationLNG = "";
+
+    TextView dimension, equal, quantity, total, phototitle;
+    ImageView photo;
     TextView laodernote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_details);
+        setContentView(R.layout.activity_order_details3);
 
         id = getIntent().getStringExtra("id");
 
@@ -98,7 +99,13 @@ public class OrderDetails extends AppCompatActivity {
             }
         });
 
+        dimension = findViewById(R.id.textView134);
         laodernote = findViewById(R.id.textView46);
+        phototitle = findViewById(R.id.textView140);
+        equal = findViewById(R.id.textView135);
+        quantity = findViewById(R.id.textView137);
+        total = findViewById(R.id.textView139);
+        photo = findViewById(R.id.imageView18);
         orderid = findViewById(R.id.textView16);
         balance = findViewById(R.id.textView44);
         orderdate = findViewById(R.id.textView17);
@@ -128,7 +135,7 @@ public class OrderDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(OrderDetails.this);
+                final Dialog dialog = new Dialog(OrderDetails3.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.add_vehicle_dialog);
@@ -171,7 +178,7 @@ public class OrderDetails extends AppCompatActivity {
                                             dialog.dismiss();
                                             onResume();
                                         } else {
-                                            Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderDetails3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
 
                                         bar.setVisibility(View.GONE);
@@ -184,10 +191,10 @@ public class OrderDetails extends AppCompatActivity {
                                 });
 
                             } else {
-                                Toast.makeText(OrderDetails.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrderDetails3.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(OrderDetails.this, "Invalid Vehicle Number", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OrderDetails3.this, "Invalid Vehicle Number", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -204,7 +211,7 @@ public class OrderDetails extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails3.this);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -229,7 +236,7 @@ public class OrderDetails extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails3.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
@@ -255,7 +262,7 @@ public class OrderDetails extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails3.this);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -280,7 +287,7 @@ public class OrderDetails extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails3.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
@@ -298,7 +305,6 @@ public class OrderDetails extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -336,6 +342,29 @@ public class OrderDetails extends AppCompatActivity {
                 fare.setText("₹ " + item.getFare());
                 paid.setText("₹ " + item.getPaid());
                 laodernote.setText(item.getRemarks());
+
+                dimension.setText(item.getLength() + " X " + item.getWidth() + " X " + item.getHeight());
+                if (item.getMaterial_image().length() > 0) {
+                    DisplayImageOptions options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).resetViewBeforeLoading(false).build();
+                    ImageLoader loader = ImageLoader.getInstance();
+                    loader.displayImage(item.getMaterial_image(), photo, options);
+
+                    photo.setVisibility(View.VISIBLE);
+                    phototitle.setVisibility(View.VISIBLE);
+                } else {
+                    photo.setVisibility(View.GONE);
+                    phototitle.setVisibility(View.GONE);
+                }
+
+
+                float ll = Float.parseFloat(item.getLength());
+                float ww = Float.parseFloat(item.getWidth());
+                float hh = Float.parseFloat(item.getHeight());
+                float qq = Float.parseFloat(item.getQuantity());
+
+                equal.setText("= " + (ll * ww * hh) + " cu.ft.");
+                quantity.setText(item.getQuantity());
+                total.setText((ll * ww * hh * qq) + " cu.ft.");
 
                 sourceLAT = item.getSourceLAT();
                 sourceLNG = item.getSourceLNG();
@@ -376,13 +405,13 @@ public class OrderDetails extends AppCompatActivity {
                 }
 
 
-                PODAdapter adapter = new PODAdapter(OrderDetails.this, item.getPod());
-                GridLayoutManager manager = new GridLayoutManager(OrderDetails.this, 2);
+                PODAdapter adapter = new PODAdapter(OrderDetails3.this, item.getPod());
+                GridLayoutManager manager = new GridLayoutManager(OrderDetails3.this, 2);
                 pod.setAdapter(adapter);
                 pod.setLayoutManager(manager);
 
-                DocAdapter adapter2 = new DocAdapter(OrderDetails.this, item.getDoc());
-                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails.this, 2);
+                DocAdapter adapter2 = new DocAdapter(OrderDetails3.this, item.getDoc());
+                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails3.this, 2);
                 documents.setAdapter(adapter2);
                 documents.setLayoutManager(manager2);
 
@@ -495,7 +524,7 @@ public class OrderDetails extends AppCompatActivity {
 
             Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(OrderDetails.this, uri1);
+            String ypath = getPath(OrderDetails3.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -531,7 +560,7 @@ public class OrderDetails extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -574,7 +603,7 @@ public class OrderDetails extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -594,7 +623,7 @@ public class OrderDetails extends AppCompatActivity {
 
             Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(OrderDetails.this, uri1);
+            String ypath = getPath(OrderDetails3.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -630,7 +659,7 @@ public class OrderDetails extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -673,7 +702,7 @@ public class OrderDetails extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails3.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);

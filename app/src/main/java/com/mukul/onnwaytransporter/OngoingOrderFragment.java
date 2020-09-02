@@ -139,9 +139,21 @@ public class OngoingOrderFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context , OrderDetails.class);
-                    intent.putExtra("id" , item.getAid());
-                    context.startActivity(intent);
+
+                    if (item.getLaodType().equals("full"))
+                    {
+                        Intent intent = new Intent(context , OrderDetails.class);
+                        intent.putExtra("id" , item.getAid());
+                        context.startActivity(intent);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(context , OrderDetails3.class);
+                        intent.putExtra("id" , item.getAid());
+                        context.startActivity(intent);
+                    }
+
+
                 }
             });
 

@@ -229,8 +229,8 @@
         android:layout_marginTop="8dp"
         android:text="Status"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintStart_toStartOf="@+id/textView140"
+        app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
     <TextView
         android:id="@+id/textView15"
@@ -269,7 +269,7 @@
         android:textColor="#42A5F5"
         app:layout_constraintEnd_toEndOf="@+id/textView29"
         app:layout_constraintStart_toStartOf="@+id/textView29"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
     <TextView
         android:id="@+id/textView31"
@@ -311,6 +311,94 @@
 
 
     <TextView
+        android:id="@+id/textView133"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Dimension"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView134"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView29"
+        app:layout_constraintStart_toStartOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <TextView
+        android:id="@+id/textView135"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView134"
+        app:layout_constraintStart_toStartOf="@+id/textView134"
+        app:layout_constraintTop_toBottomOf="@+id/textView134" />
+
+    <TextView
+        android:id="@+id/textView136"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Quantity"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/textView133"
+        app:layout_constraintTop_toBottomOf="@+id/textView135" />
+
+    <TextView
+        android:id="@+id/textView137"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView135"
+        app:layout_constraintStart_toStartOf="@+id/textView135"
+        app:layout_constraintTop_toBottomOf="@+id/textView135" />
+
+    <TextView
+        android:id="@+id/textView138"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Total"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/textView136"
+        app:layout_constraintTop_toBottomOf="@+id/textView136" />
+
+    <TextView
+        android:id="@+id/textView139"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView137"
+        app:layout_constraintStart_toStartOf="@+id/textView137"
+        app:layout_constraintTop_toBottomOf="@+id/textView137" />
+
+    <TextView
+        android:id="@+id/textView140"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Material Photo"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/textView138"
+        app:layout_constraintTop_toBottomOf="@+id/textView138" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView139"
+        app:layout_constraintTop_toBottomOf="@+id/textView139" />
+
+    <TextView
         android:id="@+id/textView45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -336,5 +424,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView45"
         app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

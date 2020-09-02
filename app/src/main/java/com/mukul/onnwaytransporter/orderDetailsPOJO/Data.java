@@ -123,6 +123,9 @@ public class Data {
     @SerializedName("destinationLNG")
     @Expose
     private String destinationLNG;
+    @SerializedName("material_image")
+    @Expose
+    private String material_image;
 
     @SerializedName("pod")
     @Expose
@@ -457,5 +460,13 @@ public class Data {
 
     public String getSourceLNG() {
         return sourceLNG;
+    }
+
+    public String getMaterial_image() {
+        return material_image;
+    }
+
+    public void setMaterial_image(String material_image) {
+        this.material_image = material_image;
     }
 }

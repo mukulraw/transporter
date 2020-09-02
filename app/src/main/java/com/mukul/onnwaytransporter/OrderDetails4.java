@@ -3,6 +3,7 @@ package com.mukul.onnwaytransporter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -22,6 +23,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,7 +54,6 @@ import com.mukul.onnwaytransporter.orderDetailsPOJO.Doc;
 import com.mukul.onnwaytransporter.orderDetailsPOJO.Pod;
 import com.mukul.onnwaytransporter.orderDetailsPOJO.orderDetailsBean;
 import com.mukul.onnwaytransporter.ordersPOJO.ordersBean;
-import com.mukul.onnwaytransporter.truckDetailsPOJO.truckDetailsBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -73,7 +74,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class OrderDetails2 extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class OrderDetails4 extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -132,11 +133,19 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
     TextView navigate;
     TextView laodernote;
 
+    private CardView partLoad1, partLoad2, partLoad3, partLoad4, partLoad5, partLoad6, partLoad7, partLoad8;
+    private double click1 = 0, click2 = 0, click3 = 0, click4 = 0, click5 = 0, click6 = 0, click7 = 0, click8 = 0;
+    private TextView truckTypeDetails, truckCapacity, boxLength, boxWidth, boxArea;
+    private TextView selectedArea, remainingArea;
+    String trucktitle, srcAddress, destAddress, pickUpDate, mid, loadType;
+    String length, width, height, desc, tid, passing;
+    float capcaity, len, wid;
+    List<String> selected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myReceiver = new MyReceiver();
-        setContentView(R.layout.activity_order_details2);
+        setContentView(R.layout.activity_order_details4);
 
         id = getIntent().getStringExtra("id");
 
@@ -150,6 +159,24 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 finish();
             }
         });
+
+        partLoad1 = findViewById(R.id.part_load_card_1);
+        partLoad2 = findViewById(R.id.part_load_card_2);
+        partLoad3 = findViewById(R.id.part_load_card_3);
+        partLoad4 = findViewById(R.id.part_load_card_4);
+        partLoad5 = findViewById(R.id.part_load_card_5);
+        partLoad6 = findViewById(R.id.part_load_card_6);
+        partLoad7 = findViewById(R.id.part_load_card_7);
+        partLoad8 = findViewById(R.id.part_load_card_8);
+
+        weight = findViewById(R.id.textView38);
+        truckTypeDetails = findViewById(R.id.truck_type);
+        truckCapacity = findViewById(R.id.truck_capacity);
+        boxLength = findViewById(R.id.box_length);
+        boxWidth = findViewById(R.id.box_width);
+        boxArea = findViewById(R.id.box_area);
+        selectedArea = findViewById(R.id.selected_area);
+        remainingArea = findViewById(R.id.remaining_area);
 
         laodernote = findViewById(R.id.textView46);
         navigate = findViewById(R.id.imageButton);
@@ -189,7 +216,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(OrderDetails2.this);
+                final Dialog dialog = new Dialog(OrderDetails4.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.add_vehicle_dialog);
@@ -232,7 +259,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                                             dialog.dismiss();
                                             onResume();
                                         } else {
-                                            Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
 
                                         bar.setVisibility(View.GONE);
@@ -245,10 +272,10 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                                 });
 
                             } else {
-                                Toast.makeText(OrderDetails2.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrderDetails4.this, "Invalid Driver Number", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(OrderDetails2.this, "Invalid Vehicle Number", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OrderDetails4.this, "Invalid Vehicle Number", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -266,7 +293,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails2.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails4.this);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -291,7 +318,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails2.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
@@ -317,7 +344,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails2.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails4.this);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -342,7 +369,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails2.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(OrderDetails4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
@@ -435,6 +462,40 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 paid.setText(item.getPaid());
                 laodernote.setText(item.getRemarks());
 
+                if (item.getSelected().contains("1")) {
+                    partLoad1.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("2")) {
+                    partLoad2.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("3")) {
+                    partLoad3.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("4")) {
+                    partLoad4.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("5")) {
+                    partLoad5.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("6")) {
+                    partLoad6.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("7")) {
+                    partLoad7.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("8")) {
+                    partLoad8.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+
+
+                truckTypeDetails.setText(item.getTruckTypeDetails());
+                truckCapacity.setText(item.getTruckCapacity());
+                boxLength.setText(item.getBoxLength());
+                boxWidth.setText(item.getBoxWidth());
+                boxArea.setText(item.getBoxArea() + " sq. ft.");
+                selectedArea.setText(item.getSelectedArea() + " sq. ft.");
+                remainingArea.setText(item.getRemainingArea() + " sq. ft.");
+
                 vehiclenumber.setText(item.getVehicleNumber());
                 drivernumber.setText(item.getDriverNumber());
 
@@ -455,13 +516,13 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 }
 
 
-                PODAdapter adapter = new PODAdapter(OrderDetails2.this, item.getPod());
-                GridLayoutManager manager = new GridLayoutManager(OrderDetails2.this, 2);
+                PODAdapter adapter = new PODAdapter(OrderDetails4.this, item.getPod());
+                GridLayoutManager manager = new GridLayoutManager(OrderDetails4.this, 2);
                 pod.setAdapter(adapter);
                 pod.setLayoutManager(manager);
 
-                DocAdapter adapter2 = new DocAdapter(OrderDetails2.this, item.getDoc());
-                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails2.this, 2);
+                DocAdapter adapter2 = new DocAdapter(OrderDetails4.this, item.getDoc());
+                GridLayoutManager manager2 = new GridLayoutManager(OrderDetails4.this, 2);
                 documents.setAdapter(adapter2);
                 documents.setLayoutManager(manager2);
 
@@ -574,7 +635,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
 
             Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(OrderDetails2.this, uri1);
+            String ypath = getPath(OrderDetails4.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -610,7 +671,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -653,7 +714,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -673,7 +734,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
 
             Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(OrderDetails2.this, uri1);
+            String ypath = getPath(OrderDetails4.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -709,7 +770,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -752,7 +813,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 @Override
                 public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
 
-                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -881,7 +942,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                     if (oid.length() > 0) {
 
 
-                        new AlertDialog.Builder(OrderDetails2.this)
+                        new AlertDialog.Builder(OrderDetails4.this)
                                 .setTitle("Start Booking")
                                 .setMessage("Are you sure you want to start this Booking?")
 
@@ -925,7 +986,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
 
 
                                                 } else {
-                                                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                                 progress.setVisibility(View.GONE);
                                             }
@@ -955,7 +1016,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                     if (oid.length() > 0) {
 
 
-                        new AlertDialog.Builder(OrderDetails2.this)
+                        new AlertDialog.Builder(OrderDetails4.this)
                                 .setTitle("Complete Booking")
                                 .setMessage("Are you sure you want to complete this Booking?")
 
@@ -992,7 +1053,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
 
 
                                                 } else {
-                                                    Toast.makeText(OrderDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(OrderDetails4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                                 progress.setVisibility(View.GONE);
                                             }
@@ -1175,7 +1236,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                         @Override
                         public void onClick(View view) {
                             // Request permission
-                            ActivityCompat.requestPermissions(OrderDetails2.this,
+                            ActivityCompat.requestPermissions(OrderDetails4.this,
                                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                     REQUEST_PERMISSIONS_REQUEST_CODE);
                         }
@@ -1186,7 +1247,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
             // Request permission. It's possible this can be auto answered if device policy
             // sets the permission in a given state or the user denied the permission
             // previously and checked "Never ask again".
-            ActivityCompat.requestPermissions(OrderDetails2.this,
+            ActivityCompat.requestPermissions(OrderDetails4.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }

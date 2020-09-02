@@ -134,15 +134,28 @@ public class OngoingOrderFragment2 extends Fragment {
             holder.status.setText(item.getStatus());
             holder.freight.setText("\u20B9" + item.getFare());
 
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context , OrderDetails2.class);
-                    intent.putExtra("id" , item.getAid());
-                    context.startActivity(intent);
+
+                    if (item.getLaodType().equals("full"))
+                    {
+                        Intent intent = new Intent(context , OrderDetails2.class);
+                        intent.putExtra("id" , item.getAid());
+                        context.startActivity(intent);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(context , OrderDetails4.class);
+                        intent.putExtra("id" , item.getAid());
+                        context.startActivity(intent);
+                    }
+
+
                 }
             });
+
+
 
 
         }

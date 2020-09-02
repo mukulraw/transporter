@@ -47,7 +47,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderDetails3"></activity>
+        <activity android:name=".TruckDetails2"></activity>
+        <activity android:name=".OrderDetails3" />
         <activity android:name=".EditProfile" />
         <activity android:name=".BidDetails2" />
         <activity android:name=".GettingStarted" />

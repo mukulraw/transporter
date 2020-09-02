@@ -108,8 +108,8 @@ public class SelectSpace extends AppCompatActivity {
 
         truckTypeDetails.setText(trucktitle);
         truckCapacity.setText(capcaity + " MT");
-        boxLength.setText(len + " Foot");
-        boxWidth.setText(wid + "Foot");
+        boxLength.setText(len + " ft.");
+        boxWidth.setText(wid + " ft.");
         boxArea.setText("" + len * wid);
 
         totalArea = (len * 4) * (wid * 2);

@@ -52,6 +52,30 @@ public class Data {
     @SerializedName("material")
     @Expose
     private String material;
+    @SerializedName("truckTypeDetails")
+    @Expose
+    private String truckTypeDetails;
+    @SerializedName("truckCapacity")
+    @Expose
+    private String truckCapacity;
+    @SerializedName("boxLength")
+    @Expose
+    private String boxLength;
+    @SerializedName("boxWidth")
+    @Expose
+    private String boxWidth;
+    @SerializedName("boxArea")
+    @Expose
+    private String boxArea;
+    @SerializedName("selectedArea")
+    @Expose
+    private String selectedArea;
+    @SerializedName("remainingArea")
+    @Expose
+    private String remainingArea;
+    @SerializedName("selected")
+    @Expose
+    private String selected;
 
     public String getId() {
         return id;
@@ -179,5 +203,69 @@ public class Data {
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public String getTruckCapacity() {
+        return truckCapacity;
+    }
+
+    public String getBoxLength() {
+        return boxLength;
+    }
+
+    public String getTruckTypeDetails() {
+        return truckTypeDetails;
+    }
+
+    public String getBoxArea() {
+        return boxArea;
+    }
+
+    public String getBoxWidth() {
+        return boxWidth;
+    }
+
+    public String getRemainingArea() {
+        return remainingArea;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public String getSelectedArea() {
+        return selectedArea;
+    }
+
+    public void setBoxLength(String boxLength) {
+        this.boxLength = boxLength;
+    }
+
+    public void setTruckCapacity(String truckCapacity) {
+        this.truckCapacity = truckCapacity;
+    }
+
+    public void setBoxArea(String boxArea) {
+        this.boxArea = boxArea;
+    }
+
+    public void setBoxWidth(String boxWidth) {
+        this.boxWidth = boxWidth;
+    }
+
+    public void setRemainingArea(String remainingArea) {
+        this.remainingArea = remainingArea;
+    }
+
+    public void setTruckTypeDetails(String truckTypeDetails) {
+        this.truckTypeDetails = truckTypeDetails;
+    }
+
+    public void setSelectedArea(String selectedArea) {
+        this.selectedArea = selectedArea;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 }

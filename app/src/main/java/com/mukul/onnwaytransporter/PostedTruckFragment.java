@@ -148,9 +148,21 @@ public class PostedTruckFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context , TruckDetails.class);
-                    intent.putExtra("id" , item.getId());
-                    context.startActivity(intent);
+
+                    if (item.getLaodType().equals("full"))
+                    {
+                        Intent intent = new Intent(context , TruckDetails.class);
+                        intent.putExtra("id" , item.getId());
+                        context.startActivity(intent);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(context , TruckDetails2.class);
+                        intent.putExtra("id" , item.getId());
+                        context.startActivity(intent);
+                    }
+
+
                 }
             });
 

@@ -2,6 +2,7 @@ package com.mukul.onnwaytransporter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -81,6 +83,15 @@ public class OrderDetails3 extends AppCompatActivity {
     ImageView photo;
     TextView laodernote;
 
+    private CardView partLoad1, partLoad2, partLoad3, partLoad4, partLoad5, partLoad6, partLoad7, partLoad8;
+    private double click1 = 0, click2 = 0, click3 = 0, click4 = 0, click5 = 0, click6 = 0, click7 = 0, click8 = 0;
+    private TextView truckTypeDetails, truckCapacity, boxLength, boxWidth, boxArea;
+    private TextView selectedArea, remainingArea;
+    String trucktitle, srcAddress, destAddress, pickUpDate, mid, loadType;
+    String length, width, height, desc, tid, passing;
+    float capcaity, len, wid;
+    List<String> selected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +109,24 @@ public class OrderDetails3 extends AppCompatActivity {
                 finish();
             }
         });
+
+        partLoad1 = findViewById(R.id.part_load_card_1);
+        partLoad2 = findViewById(R.id.part_load_card_2);
+        partLoad3 = findViewById(R.id.part_load_card_3);
+        partLoad4 = findViewById(R.id.part_load_card_4);
+        partLoad5 = findViewById(R.id.part_load_card_5);
+        partLoad6 = findViewById(R.id.part_load_card_6);
+        partLoad7 = findViewById(R.id.part_load_card_7);
+        partLoad8 = findViewById(R.id.part_load_card_8);
+
+        weight = findViewById(R.id.textView38);
+        truckTypeDetails = findViewById(R.id.truck_type);
+        truckCapacity = findViewById(R.id.truck_capacity);
+        boxLength = findViewById(R.id.box_length);
+        boxWidth = findViewById(R.id.box_width);
+        boxArea = findViewById(R.id.box_area);
+        selectedArea = findViewById(R.id.selected_area);
+        remainingArea = findViewById(R.id.remaining_area);
 
         dimension = findViewById(R.id.textView134);
         laodernote = findViewById(R.id.textView46);
@@ -342,6 +371,40 @@ public class OrderDetails3 extends AppCompatActivity {
                 fare.setText("₹ " + item.getFare());
                 paid.setText("₹ " + item.getPaid());
                 laodernote.setText(item.getRemarks());
+
+                if (item.getSelected().contains("1")) {
+                    partLoad1.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("2")) {
+                    partLoad2.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("3")) {
+                    partLoad3.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("4")) {
+                    partLoad4.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("5")) {
+                    partLoad5.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("6")) {
+                    partLoad6.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("7")) {
+                    partLoad7.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+                if (item.getSelected().contains("8")) {
+                    partLoad8.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                }
+
+
+                truckTypeDetails.setText(item.getTruckTypeDetails());
+                truckCapacity.setText(item.getTruckCapacity());
+                boxLength.setText(item.getBoxLength());
+                boxWidth.setText(item.getBoxWidth());
+                boxArea.setText(item.getBoxArea() + " sq. ft.");
+                selectedArea.setText(item.getSelectedArea() + " sq. ft.");
+                remainingArea.setText(item.getRemainingArea() + " sq. ft.");
 
                 dimension.setText(item.getLength() + " X " + item.getWidth() + " X " + item.getHeight());
                 if (item.getMaterial_image().length() > 0) {

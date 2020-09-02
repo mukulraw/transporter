@@ -46,6 +46,12 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/getNewName.php")
+    Call<updateProfileBean> getNewName(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
     @POST("android/getBiddings.php")
     Call<bidsBean> getBiddings(
             @Part("user_id") String user_id

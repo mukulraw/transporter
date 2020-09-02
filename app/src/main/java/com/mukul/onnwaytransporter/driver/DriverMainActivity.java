@@ -6,19 +6,29 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.View;
+
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import android.view.MenuItem;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mukul.onnwaytransporter.AllApiIneterface;
 import com.mukul.onnwaytransporter.FindTruckFragment;
 import com.mukul.onnwaytransporter.FindTruckFragment2;
 import com.mukul.onnwaytransporter.MainActivity;
@@ -41,6 +52,8 @@ import com.mukul.onnwaytransporter.Web;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity;
 import com.mukul.onnwaytransporter.BuildConfig;
 import com.mukul.onnwaytransporter.R;
+import com.mukul.onnwaytransporter.networking.AppController;
+import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
 import com.mukul.onnwaytransporter.webview.AboutOnwayFragment;
 import com.mukul.onnwaytransporter.webview.ContactUsFragment;
 import com.mukul.onnwaytransporter.webview.FAQFragment;
@@ -52,6 +65,13 @@ import com.mukul.onnwaytransporter.splash.SplashActivity;
 
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 public class DriverMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,7 +82,7 @@ public class DriverMainActivity extends AppCompatActivity
 
     private LoadRequestDriverFragment loadRequestDriverFragment;
     private MyOrderDriverFragment myOrderDriverFragment;
-    private  PostedTruckDriverFragment postedTruckDriverFragment;
+    private PostedTruckDriverFragment postedTruckDriverFragment;
 
     private PostedTruckFragment postedTruckFragment;
     private MyOrderFragment2 myOrderFragment;
@@ -74,8 +94,6 @@ public class DriverMainActivity extends AppCompatActivity
 
     public static String currenntMobileActive;
     public static String currentUserName;
-
-
 
 
     @Override
@@ -115,21 +133,20 @@ public class DriverMainActivity extends AppCompatActivity
 
         //bottom navigation bar
         driverBottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav_driver);
-        driverFrameLayout = (FrameLayout)findViewById(R.id.main_frame_driver);
+        driverFrameLayout = (FrameLayout) findViewById(R.id.main_frame_driver);
 
         //nav header
 
 
-
         //constructor for the fragments
         loadRequestDriverFragment = new LoadRequestDriverFragment();
-        myOrderDriverFragment= new MyOrderDriverFragment();
+        myOrderDriverFragment = new MyOrderDriverFragment();
         postedTruckDriverFragment = new PostedTruckDriverFragment();
 
 
         postedTruckFragment = new PostedTruckFragment();
         myOrderFragment = new MyOrderFragment2();
-        postTruckFrag=new FindTruckFragment2();
+        postTruckFrag = new FindTruckFragment2();
 
         //set the default fragment of bottom navigation bar to be myBidFragment
         setFragment(postTruckFrag);
@@ -139,23 +156,23 @@ public class DriverMainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
 
-                    case R.id.load_request_driver :
+                    case R.id.load_request_driver:
                         //sets the color of bottom navigation bar to coloPrimary on clicking the mybid icon
                         //myBottomNav.setItemBackgroundResource(R.color.colorPrimary);
 //                        hideSoftKeyboard(DriverMainActivity.this);
                         setFragment(postTruckFrag);
                         return true;
-                    case R.id.posted_truck_driver :
+                    case R.id.posted_truck_driver:
 //                        hideSoftKeyboard(DriverMainActivity.this);
                         setFragment(postedTruckFragment);
                         return true;
-                    case R.id.my_order_driver :
+                    case R.id.my_order_driver:
 //                        hideSoftKeyboard(DriverMainActivity.this);
                         setFragment(myOrderFragment);
                         return true;
-                    default :
+                    default:
                         return false;
                 }
 
@@ -179,8 +196,36 @@ public class DriverMainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
-        name.setText(SharePreferenceUtils.getInstance().getString("name"));
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Log.d("name", SharePreferenceUtils.getInstance().getString("userId"));
+        Call<updateProfileBean> call = cr.getNewName(
+                SharePreferenceUtils.getInstance().getString("userId")
+        );
+
+        call.enqueue(new Callback<updateProfileBean>() {
+            @Override
+            public void onResponse(Call<updateProfileBean> call, Response<updateProfileBean> response) {
+
+                Log.d("name", response.body().getMessage());
+                SharePreferenceUtils.getInstance().saveString("name", response.body().getMessage());
+                phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+                name.setText(SharePreferenceUtils.getInstance().getString("name"));
+            }
+
+            @Override
+            public void onFailure(Call<updateProfileBean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
     }
 
@@ -195,7 +240,6 @@ public class DriverMainActivity extends AppCompatActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -203,49 +247,48 @@ public class DriverMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(DriverMainActivity.this , ProfileActivity.class);
+            Intent intent = new Intent(DriverMainActivity.this, ProfileActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_about) {
-            Intent intent = new Intent(DriverMainActivity.this , Web.class);
-            intent.putExtra("title" , "About Onnway");
-            intent.putExtra("url" , "https://www.onnway.com/aboutonway.php");
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(DriverMainActivity.this, Web.class);
+            intent.putExtra("title", "About Onnway");
+            intent.putExtra("url", "https://www.onnway.com/aboutonway.php");
             startActivity(intent);
         } else if (id == R.id.nav_faq) {
-            Intent intent = new Intent(DriverMainActivity.this , Web.class);
-            intent.putExtra("title" , "FAQs");
-            intent.putExtra("url" , "https://www.onnway.com/faqonnway.php");
+            Intent intent = new Intent(DriverMainActivity.this, Web.class);
+            intent.putExtra("title", "FAQs");
+            intent.putExtra("url", "https://www.onnway.com/faqonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
-            Intent intent = new Intent(DriverMainActivity.this , Web.class);
-            intent.putExtra("title" , "Contact Us");
-            intent.putExtra("url" , "https://www.onnway.com/contactonnway.php");
+            Intent intent = new Intent(DriverMainActivity.this, Web.class);
+            intent.putExtra("title", "Contact Us");
+            intent.putExtra("url", "https://www.onnway.com/contactonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_terms_and_condition) {
-            Intent intent = new Intent(DriverMainActivity.this , Web.class);
-            intent.putExtra("title" , "Terms and Conditions");
-            intent.putExtra("url" , "https://www.onnway.com/termsonnway.php");
+            Intent intent = new Intent(DriverMainActivity.this, Web.class);
+            intent.putExtra("title", "Terms and Conditions");
+            intent.putExtra("url", "https://www.onnway.com/termsonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_payment_terms) {
-            Intent intent = new Intent(DriverMainActivity.this , Web.class);
-            intent.putExtra("title" , "Payment Terms");
-            intent.putExtra("url" , "https://www.onnway.com/paymentonnway.php");
+            Intent intent = new Intent(DriverMainActivity.this, Web.class);
+            intent.putExtra("title", "Payment Terms");
+            intent.putExtra("url", "https://www.onnway.com/paymentonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
-            Intent intent = new Intent(DriverMainActivity.this , Web.class);
-            intent.putExtra("title" , "Privacy Policy");
-            intent.putExtra("url" , "https://www.onnway.com/privacyonnway.php");
+            Intent intent = new Intent(DriverMainActivity.this, Web.class);
+            intent.putExtra("title", "Privacy Policy");
+            intent.putExtra("url", "https://www.onnway.com/privacyonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_share) {
             try {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                String shareMessage= "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                String shareMessage = "\nLet me recommend you this application\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "choose one"));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 //e.toString();
             }
         } else if (id == R.id.nav_logout) {
@@ -284,17 +327,17 @@ public class DriverMainActivity extends AppCompatActivity
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(
                 Activity.INPUT_METHOD_SERVICE
         );
-        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
     public void findMobile() {
         Cursor cursor = sharedData.getAllData();
-        if(cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             return;
         }
 
         StringBuffer buffer = new StringBuffer();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
 //            buffer.append("Name" + cursor.getString(0));
             currenntMobileActive = cursor.getString(1);
         }
@@ -302,12 +345,12 @@ public class DriverMainActivity extends AppCompatActivity
 
     public void findName() {
         Cursor cursor = sharedData.getAllData();
-        if(cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             return;
         }
 
 //        StringBuffer buffer = new StringBuffer();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
 //            buffer.append("Name" + cursor.getString(0));
             currentUserName = cursor.getString(0);
         }
@@ -317,7 +360,7 @@ public class DriverMainActivity extends AppCompatActivity
 
     public void deleteData() {
         Integer deletedRow = sharedData.deleteData(currenntMobileActive);
-        if(deletedRow > 0){
+        if (deletedRow > 0) {
             //deleted
             Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
         }

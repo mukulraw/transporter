@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -35,6 +36,8 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
+import com.mukul.onnwaytransporter.networking.AppController;
+import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
 import com.mukul.onnwaytransporter.webview.AboutOnwayFragment;
 import com.mukul.onnwaytransporter.webview.ContactUsFragment;
 import com.mukul.onnwaytransporter.webview.FAQFragment;
@@ -51,6 +54,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -178,8 +188,37 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
-        name.setText(SharePreferenceUtils.getInstance().getString("name"));
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Log.d("name", SharePreferenceUtils.getInstance().getString("userId"));
+        Call<updateProfileBean> call = cr.getNewName(
+                SharePreferenceUtils.getInstance().getString("userId")
+        );
+
+        call.enqueue(new Callback<updateProfileBean>() {
+            @Override
+            public void onResponse(Call<updateProfileBean> call, Response<updateProfileBean> response) {
+
+                Log.d("name", response.body().getMessage());
+                SharePreferenceUtils.getInstance().saveString("name", response.body().getMessage());
+                phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+                name.setText(SharePreferenceUtils.getInstance().getString("name"));
+            }
+
+            @Override
+            public void onFailure(Call<updateProfileBean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
     }
 
@@ -201,56 +240,54 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(MainActivity.this , ProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_about) {
-            Intent intent = new Intent(MainActivity.this , Web.class);
-            intent.putExtra("title" , "About Onnway");
-            intent.putExtra("url" , "https://www.onnway.com/aboutonway.php");
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(MainActivity.this, Web.class);
+            intent.putExtra("title", "About Onnway");
+            intent.putExtra("url", "https://www.onnway.com/aboutonway.php");
             startActivity(intent);
         } else if (id == R.id.nav_faq) {
-            Intent intent = new Intent(MainActivity.this , Web.class);
-            intent.putExtra("title" , "FAQs");
-            intent.putExtra("url" , "https://www.onnway.com/faqonnway.php");
+            Intent intent = new Intent(MainActivity.this, Web.class);
+            intent.putExtra("title", "FAQs");
+            intent.putExtra("url", "https://www.onnway.com/faqonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
-            Intent intent = new Intent(MainActivity.this , Web.class);
-            intent.putExtra("title" , "Contact Us");
-            intent.putExtra("url" , "https://www.onnway.com/contactonnway.php");
+            Intent intent = new Intent(MainActivity.this, Web.class);
+            intent.putExtra("title", "Contact Us");
+            intent.putExtra("url", "https://www.onnway.com/contactonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_terms_and_condition) {
-            Intent intent = new Intent(MainActivity.this , Web.class);
-            intent.putExtra("title" , "Terms and Conditions");
-            intent.putExtra("url" , "https://www.onnway.com/termsonnway.php");
+            Intent intent = new Intent(MainActivity.this, Web.class);
+            intent.putExtra("title", "Terms and Conditions");
+            intent.putExtra("url", "https://www.onnway.com/termsonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_payment_terms) {
-            Intent intent = new Intent(MainActivity.this , Web.class);
-            intent.putExtra("title" , "Payment Terms");
-            intent.putExtra("url" , "https://www.onnway.com/paymentonnway.php");
+            Intent intent = new Intent(MainActivity.this, Web.class);
+            intent.putExtra("title", "Payment Terms");
+            intent.putExtra("url", "https://www.onnway.com/paymentonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_privacy_policy) {
-            Intent intent = new Intent(MainActivity.this , Web.class);
-            intent.putExtra("title" , "Privacy Policy");
-            intent.putExtra("url" , "https://www.onnway.com/privacyonnway.php");
+            Intent intent = new Intent(MainActivity.this, Web.class);
+            intent.putExtra("title", "Privacy Policy");
+            intent.putExtra("url", "https://www.onnway.com/privacyonnway.php");
             startActivity(intent);
         } else if (id == R.id.nav_share) {
             try {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                String shareMessage= "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                String shareMessage = "\nLet me recommend you this application\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
                 shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "choose one"));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 //e.toString();
             }
         } else if (id == R.id.nav_logout) {

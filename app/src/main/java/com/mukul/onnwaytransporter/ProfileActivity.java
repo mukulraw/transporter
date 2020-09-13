@@ -133,8 +133,8 @@ public class ProfileActivity extends AppCompatActivity {
         kycProvider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(ProfileActivity.this, KYC.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(ProfileActivity.this, KYC.class);
+                startActivity(intent);
 
             }
         });

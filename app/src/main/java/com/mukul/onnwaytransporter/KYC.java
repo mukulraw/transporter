@@ -22,7 +22,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.mukul.onnwaytransporter.confirm_full_POJO.confirm_full_bean;
 import com.mukul.onnwaytransporter.networking.AppController;
+import com.mukul.onnwaytransporter.profilePOJO.Data;
+import com.mukul.onnwaytransporter.profilePOJO.profileBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -43,21 +46,21 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class KYC extends AppCompatActivity {
 
-    ImageView pan , af , ab;
-    Button upload1 , upload2 , upload3;
+    ImageView af, ab, df, db, rf, rb;
+    Button upload1, upload2, upload3, upload4, upload5, upload6;
     ProgressBar progress;
     private Uri uri1;
     private File f1;
     String ty = "";
 
-    ImageView pan_verify , af_verify , ab_verify;
+    ImageView af_verify, ab_verify, df_verify, db_verify, rf_verify, rb_verify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_k_y_c);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_activity_shipment);
+        Toolbar mToolbar = findViewById(R.id.toolbar_activity_shipment);
         mToolbar.setTitle("KYC");
         mToolbar.setNavigationIcon(R.drawable.ic_next_back);
         mToolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
@@ -68,16 +71,25 @@ public class KYC extends AppCompatActivity {
             }
         });
 
-        pan = findViewById(R.id.imageView10);
-        af = findViewById(R.id.imageView11);
-        ab = findViewById(R.id.imageView12);
+        af = findViewById(R.id.imageView10);
+        ab = findViewById(R.id.imageView11);
+        df = findViewById(R.id.imageView12);
+        db = findViewById(R.id.imageView7);
+        rf = findViewById(R.id.imageView9);
+        rb = findViewById(R.id.imageView13);
         upload1 = findViewById(R.id.button8);
         upload2 = findViewById(R.id.button9);
         upload3 = findViewById(R.id.button10);
+        upload4 = findViewById(R.id.button11);
+        upload5 = findViewById(R.id.button12);
+        upload6 = findViewById(R.id.button13);
         progress = findViewById(R.id.progressBar);
-        pan_verify = findViewById(R.id.imageView15);
-        af_verify = findViewById(R.id.imageView16);
-        ab_verify = findViewById(R.id.imageView17);
+        af_verify = findViewById(R.id.imageView15);
+        ab_verify = findViewById(R.id.imageView16);
+        df_verify = findViewById(R.id.imageView17);
+        db_verify = findViewById(R.id.imageView14);
+        rf_verify = findViewById(R.id.imageView19);
+        rb_verify = findViewById(R.id.imageView20);
 
 
         upload1.setOnClickListener(new View.OnClickListener() {
@@ -114,14 +126,14 @@ public class KYC extends AppCompatActivity {
 
                             uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
-                            ty = "pan";
+                            ty = "front_aadhar";
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
                             getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivityForResult(getpic, 1);
                         } else if (items[item].equals("Choose from Gallery")) {
-                            ty = "pan";
+                            ty = "front_aadhar";
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 2);
                         } else if (items[item].equals("Cancel")) {
@@ -168,14 +180,14 @@ public class KYC extends AppCompatActivity {
 
                             uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
-                            ty = "af";
+                            ty = "back_aadhar";
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
                             getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivityForResult(getpic, 1);
                         } else if (items[item].equals("Choose from Gallery")) {
-                            ty = "af";
+                            ty = "back_aadhar";
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 2);
                         } else if (items[item].equals("Cancel")) {
@@ -222,14 +234,176 @@ public class KYC extends AppCompatActivity {
 
                             uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
-                            ty = "ab";
+                            ty = "front_driving";
 
                             Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
                             getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivityForResult(getpic, 1);
                         } else if (items[item].equals("Choose from Gallery")) {
-                            ty = "ab";
+                            ty = "front_driving";
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        upload4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f1 = new File(file);
+                            try {
+                                f1.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+
+                            ty = "back_driving";
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 1);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            ty = "back_driving";
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        upload5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f1 = new File(file);
+                            try {
+                                f1.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+
+                            ty = "front_registration";
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 1);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            ty = "front_registration";
+                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 2);
+                        } else if (items[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+        upload6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final CharSequence[] items = {"Take Photo from Camera",
+                        "Choose from Gallery",
+                        "Cancel"};
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this);
+                builder.setTitle("Add Photo!");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (items[item].equals("Take Photo from Camera")) {
+                            final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Folder/";
+                            File newdir = new File(dir);
+                            try {
+                                newdir.mkdirs();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            String file = dir + DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString() + ".jpg";
+
+
+                            f1 = new File(file);
+                            try {
+                                f1.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+
+                            ty = "back_registration";
+
+                            Intent getpic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            getpic.putExtra(MediaStore.EXTRA_OUTPUT, uri1);
+                            getpic.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivityForResult(getpic, 1);
+                        } else if (items[item].equals("Choose from Gallery")) {
+                            ty = "back_registration";
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 2);
                         } else if (items[item].equals("Cancel")) {
@@ -248,7 +422,7 @@ public class KYC extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        /*progress.setVisibility(View.VISIBLE);
+        progress.setVisibility(View.VISIBLE);
 
         AppController b = (AppController) getApplicationContext();
 
@@ -260,9 +434,9 @@ public class KYC extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Log.d("progie" , SharePreferenceUtils.getInstance().getString("userId"));
+        Log.d("progie", SharePreferenceUtils.getInstance().getString("userId"));
 
-        Call<profileBean> call = cr.getLoaderProfile(SharePreferenceUtils.getInstance().getString("userId"));
+        Call<profileBean> call = cr.getProviderProfile(SharePreferenceUtils.getInstance().getString("userId"));
 
         call.enqueue(new Callback<profileBean>() {
             @Override
@@ -272,42 +446,62 @@ public class KYC extends AppCompatActivity {
 
                 DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).resetViewBeforeLoading(false).showImageForEmptyUri(R.drawable.ic_customer).build();
                 ImageLoader loader = ImageLoader.getInstance();
-                loader.displayImage(item.getPan() , pan , options);
-                loader.displayImage(item.getAb() , ab , options);
-                loader.displayImage(item.getAf() , af , options);
+                loader.displayImage(item.getFrontAadhar(), af, options);
+                loader.displayImage(item.getBackAadhar(), ab, options);
+                loader.displayImage(item.getFrontDriving(), df, options);
+                loader.displayImage(item.getBackDriving(), db, options);
+                loader.displayImage(item.getFrontRegistration(), rf, options);
+                loader.displayImage(item.getBackRegistration(), rb, options);
 
-                if (item.getPan_verify().equals("verified"))
-                {
-                    pan_verify.setVisibility(View.VISIBLE);
+                if (item.getFaVerify().equals("verified")) {
+                    af_verify.setVisibility(View.VISIBLE);
                     upload1.setEnabled(false);
-                }
-                else
-                {
-                    pan_verify.setVisibility(View.GONE);
+                } else {
+                    af_verify.setVisibility(View.GONE);
                     upload1.setEnabled(true);
                 }
 
-                if (item.getAf_verify().equals("verified"))
-                {
-                    af_verify.setVisibility(View.VISIBLE);
+                if (item.getBaVerify().equals("verified")) {
+                    ab_verify.setVisibility(View.VISIBLE);
                     upload2.setEnabled(false);
-                }
-                else
-                {
-                    af_verify.setVisibility(View.GONE);
+                } else {
+                    ab_verify.setVisibility(View.GONE);
                     upload2.setEnabled(true);
                 }
 
-                if (item.getAb_verify().equals("verified"))
-                {
-                    ab_verify.setVisibility(View.VISIBLE);
+                if (item.getFdVerify().equals("verified")) {
+                    df_verify.setVisibility(View.VISIBLE);
                     upload3.setEnabled(false);
-                }
-                else
-                {
-                    ab_verify.setVisibility(View.GONE);
+                } else {
+                    df_verify.setVisibility(View.GONE);
                     upload3.setEnabled(true);
                 }
+
+
+                if (item.getBdVerify().equals("verified")) {
+                    db_verify.setVisibility(View.VISIBLE);
+                    upload4.setEnabled(false);
+                } else {
+                    db_verify.setVisibility(View.GONE);
+                    upload4.setEnabled(true);
+                }
+
+                if (item.getFrVerify().equals("verified")) {
+                    rf_verify.setVisibility(View.VISIBLE);
+                    upload5.setEnabled(false);
+                } else {
+                    rf_verify.setVisibility(View.GONE);
+                    upload5.setEnabled(true);
+                }
+
+                if (item.getBrVerify().equals("verified")) {
+                    rb_verify.setVisibility(View.VISIBLE);
+                    upload6.setEnabled(false);
+                } else {
+                    rb_verify.setVisibility(View.GONE);
+                    upload6.setEnabled(true);
+                }
+
 
                 progress.setVisibility(View.GONE);
 
@@ -318,11 +512,11 @@ public class KYC extends AppCompatActivity {
                 progress.setVisibility(View.GONE);
                 t.printStackTrace();
             }
-        });*/
+        });
 
     }
 
-    /*@Override
+    @Override
     public void onActivityResult(final int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -361,7 +555,7 @@ public class KYC extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<confirm_full_bean> call = cr.updateLoaderKyc(SharePreferenceUtils.getInstance().getString("userId") , ty , body);
+            Call<confirm_full_bean> call = cr.updateProviderKYC(SharePreferenceUtils.getInstance().getString("userId"), ty, body);
 
             call.enqueue(new Callback<confirm_full_bean>() {
                 @Override
@@ -404,7 +598,7 @@ public class KYC extends AppCompatActivity {
 
             AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-            Call<confirm_full_bean> call = cr.updateLoaderKyc(SharePreferenceUtils.getInstance().getString("userId") , ty , body);
+            Call<confirm_full_bean> call = cr.updateProviderKYC(SharePreferenceUtils.getInstance().getString("userId"), ty, body);
 
             call.enqueue(new Callback<confirm_full_bean>() {
                 @Override
@@ -425,11 +619,7 @@ public class KYC extends AppCompatActivity {
         }
 
 
-
-
-
-
-    }*/
+    }
 
     private static String getPath(final Context context, final Uri uri) {
 

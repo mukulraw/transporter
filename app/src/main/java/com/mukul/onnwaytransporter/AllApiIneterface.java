@@ -3,12 +3,14 @@ package com.mukul.onnwaytransporter;
 
 import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
 import com.mukul.onnwaytransporter.bidsPOJO.bidsBean;
+import com.mukul.onnwaytransporter.confirm_full_POJO.confirm_full_bean;
 import com.mukul.onnwaytransporter.myTrucksPOJO.myTrucksBean;
 import com.mukul.onnwaytransporter.orderDetailsPOJO.orderDetailsBean;
 import com.mukul.onnwaytransporter.ordersPOJO.ordersBean;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
 import com.mukul.onnwaytransporter.postLoadPOJO.postLoadBean;
 import com.mukul.onnwaytransporter.postedTrucksPOJO.postedTrucksBean;
+import com.mukul.onnwaytransporter.profilePOJO.profileBean;
 import com.mukul.onnwaytransporter.routesPOJO.routesBean;
 import com.mukul.onnwaytransporter.truckDetailsPOJO.truckDetailsBean;
 import com.mukul.onnwaytransporter.truckTypePOJO.truckTypeBean;
@@ -43,6 +45,20 @@ public interface AllApiIneterface {
             @Part("name") String name,
             @Part("transport_name") String transport_name,
             @Part("city") String city
+    );
+
+    @Multipart
+    @POST("android/getProviderProfile.php")
+    Call<profileBean> getProviderProfile(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
+    @POST("android/updateProviderKYC.php")
+    Call<confirm_full_bean> updateProviderKYC(
+            @Part("user_id") String user_id,
+            @Part("type") String type,
+            @Part MultipartBody.Part file
     );
 
     @Multipart

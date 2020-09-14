@@ -1,5 +1,6 @@
 package com.mukul.onnwaytransporter;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +37,8 @@ import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hsalf.smileyrating.SmileyRating;
+import com.mukul.onnwaytransporter.confirm_full_POJO.confirm_full_bean;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
 import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.updateProfilePOJO.updateProfileBean;
@@ -197,9 +201,11 @@ public class MainActivity extends AppCompatActivity
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Log.d("name", SharePreferenceUtils.getInstance().getString("userId"));
+
+
+        //Log.d("name", SharePreferenceUtils.getInstance().getString("userId"));
         Call<updateProfileBean> call = cr.getNewName(
                 SharePreferenceUtils.getInstance().getString("userId")
         );
@@ -219,6 +225,9 @@ public class MainActivity extends AppCompatActivity
                 t.printStackTrace();
             }
         });
+
+
+
 
     }
 
@@ -307,9 +316,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, SplashActivity.class));
             finishAffinity();
 
-        }
-        else if (id == R.id.feedback)
-        {
+        } else if (id == R.id.feedback) {
             Intent intent = new Intent(MainActivity.this, Feedback.class);
             startActivity(intent);
         }

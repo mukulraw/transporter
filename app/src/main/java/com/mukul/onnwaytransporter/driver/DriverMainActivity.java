@@ -1,6 +1,7 @@
 package com.mukul.onnwaytransporter.driver;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -33,12 +34,14 @@ import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.hsalf.smileyrating.SmileyRating;
 import com.mukul.onnwaytransporter.AllApiIneterface;
 import com.mukul.onnwaytransporter.FindTruckFragment;
 import com.mukul.onnwaytransporter.FindTruckFragment2;
@@ -49,6 +52,7 @@ import com.mukul.onnwaytransporter.PostedTruckFragment;
 import com.mukul.onnwaytransporter.ProfileActivity;
 import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.Web;
+import com.mukul.onnwaytransporter.confirm_full_POJO.confirm_full_bean;
 import com.mukul.onnwaytransporter.driver.profilerelated.DriverProfileActivity;
 import com.mukul.onnwaytransporter.BuildConfig;
 import com.mukul.onnwaytransporter.R;
@@ -204,7 +208,7 @@ public class DriverMainActivity extends AppCompatActivity
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+        final AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
         Log.d("name", SharePreferenceUtils.getInstance().getString("userId"));
         Call<updateProfileBean> call = cr.getNewName(
@@ -223,6 +227,78 @@ public class DriverMainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<updateProfileBean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        Log.d("asdsd", SharePreferenceUtils.getInstance().getString("phone"));
+        Call<confirm_full_bean> call2 = cr.checkDriverRating(
+                SharePreferenceUtils.getInstance().getString("phone")
+        );
+
+        call2.enqueue(new Callback<confirm_full_bean>() {
+            @Override
+            public void onResponse(Call<confirm_full_bean> call, final Response<confirm_full_bean> response) {
+
+                if (response.body().getStatus().equals("1")) {
+                    final Dialog dialog = new Dialog(DriverMainActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.rating_dialog);
+                    dialog.show();
+
+                    TextView title = dialog.findViewById(R.id.textView143);
+                    final SmileyRating rating = dialog.findViewById(R.id.textView142);
+                    Button submit = dialog.findViewById(R.id.button18);
+                    title.setText("Please rate Order #" + response.body().getMessage());
+
+                    rating.setRating(5);
+
+                    submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            SmileyRating.Type smiley = rating.getSelectedSmiley();
+
+                            // You can get the user rating too
+                            // rating will between 1 to 5, but -1 is none selected
+                            int rating2 = smiley.getRating();
+
+                            Call<confirm_full_bean> call2 = cr.submitDriverRating(
+                                    response.body().getMessage(),
+                                    String.valueOf(rating2)
+                            );
+
+                            call2.enqueue(new Callback<confirm_full_bean>() {
+                                @Override
+                                public void onResponse(Call<confirm_full_bean> call, Response<confirm_full_bean> response) {
+
+                                    if (response.body().getStatus().equals("1")) {
+                                        dialog.dismiss();
+                                    }
+
+                                    Toast.makeText(DriverMainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<confirm_full_bean> call, Throwable t) {
+
+                                }
+                            });
+
+                        }
+                    });
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<confirm_full_bean> call, Throwable t) {
                 t.printStackTrace();
             }
         });

@@ -53,6 +53,17 @@ public interface AllApiIneterface {
             @Part("user_id") String user_id
     );
 
+    @GET("android/getSubject.php")
+    Call<List<truckTypeBean>> getSubject();
+
+    @Multipart
+    @POST("android/submitFeedback.php")
+    Call<confirm_full_bean> submitFeedback(
+            @Part("user_id") String user_id,
+            @Part("subject") String subject,
+            @Part("mesage") String mesage
+    );
+
     @Multipart
     @POST("android/updateProviderKYC.php")
     Call<confirm_full_bean> updateProviderKYC(

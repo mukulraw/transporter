@@ -47,7 +47,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".KYC"></activity>
+        <activity android:name=".Feedback"></activity>
+        <activity android:name=".KYC" />
         <activity android:name=".OrderDetails4" />
         <activity android:name=".TruckDetails2" />
         <activity android:name=".OrderDetails3" />

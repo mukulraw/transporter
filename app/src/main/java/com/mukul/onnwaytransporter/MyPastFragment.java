@@ -155,7 +155,7 @@ public class MyPastFragment extends Fragment {
             String dateString = item.getCreated();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date date = null;
-            try {
+            /*try {
                 date = sdf.parse(dateString);
 
                 Calendar calendar = Calendar.getInstance();
@@ -203,7 +203,9 @@ public class MyPastFragment extends Fragment {
 
             } catch (ParseException e) {
                 e.printStackTrace();
-            }
+            }*/
+
+            holder.freight.setText("Bid ended");
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +226,7 @@ public class MyPastFragment extends Fragment {
 
 
                     } else {
-                        Toast.makeText(context, "This bid has ended", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "This bid has ended", Toast.LENGTH_SHORT).show();
                     }
 
 

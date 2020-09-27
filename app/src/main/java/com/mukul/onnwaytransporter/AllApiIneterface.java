@@ -115,7 +115,28 @@ public interface AllApiIneterface {
     Call<placeBidBean> placeBid(
             @Part("user_id") String user_id,
             @Part("id") String id,
-            @Part("amount") String amount
+            @Part("amount") String amount,
+            @Part("laod_type") String laod_type,
+            @Part("source") String source,
+            @Part("destination") String destination,
+            @Part("truck_type") String truck_type,
+            @Part("schedule") String schedule,
+            @Part("weight") String weight,
+            @Part("load_passing") String load_passing,
+            @Part("remarks") String remarks,
+            @Part("length") String length,
+            @Part("width") String width,
+            @Part("height") String height,
+            @Part("quantity") String quantity,
+            @Part("mid") String mid,
+            @Part("truckTypeDetails") String truckTypeDetails,
+            @Part("truckCapacity") String truckCapacity,
+            @Part("boxLength") String boxLength,
+            @Part("boxWidth") String boxWidth,
+            @Part("boxArea") String boxArea,
+            @Part("selectedArea") String selectedArea,
+            @Part("remainingArea") String remainingArea,
+            @Part("selected") String selected
     );
 
     @Multipart

@@ -1,16 +1,27 @@
 package com.mukul.onnwaytransporter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +43,7 @@ import com.mukul.onnwaytransporter.bidDetailsPOJO.Data;
 import com.mukul.onnwaytransporter.bidDetailsPOJO.bidDetailsBean;
 import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.placeBidPOJO.placeBidBean;
+import com.mukul.onnwaytransporter.truckTypePOJO.truckTypeBean;
 
 import org.json.JSONObject;
 
@@ -57,7 +69,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BidDetails extends AppCompatActivity implements OnMapReadyCallback {
 
-    TextView orderid, orderdate, truck, source, destination, material, weight, distance, schedule;
+    TextView orderid, orderdate, truck, source, destination, material, weight, distance, schedule, sel_truck;
     Button confirm;
     ProgressBar progress;
 
@@ -72,6 +84,16 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
     private LatLng mOrigin;
     private LatLng mDestination;
     ArrayList<LatLng> mMarkerPoints;
+
+    private LinearLayout openTruckBtn, containerBtn, trailerBtn;
+
+    String tid = "";
+
+    String capcaity, length, width, trucktitle;
+
+    EditText laodpassing;
+
+    String loadtype, srcAddress, destAddress, pickUpDate;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -101,14 +123,17 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
         confirm = findViewById(R.id.button4);
         amount = findViewById(R.id.amount);
         distance = findViewById(R.id.textView11);
-
+        sel_truck = findViewById(R.id.sel_truck);
+        openTruckBtn = findViewById(R.id.open_truck_btn);
+        containerBtn = findViewById(R.id.container_btn);
+        trailerBtn = findViewById(R.id.trailer_btn);
+        laodpassing = findViewById(R.id.passing);
         orderdate = findViewById(R.id.textView17);
         truck = findViewById(R.id.textView19);
         source = findViewById(R.id.textView20);
         destination = findViewById(R.id.textView21);
         material = findViewById(R.id.textView23);
         weight = findViewById(R.id.textView25);
-
         progress = findViewById(R.id.progressBar);
 
 
@@ -117,49 +142,109 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
             public void onClick(View v) {
 
                 String a = amount.getText().toString();
+                String passing = laodpassing.getText().toString();
 
-                if (a.length() > 0) {
+                if (passing.length() > 0) {
+                    if (a.length() > 0) {
 
-                    progress.setVisibility(View.VISIBLE);
+                        progress.setVisibility(View.VISIBLE);
 
-                    AppController b = (AppController) getApplicationContext();
+                        AppController b = (AppController) getApplicationContext();
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(b.baseurl)
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
 
-                    AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                    Call<placeBidBean> call1 = cr.placeBid(SharePreferenceUtils.getInstance().getString("userId"), id, a);
+                        Call<placeBidBean> call1 = cr.placeBid(
+                                SharePreferenceUtils.getInstance().getString("userId"),
+                                id,
+                                a,
+                                loadtype,
+                                srcAddress,
+                                destAddress,
+                                tid,
+                                pickUpDate,
+                                "",
+                                passing,
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                ""
+                        );
 
-                    call1.enqueue(new Callback<placeBidBean>() {
-                        @Override
-                        public void onResponse(Call<placeBidBean> call, Response<placeBidBean> response) {
+                        call1.enqueue(new Callback<placeBidBean>() {
+                            @Override
+                            public void onResponse(Call<placeBidBean> call, Response<placeBidBean> response) {
 
-                            if (response.body().getStatus().equals("1")) {
-                                Toast.makeText(BidDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                finish();
+                                if (response.body().getStatus().equals("1")) {
+                                    Toast.makeText(BidDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    finish();
 
-                            } else {
-                                Toast.makeText(BidDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(BidDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                progress.setVisibility(View.GONE);
+
                             }
 
-                            progress.setVisibility(View.GONE);
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<placeBidBean> call, Throwable t) {
-                            progress.setVisibility(View.GONE);
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<placeBidBean> call, Throwable t) {
+                                progress.setVisibility(View.GONE);
+                            }
+                        });
+                    } else {
+                        Toast.makeText(BidDetails.this, "Invalid Bid Amount", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(BidDetails.this, "Invalid Bid Amount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BidDetails.this, "Please enter load passing", Toast.LENGTH_SHORT).show();
                 }
 
 
+            }
+        });
+
+        openTruckBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getOpenTruckType();
+//                openTruckBtn.setBackgroundColor(Color.parseColor("#FF1001"));
+//                containerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                trailerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        });
+
+        containerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContainerType();
+//                openTruckBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                containerBtn.setBackgroundColor(Color.parseColor("#FF1001"));
+//                trailerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        });
+
+        trailerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getTrailerType();
+//                openTruckBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                containerBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                trailerBtn.setBackgroundColor(Color.parseColor("#FF1001"));
             }
         });
 
@@ -196,6 +281,10 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
                 material.setText(item.getMaterial());
                 weight.setText(item.getWeight());
                 schedule.setText(item.getSchedule());
+                loadtype = item.getLaodType();
+                srcAddress = item.getSource();
+                destAddress = item.getDestination();
+                pickUpDate = item.getSchedule();
 
                 sourceLAT = item.getSourceLAT();
                 sourceLNG = item.getSourceLNG();
@@ -463,6 +552,256 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
 
             } else
                 Toast.makeText(getApplicationContext(), "No route is found", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    private void getOpenTruckType() {
+
+        final Dialog dialog = new Dialog(BidDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.truck_type_dialog);
+        dialog.show();
+
+        TextView title = dialog.findViewById(R.id.textView10);
+        final RecyclerView grid = dialog.findViewById(R.id.recyclerView);
+        final ProgressBar progress = dialog.findViewById(R.id.progressBar2);
+
+        title.setText("Open Truck Size");
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call = cr.getTrucks("open truck");
+
+        call.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                TruckAdapter adapter = new TruckAdapter(BidDetails.this, response.body(), "open truck", dialog);
+                GridLayoutManager manager = new GridLayoutManager(BidDetails.this, 3);
+
+                grid.setAdapter(adapter);
+                grid.setLayoutManager(manager);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private void getContainerType() {
+        final Dialog dialog = new Dialog(BidDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.truck_type_dialog);
+        dialog.show();
+
+        TextView title = dialog.findViewById(R.id.textView10);
+        final RecyclerView grid = dialog.findViewById(R.id.recyclerView);
+        final ProgressBar progress = dialog.findViewById(R.id.progressBar2);
+
+        title.setText("Container Size");
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call = cr.getTrucks("container");
+
+        call.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                TruckAdapter adapter = new TruckAdapter(BidDetails.this, response.body(), "container", dialog);
+                GridLayoutManager manager = new GridLayoutManager(BidDetails.this, 3);
+
+                grid.setAdapter(adapter);
+                grid.setLayoutManager(manager);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void getTrailerType() {
+        final Dialog dialog = new Dialog(BidDetails.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.truck_type_dialog);
+        dialog.show();
+
+        TextView title = dialog.findViewById(R.id.textView10);
+        final RecyclerView grid = dialog.findViewById(R.id.recyclerView);
+        final ProgressBar progress = dialog.findViewById(R.id.progressBar2);
+
+        title.setText("Trailer Size");
+
+
+        progress.setVisibility(View.VISIBLE);
+
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call = cr.getTrucks("trailer");
+
+        call.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                TruckAdapter adapter = new TruckAdapter(BidDetails.this, response.body(), "trailer", dialog);
+                GridLayoutManager manager = new GridLayoutManager(BidDetails.this, 3);
+
+                grid.setAdapter(adapter);
+                grid.setLayoutManager(manager);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder> {
+        Context context;
+        List<truckTypeBean> list = new ArrayList<>();
+        String type;
+        Dialog dialog;
+
+        TruckAdapter(Context context, List<truckTypeBean> list, String type, Dialog dialog) {
+            this.context = context;
+            this.list = list;
+            this.type = type;
+            this.dialog = dialog;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.truck_list_model, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+            final truckTypeBean item = list.get(position);
+
+            if (tid.equals(item.getId())) {
+                holder.card.setCardBackgroundColor(Color.parseColor("#F5DEDE"));
+            } else {
+                holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+
+            if (type.equals("open truck")) {
+                holder.image.setImageResource(R.drawable.ic_truck);
+            } else if (type.equals("container")) {
+                holder.image.setImageResource(R.drawable.ic_container);
+            } else {
+                holder.image.setImageResource(R.drawable.ic_trailer);
+            }
+
+            holder.text.setText(item.getTitle());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    checktruckType(item.getId(), item.getType(), item.getTitle(), item.getCapcacity(), item.getBox_length(), item.getBox_width(), item.getTitle());
+                    dialog.dismiss();
+
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            ImageView image;
+            TextView text;
+            CardView card;
+
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                image = itemView.findViewById(R.id.image);
+                text = itemView.findViewById(R.id.text);
+                card = itemView.findViewById(R.id.card);
+
+            }
+        }
+    }
+
+    private void checktruckType(String id, String type, String title, String capcaity, String length, String width, String trucktitle) {
+        this.tid = id;
+        this.capcaity = capcaity;
+        this.length = length;
+        this.width = width;
+        this.trucktitle = trucktitle;
+
+
+        sel_truck.setText(type + " - " + title);
+        sel_truck.setVisibility(View.VISIBLE);
+
+
+        if (type.equals("open truck")) {
+            openTruckBtn.setBackgroundResource(R.drawable.red_back_round);
+            containerBtn.setBackgroundResource(0);
+            trailerBtn.setBackgroundResource(0);
+        } else if (type.equals("container")) {
+            openTruckBtn.setBackgroundResource(0);
+            containerBtn.setBackgroundResource(R.drawable.red_back_round);
+            trailerBtn.setBackgroundResource(0);
+        } else {
+            openTruckBtn.setBackgroundResource(0);
+            containerBtn.setBackgroundResource(0);
+            trailerBtn.setBackgroundResource(R.drawable.red_back_round);
         }
     }
 

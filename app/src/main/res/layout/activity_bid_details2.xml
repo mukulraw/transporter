@@ -27,10 +27,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="confirm loading"
-        android:visibility="gone"
         android:background="@drawable/black_back_round"
+        android:text="confirm loading"
         android:textColor="#ffffff"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -38,12 +38,12 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingBottom="20dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
+        android:paddingBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,10 +61,10 @@
                 app:cardUseCompatPadding="true">
 
                 <fragment
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:id="@+id/mapNearBy"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="200dp" />
 
 
             </androidx.cardview.widget.CardView>
@@ -72,9 +72,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Order Details"
                 android:layout_margin="8dp"
-                />
+                android:text="Order Details" />
 
 
             <androidx.cardview.widget.CardView
@@ -87,29 +86,227 @@
 
             </androidx.cardview.widget.CardView>
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Bid"
-                android:textColor="#EF5350"
                 android:layout_margin="8dp"
-                />
+                android:text="Choose Truck Type"
+                android:textColor="#000000" />
+
+
+            <LinearLayout
+                android:id="@+id/truck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:id="@+id/open_truck_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/circle"
+                        android:padding="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_truck" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="5dp"
+                        android:text="Open Truck"
+                        android:textAlignment="center"
+                        android:textColor="#000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/circle"
+                        android:padding="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_container" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="5dp"
+                        android:text="Container"
+                        android:textAlignment="center"
+                        android:textColor="#000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/trailer_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/circle"
+                        android:padding="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_trailer" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="5dp"
+                        android:text="Trailer"
+                        android:textAlignment="center"
+                        android:textColor="#000" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sel_truck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:inputType="textCapSentences"
+                android:visibility="gone" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+                <EditText
+                    android:id="@+id/passing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="Load passing (in ton)"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:textSize="14sp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Remaining Weight"
+                android:textColor="#000000" />
+
+            <RelativeLayout
+                android:id="@+id/textView50"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/white_back_round"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView49">
+
+                <Spinner
+                    android:id="@+id/weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Add Special Note"
+                android:textColor="#000000" />
+
+
+            <EditText
+                android:id="@+id/editText15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/white_back_round"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="tap to enter"
+                android:lines="3"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView124"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Your Bid"
+                android:textColor="#EF5350" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:elevation="2dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
                 <EditText
+                    android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#00000000"
                     android:hint="tap to enter"
-                    android:id="@+id/amount"
                     android:inputType="numberDecimal"
-                    android:background="@drawable/grey_back_round"
-                    android:padding="10dp"
-                    />
+                    android:padding="12dp"
+                    android:textSize="14sp" />
 
 
             </androidx.cardview.widget.CardView>
@@ -125,10 +322,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Place bid"
-        android:visibility="visible"
         android:background="@drawable/black_back_round"
+        android:text="NEXT"
         android:textColor="#ffffff"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

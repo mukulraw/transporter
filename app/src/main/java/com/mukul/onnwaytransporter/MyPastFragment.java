@@ -147,7 +147,7 @@ public class MyPastFragment extends Fragment {
                 holder.placed.setVisibility(View.GONE);
             } else {
 
-                holder.placed.setText(item.getStatus());
+                holder.placed.setText(item.getStatus() + " (₹" + item.getBid() + ")");
 
                 holder.placed.setVisibility(View.VISIBLE);
             }

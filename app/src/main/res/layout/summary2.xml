@@ -230,6 +230,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Material"
+        android:visibility="gone"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/textView80"
         app:layout_constraintTop_toBottomOf="@+id/textView80" />
@@ -247,6 +248,7 @@
     <TextView
         android:id="@+id/textView41"
         android:layout_width="0dp"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/textView81"
@@ -258,7 +260,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView41"
-        app:layout_constraintStart_toStartOf="@+id/textView41"
+        app:layout_constraintEnd_toEndOf="@+id/textView85"
+        app:layout_constraintStart_toStartOf="@+id/textView85"
         app:layout_constraintTop_toBottomOf="@+id/textView41" />
 </androidx.constraintlayout.widget.ConstraintLayout>

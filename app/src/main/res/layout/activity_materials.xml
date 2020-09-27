@@ -57,6 +57,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Material Type"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,6 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
+                android:visibility="gone"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/white_back_round"

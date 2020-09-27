@@ -244,8 +244,8 @@ public class TruckDetails2 extends AppCompatActivity {
                 if (item.getWeight().length() > 0) {
                     wei.setVisibility(View.VISIBLE);
                     weititle.setVisibility(View.VISIBLE);
-                    mat.setVisibility(View.VISIBLE);
-                    mattitle.setVisibility(View.VISIBLE);
+                    //mat.setVisibility(View.VISIBLE);
+                    //mattitle.setVisibility(View.VISIBLE);
                 } else {
                     wei.setVisibility(View.GONE);
                     weititle.setVisibility(View.GONE);

@@ -56,7 +56,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback {
 
-    TextView orderid , orderdate , truck , source , destination , material , weight, distance;
+    TextView orderid, orderdate, truck, source, destination, material, weight, distance, schedule;
     Button confirm;
     ProgressBar progress;
 
@@ -98,6 +98,7 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         dimension = findViewById(R.id.textView134);
+        schedule = findViewById(R.id.textView88);
         phototitle = findViewById(R.id.textView140);
         equal = findViewById(R.id.textView135);
         quantity = findViewById(R.id.textView137);
@@ -124,8 +125,7 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
 
                 String a = amount.getText().toString();
 
-                if (a.length() > 0)
-                {
+                if (a.length() > 0) {
 
                     progress.setVisibility(View.VISIBLE);
 
@@ -139,20 +139,17 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
 
                     AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-                    Call<placeBidBean> call1 = cr.placeBid(SharePreferenceUtils.getInstance().getString("userId") , id , a);
+                    Call<placeBidBean> call1 = cr.placeBid(SharePreferenceUtils.getInstance().getString("userId"), id, a);
 
                     call1.enqueue(new Callback<placeBidBean>() {
                         @Override
                         public void onResponse(Call<placeBidBean> call, Response<placeBidBean> response) {
 
-                            if (response.body().getStatus().equals("1"))
-                            {
+                            if (response.body().getStatus().equals("1")) {
                                 Toast.makeText(BidDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
 
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(BidDetails2.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
@@ -165,12 +162,9 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                             progress.setVisibility(View.GONE);
                         }
                     });
-                }
-                else
-                {
+                } else {
                     Toast.makeText(BidDetails2.this, "Invalid Bid Amount", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -208,6 +202,7 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                 destination.setText(item.getDestination());
                 material.setText(item.getMaterial());
                 weight.setText(item.getWeight());
+                schedule.setText(item.getSchedule());
 
 
                 sourceLAT = item.getSourceLAT();
@@ -215,11 +210,11 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                 destinationLAT = item.getDestinationLAT();
                 destinationLNG = item.getDestinationLNG();
 
-                Location startPoint=new Location("Source");
+                Location startPoint = new Location("Source");
                 startPoint.setLatitude(Double.parseDouble(sourceLAT));
                 startPoint.setLongitude(Double.parseDouble(sourceLNG));
 
-                Location endPoint=new Location("Destination");
+                Location endPoint = new Location("Destination");
                 endPoint.setLatitude(Double.parseDouble(destinationLAT));
                 endPoint.setLongitude(Double.parseDouble(destinationLNG));
 
@@ -249,15 +244,12 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                 quantity.setText(item.getQuantity());
                 total.setText((ll * ww * hh * qq) + " cu.ft.");
 
-                if (item.getBid().length() > 0)
-                {
+                if (item.getBid().length() > 0) {
                     amount.setText(item.getBid());
                     amount.setClickable(false);
                     amount.setFocusable(false);
                     confirm.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     amount.setClickable(true);
                     amount.setFocusable(true);
                     confirm.setVisibility(View.VISIBLE);

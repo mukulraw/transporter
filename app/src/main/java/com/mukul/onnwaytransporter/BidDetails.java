@@ -57,7 +57,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BidDetails extends AppCompatActivity implements OnMapReadyCallback {
 
-    TextView orderid, orderdate, truck, source, destination, material, weight, distance;
+    TextView orderid, orderdate, truck, source, destination, material, weight, distance, schedule;
     Button confirm;
     ProgressBar progress;
 
@@ -97,6 +97,7 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
 
         orderid = findViewById(R.id.textView16);
+        schedule = findViewById(R.id.textView86);
         confirm = findViewById(R.id.button4);
         amount = findViewById(R.id.amount);
         distance = findViewById(R.id.textView11);
@@ -194,6 +195,7 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
                 destination.setText(item.getDestination());
                 material.setText(item.getMaterial());
                 weight.setText(item.getWeight());
+                schedule.setText(item.getSchedule());
 
                 sourceLAT = item.getSourceLAT();
                 sourceLNG = item.getSourceLNG();

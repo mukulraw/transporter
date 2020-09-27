@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
     private BottomNavigationView myBottomNav;
     private FrameLayout myFrameLayout;
 
-    private MyBidFragment myBidFragment;
+    private NewBidsFragment myBidFragment;
     private PostTruckFragment postTruckFragment;
     private PostedTruckFragment postedTruckFragment;
     private MyOrderFragment myOrderFragment;
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         myFrameLayout = findViewById(R.id.main_frame);
 
         //constructor for fragments of bottom navigation bar
-        myBidFragment = new MyBidFragment();
+        myBidFragment = new NewBidsFragment();
         postTruckFragment = new PostTruckFragment();
         postedTruckFragment = new PostedTruckFragment();
         myOrderFragment = new MyOrderFragment();

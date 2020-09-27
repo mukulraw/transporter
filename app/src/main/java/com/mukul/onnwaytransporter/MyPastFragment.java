@@ -3,16 +3,7 @@ package com.mukul.onnwaytransporter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,23 +13,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.mukul.onnwaytransporter.bidsPOJO.Datum;
 import com.mukul.onnwaytransporter.bidsPOJO.bidsBean;
 import com.mukul.onnwaytransporter.networking.AppController;
-import com.mukul.onnwaytransporter.recyclerview.BidUser;
-import com.mukul.onnwaytransporter.recyclerview.RecyclerAdapterBid;
-import com.mukul.onnwaytransporter.recyclerview.SampleBidUser;
-import com.mukul.onnwaytransporter.preferences.SaveSharedPreference;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,7 +41,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyBidFragment extends Fragment {
+public class MyPastFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressBar progress;
@@ -70,18 +53,18 @@ public class MyBidFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_my_bid, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_bid, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_ongoing_order);
         progress = view.findViewById(R.id.progress);
         list = new ArrayList<>();
 
         adapter = new OrderAdapter(getContext(), list);
-        manager = new GridLayoutManager(getContext() , 1);
+        manager = new GridLayoutManager(getContext(), 1);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);
 
-        return  view;
+        return view;
     }
 
     @Override
@@ -100,7 +83,7 @@ public class MyBidFragment extends Fragment {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<bidsBean> call = cr.getBiddings(SharePreferenceUtils.getInstance().getString("userId"));
+        Call<bidsBean> call = cr.getPastBids(SharePreferenceUtils.getInstance().getString("userId"));
 
         call.enqueue(new Callback<bidsBean>() {
             @Override
@@ -119,20 +102,17 @@ public class MyBidFragment extends Fragment {
 
     }
 
-    static class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>
-    {
+    static class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
         Context context;
         List<Datum> list = new ArrayList<>();
 
-        OrderAdapter(Context context, List<Datum> list)
-        {
+        OrderAdapter(Context context, List<Datum> list) {
             this.context = context;
             this.list = list;
         }
 
-        void setData(List<Datum> list)
-        {
+        void setData(List<Datum> list) {
             this.list = list;
             notifyDataSetChanged();
         }
@@ -140,8 +120,8 @@ public class MyBidFragment extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.bid_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.bid_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -163,21 +143,11 @@ public class MyBidFragment extends Fragment {
             holder.schedule.setText(item.getSchedule());
 
 
-            if (item.getBid().equals("0"))
-            {
+            if (item.getBid().equals("0")) {
                 holder.placed.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
 
-                if (item.getStatus().equals("accepted"))
-                {
-                    holder.placed.setText("BID ACCEPTED");
-                }
-                else
-                {
-                    holder.placed.setText("PLACED");
-                }
+                holder.placed.setText(item.getStatus());
 
                 holder.placed.setVisibility(View.VISIBLE);
             }
@@ -205,16 +175,15 @@ public class MyBidFragment extends Fragment {
                 long diffInMs = startDate.getTime() - currentTime.getTime();
 
 
-                if (diffInMs > 0)
-                {
+                if (diffInMs > 0) {
 
-                    Log.d("ms1" , String.valueOf(startDate.getTime()));
-                    Log.d("ms" , String.valueOf(currentTime.getTime()));
+                    Log.d("ms1", String.valueOf(startDate.getTime()));
+                    Log.d("ms", String.valueOf(currentTime.getTime()));
 
 
                     long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diffInMs);
 
-                    CountDownTimer timer = new CountDownTimer(diffInMs , 1000) {
+                    CountDownTimer timer = new CountDownTimer(diffInMs, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             holder.freight.setText(convertSecondsToHMmSs(millisUntilFinished / 1000));
@@ -227,12 +196,9 @@ public class MyBidFragment extends Fragment {
                     };
 
                     timer.start();
-                }
-                else
-                {
+                } else {
                     holder.freight.setText("Bid ended");
                 }
-
 
 
             } catch (ParseException e) {
@@ -240,35 +206,24 @@ public class MyBidFragment extends Fragment {
             }
 
 
-
-
-
-
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (!holder.freight.getText().equals("Bid ended"))
-                    {
+                    if (!holder.freight.getText().equals("Bid ended")) {
 
-                        if (item.getLaodType().equals("full"))
-                        {
-                            Intent intent = new Intent(context , BidDetails.class);
-                            intent.putExtra("id" , item.getId());
+                        if (item.getLaodType().equals("full")) {
+                            Intent intent = new Intent(context, BidDetails.class);
+                            intent.putExtra("id", item.getId());
                             context.startActivity(intent);
-                        }
-                        else
-                        {
-                            Intent intent = new Intent(context , BidDetails2.class);
-                            intent.putExtra("id" , item.getId());
+                        } else {
+                            Intent intent = new Intent(context, BidDetails2.class);
+                            intent.putExtra("id", item.getId());
                             context.startActivity(intent);
                         }
 
 
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(context, "This bid has ended", Toast.LENGTH_SHORT).show();
                     }
 
@@ -288,13 +243,12 @@ public class MyBidFragment extends Fragment {
             long s = seconds % 60;
             long m = (seconds / 60) % 60;
             long h = (seconds / (60 * 60)) % 24;
-            return String.format("%d:%02d:%02d", h,m,s);
+            return String.format("%d:%02d:%02d", h, m, s);
         }
 
-        static class ViewHolder extends RecyclerView.ViewHolder
-        {
+        static class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView type , date , source , destination , material , weight , freight , truck , placed, schedule;
+            TextView type, date, source, destination, material, weight, freight, truck, placed, schedule;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);

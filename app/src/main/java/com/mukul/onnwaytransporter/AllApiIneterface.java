@@ -98,6 +98,12 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/getPastBids.php")
+    Call<bidsBean> getPastBids(
+            @Part("user_id") String user_id
+    );
+
+    @Multipart
     @POST("android/getBidDetails.php")
     Call<bidDetailsBean> getBidDetails(
             @Part("user_id") String user_id,

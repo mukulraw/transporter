@@ -88,6 +88,7 @@
     <ProgressBar
         android:id="@+id/progressBar5"
         style="?android:attr/progressBarStyle"
+        android:indeterminateDrawable="@drawable/progress_icon"
         android:layout_width="wrap_content"
         android:visibility="gone"
         android:layout_height="wrap_content"

@@ -4,14 +4,17 @@
 
     <item
         android:id="@+id/load_request_driver"
-        android:icon="@drawable/bid"
+        android:icon="@drawable/progress"
+        app:showAsAction="always"
         android:title="@string/nav_load_request_driver" />
     <item
         android:id="@+id/posted_truck_driver"
-        android:icon="@drawable/posttruck"
+        android:icon="@drawable/postedtruck"
+        app:showAsAction="always"
         android:title="@string/nav_posted_truck_driver" />
     <item
         android:id="@+id/my_order_driver"
-        android:icon="@drawable/postedtruck"
+        android:icon="@drawable/ic_my_order"
+        app:showAsAction="always"
         android:title="@string/nav_my_order_driver" />
 </menu>

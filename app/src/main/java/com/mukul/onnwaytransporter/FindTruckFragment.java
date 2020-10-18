@@ -85,7 +85,7 @@ public class FindTruckFragment extends Fragment
         implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener{
+        LocationListener {
 
     /*
      * This fragment is used to load the findtruckfragment
@@ -101,12 +101,12 @@ public class FindTruckFragment extends Fragment
     Button partLoad, fullLoad;
 
 
-    LinearLayout bottom , truck;
+    LinearLayout bottom, truck;
     //ImageView
 
 
     //TextView
-    private TextView sourceAddress, destinationAddress, schedulePickupDate , sel_truck;
+    private TextView sourceAddress, destinationAddress, schedulePickupDate, sel_truck;
 
     //Buttons
     private LinearLayout openTruckBtn, containerBtn, trailerBtn;
@@ -129,7 +129,7 @@ public class FindTruckFragment extends Fragment
     //taking details
     public static String truckType;
 
-    private String loadType = "1", srcAddress = "", destAddress = "",pickUpDate = "";
+    private String loadType = "1", srcAddress = "", destAddress = "", pickUpDate = "";
 
     private int addressTyp = 0;
 
@@ -139,7 +139,7 @@ public class FindTruckFragment extends Fragment
 
     String tid = "";
 
-    String capcaity , length , width , trucktitle;
+    String capcaity, length, width, trucktitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -261,7 +261,7 @@ public class FindTruckFragment extends Fragment
                 int year = cldr.get(Calendar.YEAR);
                 // date picker dialog
                 DatePickerDialog picker;
-                picker = new DatePickerDialog(getActivity(),
+                picker = new DatePickerDialog(getActivity(), R.style.MyDialogTheme,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -281,26 +281,20 @@ public class FindTruckFragment extends Fragment
             @Override
             public void onClick(View view) {
 
-                if (srcAddress.length() > 0)
-                {
-                    if (destAddress.length() > 0)
-                    {
+                if (srcAddress.length() > 0) {
+                    if (destAddress.length() > 0) {
 
-                        if (loadType.equals("1"))
-                        {
-                            if (tid.length() > 0)
-                            {
+                        if (loadType.equals("1")) {
+                            if (tid.length() > 0) {
 
                                 final String passing = laodpassing.getText().toString();
 
-                                if (passing.length() > 0)
-                                {
+                                if (passing.length() > 0) {
 
-                                    if (pickUpDate.length() > 0)
-                                    {
+                                    if (pickUpDate.length() > 0) {
 
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                         builder.setTitle("Post Truck");
                                         builder.setMessage("Do you want to post this truck ?");
@@ -352,16 +346,15 @@ public class FindTruckFragment extends Fragment
                                                     @Override
                                                     public void onResponse(Call<postLoadBean> call, Response<postLoadBean> response) {
 
-                                                        if (response.body().getStatus().equals("1"))
-                                                        {
+                                                        if (response.body().getStatus().equals("1")) {
                                                             Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                                             dialog.dismiss();
 
 
                                                             FindTruckFragment postTruckFrag;
-                                                            postTruckFrag=new FindTruckFragment();
+                                                            postTruckFrag = new FindTruckFragment();
 
-                                                            ((MainActivity)getActivity()).setFragment(postTruckFrag);
+                                                            ((MainActivity) getActivity()).setFragment(postTruckFrag);
 
                                                         }
                                                         Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -406,85 +399,61 @@ public class FindTruckFragment extends Fragment
                                     startActivity(intent);
 */
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(getActivity(), "Please select a pickup date", Toast.LENGTH_SHORT).show();
                                     }
 
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(getContext(), "Please enter load passing", Toast.LENGTH_SHORT).show();
                                 }
 
 
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(getActivity(), "Please select truck type", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else
-                        {
-                            if (tid.length() > 0)
-                            {
+                        } else {
+                            if (tid.length() > 0) {
 
                                 String passing = laodpassing.getText().toString();
 
-                                if (passing.length() > 0)
-                                {
+                                if (passing.length() > 0) {
 
-                                    if (pickUpDate.length() > 0)
-                                    {
+                                    if (pickUpDate.length() > 0) {
 
 
+                                        Intent intent = new Intent(getContext(), Materials.class);
+                                        intent.putExtra("source", srcAddress);
+                                        intent.putExtra("destination", destAddress);
+                                        intent.putExtra("tid", tid);
+                                        intent.putExtra("passing", laodpassing.getText().toString() + " Mt.");
+                                        intent.putExtra("loadtype", "part");
+                                        intent.putExtra("date", pickUpDate);
+                                        intent.putExtra("capcaity", capcaity);
+                                        intent.putExtra("length", length);
+                                        intent.putExtra("width", width);
+                                        intent.putExtra("trucktitle", trucktitle);
+                                        startActivity(intent);
 
 
-                                    Intent intent = new Intent(getContext(), Materials.class);
-                                    intent.putExtra("source" , srcAddress);
-                                    intent.putExtra("destination" , destAddress);
-                                    intent.putExtra("tid" , tid);
-                                    intent.putExtra("passing" , laodpassing.getText().toString() + " Mt.");
-                                    intent.putExtra("loadtype" , "part");
-                                    intent.putExtra("date" , pickUpDate);
-                                    intent.putExtra("capcaity" , capcaity);
-                                    intent.putExtra("length" , length);
-                                    intent.putExtra("width" , width);
-                                    intent.putExtra("trucktitle" , trucktitle);
-                                    startActivity(intent);
-
-
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(getActivity(), "Please select a pickup date", Toast.LENGTH_SHORT).show();
                                     }
 
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(getContext(), "Please enter load passing", Toast.LENGTH_SHORT).show();
                                 }
 
 
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(getActivity(), "Please select truck type", Toast.LENGTH_SHORT).show();
                             }
                         }
 
 
-
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(getActivity(), "Please enter destination", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getActivity(), "Please enter source", Toast.LENGTH_SHORT).show();
                 }
 
@@ -500,7 +469,6 @@ public class FindTruckFragment extends Fragment
 //                startActivity(intent);*/
             }
         });
-
 
 
         return view;
@@ -532,7 +500,7 @@ public class FindTruckFragment extends Fragment
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         final int[] h = {0};
-        final int[] w = { 0 };
+        final int[] w = {0};
 
         bottom.postDelayed(new Runnable() {
             @Override
@@ -560,7 +528,7 @@ public class FindTruckFragment extends Fragment
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
-                        mGoogleMap.setPadding(0 , 0 , 0 , h[0] + 22);
+                        mGoogleMap.setPadding(0, 0, 0, h[0] + 22);
                     }
                 });
 
@@ -573,7 +541,7 @@ public class FindTruckFragment extends Fragment
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    mGoogleMap.setPadding(0 , 0 , 0 , h[0] + 22);
+                    mGoogleMap.setPadding(0, 0, 0, h[0] + 22);
                 }
             });
         }
@@ -742,7 +710,7 @@ public class FindTruckFragment extends Fragment
 
     private void getOpenTruckType() {
 
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -773,8 +741,8 @@ public class FindTruckFragment extends Fragment
             @Override
             public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
 
-                TruckAdapter adapter = new TruckAdapter(getContext() , response.body() , "open truck" , dialog);
-                GridLayoutManager manager = new GridLayoutManager(getContext() , 3);
+                TruckAdapter adapter = new TruckAdapter(getContext(), response.body(), "open truck", dialog);
+                GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
 
                 grid.setAdapter(adapter);
                 grid.setLayoutManager(manager);
@@ -803,7 +771,7 @@ public class FindTruckFragment extends Fragment
     }
 
     private void getContainerType() {
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -834,8 +802,8 @@ public class FindTruckFragment extends Fragment
             @Override
             public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
 
-                TruckAdapter adapter = new TruckAdapter(getContext() , response.body() , "container" , dialog);
-                GridLayoutManager manager = new GridLayoutManager(getContext() , 3);
+                TruckAdapter adapter = new TruckAdapter(getContext(), response.body(), "container", dialog);
+                GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
 
                 grid.setAdapter(adapter);
                 grid.setLayoutManager(manager);
@@ -851,7 +819,7 @@ public class FindTruckFragment extends Fragment
     }
 
     private void getTrailerType() {
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -882,8 +850,8 @@ public class FindTruckFragment extends Fragment
             @Override
             public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
 
-                TruckAdapter adapter = new TruckAdapter(getContext() , response.body() , "trailer" , dialog);
-                GridLayoutManager manager = new GridLayoutManager(getContext() , 3);
+                TruckAdapter adapter = new TruckAdapter(getContext(), response.body(), "trailer", dialog);
+                GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
 
                 grid.setAdapter(adapter);
                 grid.setLayoutManager(manager);
@@ -897,7 +865,6 @@ public class FindTruckFragment extends Fragment
             }
         });
     }
-
 
 
     private String setDateFormat(int day, int month, int year) {
@@ -931,15 +898,13 @@ public class FindTruckFragment extends Fragment
         return finalDate;
     }
 
-    class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder>
-    {
+    class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder> {
         Context context;
         List<truckTypeBean> list = new ArrayList<>();
         String type;
         Dialog dialog;
 
-        TruckAdapter(Context context, List<truckTypeBean> list, String type , Dialog dialog)
-        {
+        TruckAdapter(Context context, List<truckTypeBean> list, String type, Dialog dialog) {
             this.context = context;
             this.list = list;
             this.type = type;
@@ -949,8 +914,8 @@ public class FindTruckFragment extends Fragment
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.truck_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.truck_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -959,26 +924,18 @@ public class FindTruckFragment extends Fragment
 
             final truckTypeBean item = list.get(position);
 
-            if (tid.equals(item.getId()))
-            {
+            if (tid.equals(item.getId())) {
                 holder.card.setCardBackgroundColor(Color.parseColor("#F5DEDE"));
-            }
-            else
-            {
+            } else {
                 holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             }
 
-            if (type.equals("open truck"))
-            {
-                holder.image.setImageResource(R.drawable.ic_truck);
-            }
-            else if (type.equals("container"))
-            {
-                holder.image.setImageResource(R.drawable.ic_container);
-            }
-            else
-            {
-                holder.image.setImageResource(R.drawable.ic_trailer);
+            if (type.equals("open truck")) {
+                holder.image.setImageResource(R.drawable.open);
+            } else if (type.equals("container")) {
+                holder.image.setImageResource(R.drawable.container);
+            } else {
+                holder.image.setImageResource(R.drawable.trailer);
             }
 
             holder.text.setText(item.getTitle());
@@ -987,7 +944,7 @@ public class FindTruckFragment extends Fragment
                 @Override
                 public void onClick(View v) {
 
-                    checktruckType(item.getId() , item.getType() , item.getTitle() , item.getCapcacity() , item.getBox_length() , item.getBox_width() , item.getTitle());
+                    checktruckType(item.getId(), item.getType(), item.getTitle(), item.getCapcacity(), item.getBox_length(), item.getBox_width(), item.getTitle());
                     dialog.dismiss();
 
                 }
@@ -1000,8 +957,7 @@ public class FindTruckFragment extends Fragment
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView image;
             TextView text;
@@ -1018,8 +974,7 @@ public class FindTruckFragment extends Fragment
         }
     }
 
-    private void checktruckType(String id, String type , String title , String capcaity , String length , String width , String trucktitle)
-    {
+    private void checktruckType(String id, String type, String title, String capcaity, String length, String width, String trucktitle) {
         this.tid = id;
         this.capcaity = capcaity;
         this.length = length;
@@ -1031,20 +986,15 @@ public class FindTruckFragment extends Fragment
         sel_truck.setVisibility(View.VISIBLE);
 
 
-        if (type.equals("open truck"))
-        {
+        if (type.equals("open truck")) {
             openTruckBtn.setBackgroundResource(R.drawable.red_back_round);
             containerBtn.setBackgroundResource(0);
             trailerBtn.setBackgroundResource(0);
-        }
-        else if (type.equals("container"))
-        {
+        } else if (type.equals("container")) {
             openTruckBtn.setBackgroundResource(0);
             containerBtn.setBackgroundResource(R.drawable.red_back_round);
             trailerBtn.setBackgroundResource(0);
-        }
-        else
-        {
+        } else {
             openTruckBtn.setBackgroundResource(0);
             containerBtn.setBackgroundResource(0);
             trailerBtn.setBackgroundResource(R.drawable.red_back_round);

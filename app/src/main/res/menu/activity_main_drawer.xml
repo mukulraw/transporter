@@ -7,48 +7,48 @@
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_user"
+            android:icon="@drawable/ic_user_profile"
             android:title="Profile" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/aboutimage"
+            android:icon="@drawable/ic_about"
             android:title="About Onnway" />
         <item
             android:id="@+id/nav_faq"
-            android:icon="@drawable/faqimage"
+            android:icon="@drawable/ic_faq"
             android:title="FAQ" />
         <item
             android:id="@+id/nav_contact"
-            android:icon="@drawable/contact"
+            android:icon="@drawable/ic_phone_contact"
             android:title="Contact Us" />
 
         <item
             android:id="@+id/feedback"
-            android:icon="@drawable/ic_review"
+            android:icon="@drawable/ic_good_feedback"
             android:title="Give Feedback" />
 
 
         <item
             android:id="@+id/nav_terms_and_condition"
-            android:icon="@drawable/termscondtionimage"
+            android:icon="@drawable/ic_insurance"
             android:title="Terms and Conditions" />
         <item
             android:id="@+id/nav_payment_terms"
-            android:icon="@drawable/paymentimage"
+            android:icon="@drawable/ic_payment"
             android:title="Payment Terms" />
         <item
             android:id="@+id/nav_privacy_policy"
-            android:icon="@drawable/privacyimage"
+            android:icon="@drawable/ic_insurance"
             android:title="Privacy Policy" />
 
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/shareimage"
+            android:icon="@drawable/ic_share"
             android:title="Share App" />
 
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/logoutimage"
+            android:icon="@drawable/ic_logout"
             android:title="Logout" />
     </group>
 

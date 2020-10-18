@@ -5,17 +5,21 @@
     <item
         android:id="@+id/my_bids"
         android:icon="@drawable/bid"
+        app:showAsAction="always"
         android:title="@string/nav_bid" />
     <item
         android:id="@+id/post_truck"
-        android:icon="@drawable/posttruck"
+        android:icon="@drawable/progress"
+        app:showAsAction="always"
         android:title="@string/nav_post_truck" />
     <item
         android:id="@+id/posted_truck"
         android:icon="@drawable/postedtruck"
+        app:showAsAction="always"
         android:title="@string/nav_posted_truck" />
     <item
         android:id="@+id/my_orders"
-        android:icon="@drawable/myorder"
+        android:icon="@drawable/ic_my_order"
+        app:showAsAction="always"
         android:title="@string/nav_my_orders" />
 </menu>

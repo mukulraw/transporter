@@ -64,7 +64,7 @@ public class Materials extends AppCompatActivity {
         weis = new ArrayList<>();
         mids = new ArrayList<>();
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_activity_shipment);
+        Toolbar mToolbar = findViewById(R.id.toolbar_activity_shipment);
         mToolbar.setTitle("Booking Details");
         mToolbar.setNavigationIcon(R.drawable.ic_next_back);
         mToolbar.setTitleTextAppearance(this, R.style.monteserrat_semi_bold);
@@ -187,7 +187,7 @@ public class Materials extends AppCompatActivity {
                     float ww = Float.parseFloat(width.getText().toString());
                     float hh = Float.parseFloat(height.getText().toString());
 
-                    total.setText(String.valueOf(ll * ww * hh));
+                    total.setText(ll * ww * hh + " cu. ft.");
 
                 }
 
@@ -213,7 +213,7 @@ public class Materials extends AppCompatActivity {
                     float ww = Float.parseFloat(width.getText().toString());
                     float hh = Float.parseFloat(height.getText().toString());
 
-                    total.setText(String.valueOf(ll * ww * hh));
+                    total.setText(ll * ww * hh + " cu. ft.");
 
                 }
 
@@ -240,7 +240,7 @@ public class Materials extends AppCompatActivity {
                     float ww = Float.parseFloat(width.getText().toString());
                     float hh = Float.parseFloat(height.getText().toString());
 
-                    total.setText(String.valueOf(ll * ww * hh));
+                    total.setText(ll * ww * hh + " cu. ft.");
 
                 }
 

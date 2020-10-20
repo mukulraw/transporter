@@ -40,10 +40,6 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +53,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
                 app:cardUseCompatPadding="true">
 
                 <fragment
@@ -79,7 +75,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
                 app:cardUseCompatPadding="true">
 
                 <include layout="@layout/summary" />
@@ -119,7 +115,7 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/ic_truck"
+                        android:src="@drawable/open"
                         android:layout_width="56dp"
                         android:scaleType="fitXY"
                         android:background="@drawable/circle"
@@ -150,7 +146,7 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/ic_container"
+                        android:src="@drawable/container"
                         android:layout_width="56dp"
                         android:scaleType="fitXY"
                         android:background="@drawable/circle"
@@ -180,7 +176,7 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/ic_trailer"
+                        android:src="@drawable/trailer"
                         android:layout_width="56dp"
                         android:scaleType="fitXY"
                         android:background="@drawable/circle"
@@ -216,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="2dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="15dp"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true"
                 >
@@ -246,9 +242,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:elevation="2dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="15dp"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -276,7 +271,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/black_back_round"
+        android:background="@drawable/green_back_round"
         android:text="Place bid"
         android:textColor="#ffffff"
         android:visibility="visible"

@@ -40,10 +40,6 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +53,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
                 app:cardUseCompatPadding="true">
 
                 <fragment
@@ -79,7 +75,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
                 app:cardUseCompatPadding="true">
 
                 <include layout="@layout/summary5" />
@@ -125,7 +121,7 @@
                         android:background="@drawable/circle"
                         android:padding="10dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_truck" />
+                        android:src="@drawable/open" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -156,7 +152,7 @@
                         android:background="@drawable/circle"
                         android:padding="10dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_container" />
+                        android:src="@drawable/container" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -186,7 +182,7 @@
                         android:background="@drawable/circle"
                         android:padding="10dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_trailer" />
+                        android:src="@drawable/trailer" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -214,7 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="2dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="15dp"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -238,12 +234,13 @@
                 android:text="Remaining Weight"
                 android:textColor="#000000" />
 
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/textView50"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="8dp"
                 android:background="@drawable/white_back_round"
+                app:cardCornerRadius="15dp"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView49">
@@ -252,35 +249,46 @@
                     android:id="@+id/weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical" />
 
-            </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="Add Special Note"
                 android:textColor="#000000" />
 
-
-            <EditText
-                android:id="@+id/editText15"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:background="@drawable/white_back_round"
-                android:ems="10"
-                android:gravity="start"
-                android:hint="tap to enter"
-                android:lines="3"
-                android:padding="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:cardCornerRadius="15dp"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView124"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/textView49">
 
+                <EditText
+                    android:id="@+id/editText15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_back_round"
+                    android:ems="10"
+                    android:gravity="start"
+                    android:hint="tap to enter"
+                    android:lines="3"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView124"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="match_parent"
@@ -294,7 +302,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:elevation="2dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="15dp"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -322,7 +330,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/black_back_round"
+        android:background="@drawable/green_back_round"
         android:text="NEXT"
         android:textColor="#ffffff"
         android:visibility="visible"
@@ -333,9 +341,9 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:indeterminateDrawable="@drawable/progress_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/progress_icon"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

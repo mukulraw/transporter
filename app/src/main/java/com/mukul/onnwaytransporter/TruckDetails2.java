@@ -104,7 +104,7 @@ public class TruckDetails2 extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                new AlertDialog.Builder(TruckDetails2.this)
+                new AlertDialog.Builder(TruckDetails2.this, R.style.MyDialogTheme)
                         .setTitle("Cancel Truck")
                         .setMessage("Are you sure you want to cancel this truck?")
 

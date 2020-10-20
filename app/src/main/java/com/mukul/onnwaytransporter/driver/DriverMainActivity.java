@@ -43,6 +43,7 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hsalf.smileyrating.SmileyRating;
 import com.mukul.onnwaytransporter.AllApiIneterface;
+import com.mukul.onnwaytransporter.Feedback;
 import com.mukul.onnwaytransporter.FindTruckFragment;
 import com.mukul.onnwaytransporter.FindTruckFragment2;
 import com.mukul.onnwaytransporter.MainActivity;
@@ -385,6 +386,9 @@ public class DriverMainActivity extends AppCompatActivity
             startActivity(new Intent(this, SplashActivity.class));
             finishAffinity();
 
+        } else if (id == R.id.feedback) {
+            Intent intent = new Intent(DriverMainActivity.this, Feedback.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

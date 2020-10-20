@@ -44,7 +44,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class KYC extends AppCompatActivity {
+public class KYC4 extends AppCompatActivity {
 
     ImageView af, ab, df, db, rf, rb;
     Button upload1, upload2, upload3, upload4, upload5, upload6;
@@ -58,7 +58,7 @@ public class KYC extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_k_y_c);
+        setContentView(R.layout.activity_k_y_c4);
 
         Toolbar mToolbar = findViewById(R.id.toolbar_activity_shipment);
         mToolbar.setTitle("KYC");
@@ -99,7 +99,7 @@ public class KYC extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this, R.style.MyDialogTheme);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC4.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -124,7 +124,7 @@ public class KYC extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             ty = "front_aadhar";
 
@@ -153,7 +153,7 @@ public class KYC extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this, R.style.MyDialogTheme);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC4.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -178,7 +178,7 @@ public class KYC extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             ty = "back_aadhar";
 
@@ -207,7 +207,7 @@ public class KYC extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this, R.style.MyDialogTheme);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC4.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -232,7 +232,7 @@ public class KYC extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             ty = "front_driving";
 
@@ -261,7 +261,7 @@ public class KYC extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this, R.style.MyDialogTheme);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC4.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -286,7 +286,7 @@ public class KYC extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             ty = "back_driving";
 
@@ -315,7 +315,7 @@ public class KYC extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this, R.style.MyDialogTheme);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC4.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -340,7 +340,7 @@ public class KYC extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             ty = "front_registration";
 
@@ -369,7 +369,7 @@ public class KYC extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC.this, R.style.MyDialogTheme);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KYC4.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -394,7 +394,7 @@ public class KYC extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC.this), BuildConfig.APPLICATION_ID + ".provider", f1);
+                            uri1 = FileProvider.getUriForFile(Objects.requireNonNull(KYC4.this), BuildConfig.APPLICATION_ID + ".provider", f1);
 
                             ty = "back_registration";
 
@@ -415,6 +415,7 @@ public class KYC extends AppCompatActivity {
 
             }
         });
+
 
     }
 
@@ -454,7 +455,7 @@ public class KYC extends AppCompatActivity {
                 loader.displayImage(item.getBackRegistration(), rb, options);
 
                 if (item.getFaVerify().equals("verified")) {
-                    af_verify.setVisibility(View.VISIBLE);
+                    //af_verify.setVisibility(View.VISIBLE);
                     upload1.setEnabled(false);
                 } else {
                     af_verify.setVisibility(View.GONE);
@@ -462,7 +463,7 @@ public class KYC extends AppCompatActivity {
                 }
 
                 if (item.getBaVerify().equals("verified")) {
-                    ab_verify.setVisibility(View.VISIBLE);
+                    //ab_verify.setVisibility(View.VISIBLE);
                     upload2.setEnabled(false);
                 } else {
                     ab_verify.setVisibility(View.GONE);
@@ -487,7 +488,7 @@ public class KYC extends AppCompatActivity {
                 }
 
                 if (item.getFrVerify().equals("verified")) {
-                    //rf_verify.setVisibility(View.VISIBLE);
+                    rf_verify.setVisibility(View.VISIBLE);
                     upload5.setEnabled(false);
                 } else {
                     rf_verify.setVisibility(View.GONE);
@@ -495,7 +496,7 @@ public class KYC extends AppCompatActivity {
                 }
 
                 if (item.getBrVerify().equals("verified")) {
-                    //rb_verify.setVisibility(View.VISIBLE);
+                    rb_verify.setVisibility(View.VISIBLE);
                     upload6.setEnabled(false);
                 } else {
                     rb_verify.setVisibility(View.GONE);
@@ -525,7 +526,7 @@ public class KYC extends AppCompatActivity {
 
             Log.d("uri", String.valueOf(uri1));
 
-            String ypath = getPath(KYC.this, uri1);
+            String ypath = getPath(KYC4.this, uri1);
             assert ypath != null;
             f1 = new File(ypath);
 
@@ -561,7 +562,7 @@ public class KYC extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<confirm_full_bean> call, Response<confirm_full_bean> response) {
 
-                    Toast.makeText(KYC.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KYC4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);
@@ -604,7 +605,7 @@ public class KYC extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<confirm_full_bean> call, Response<confirm_full_bean> response) {
 
-                    Toast.makeText(KYC.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KYC4.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     onResume();
 
                     progress.setVisibility(View.GONE);

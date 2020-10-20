@@ -47,67 +47,98 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectSpace3"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Feedback"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".KYC"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OrderDetails4"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TruckDetails2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OrderDetails3"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".EditProfile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BidDetails2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".GettingStarted"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Web"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OrderDetails2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SelectSpace2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Materials2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SelectSpace"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Materials"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OrderDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TruckDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BidDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Profile"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".otp.NumberIntroActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".KYC4"></activity>
+        <activity android:name=".KYC3" />
+        <activity android:name=".KYC2" />
+        <activity
+            android:name=".SelectSpace3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Feedback"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KYC"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderDetails4"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TruckDetails2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderDetails3"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BidDetails2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GettingStarted"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Web"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderDetails2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectSpace2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Materials2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectSpace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Materials"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TruckDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BidDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".otp.NumberIntroActivity"
+            android:screenOrientation="portrait" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".profilerelated.KycProviderActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.uploadkycimage.KycMainPage"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.uploadkycimage.UploadImageActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TestActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.AddTruckDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.DriverTruckDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.Image_Picker.FileUploadCamera"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.Image_Picker.FileUpload"
-            android:screenOrientation="portrait"/> <!-- <provider -->
+        <activity
+            android:name=".profilerelated.KycProviderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.uploadkycimage.KycMainPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.uploadkycimage.UploadImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.AddTruckDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.DriverTruckDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.Image_Picker.FileUploadCamera"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.Image_Picker.FileUpload"
+            android:screenOrientation="portrait" /> <!-- <provider -->
         <!-- android:name="android.support.v4.content.FileProvider" -->
         <!-- android:authorities="com.sumit.myapplication.fileprovider" -->
         <!-- android:exported="false" -->
@@ -126,14 +157,18 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".providerpartload.SelectTruckSpaceProvider"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".providerpartload.PartLoadMaterialDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.KycDriverActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.DriverOperatedRoutesActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".providerpartload.SelectTruckSpaceProvider"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".providerpartload.PartLoadMaterialDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.KycDriverActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.DriverOperatedRoutesActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".driver.profilerelated.DriverUpdateCity"
             android:screenOrientation="portrait"
@@ -146,23 +181,30 @@
             android:name=".driver.profilerelated.DriverUpdateName"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".driver.profilerelated.DriverAddRoutesActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.DriverNamePhoneActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.profilerelated.DriverProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OrderStatus.UploadPOD"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OrderStatus.AssignTruck"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.postload.DriverPostPartLoad"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".driver.postload.DriverPostFullLoad"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".driver.profilerelated.DriverAddRoutesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.DriverNamePhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.profilerelated.DriverProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderStatus.UploadPOD"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderStatus.AssignTruck"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.postload.DriverPostPartLoad"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".driver.postload.DriverPostFullLoad"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".driver.DriverMainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.file_paths").
@@ -175,16 +217,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".FetchDriverLocation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".profilerelated.UpdateRoutesActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".FetchDriverLocation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profilerelated.UpdateRoutesActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
         <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
-        <activity android:name=".biddetails.SetBidDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".biddetails.SetBidDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".profilerelated.AddRoutesActivity"
             android:screenOrientation="portrait"

@@ -128,7 +128,7 @@ public class OrderDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(OrderDetails.this);
+                final Dialog dialog = new Dialog(OrderDetails.this, R.style.MyDialogTheme);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.add_vehicle_dialog);
@@ -204,7 +204,7 @@ public class OrderDetails extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -255,7 +255,7 @@ public class OrderDetails extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(OrderDetails.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override

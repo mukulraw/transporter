@@ -212,7 +212,7 @@ public class MyPastFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if (holder.freight.getText().equals("Bid ended")) {
+                    if (!holder.freight.getText().equals("Bid ended")) {
 
                         if (item.getLaodType().equals("full")) {
                             Intent intent = new Intent(context, BidDetails.class);

@@ -41,9 +41,6 @@
         android:layout_marginBottom="8dp"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +54,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
                 app:cardUseCompatPadding="true">
 
                 <include layout="@layout/summary3" />
@@ -67,7 +64,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="15dp"
                 app:cardUseCompatPadding="true">
 
                 <include layout="@layout/bill" />

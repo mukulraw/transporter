@@ -159,20 +159,44 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
 
         progress = findViewById(R.id.progressBar);
 
-        weis.add("50 - 100 KG");
-        weis.add("101 - 200 KG");
-        weis.add("201 - 300 KG");
-        weis.add("301 - 400 KG");
-        weis.add("401 - 500 KG");
-        weis.add("501 - 600 KG");
-        weis.add("601 - 700 KG");
-        weis.add("701 - 800 KG");
-        weis.add("801 - 900 KG");
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, weis);
+        progress.setVisibility(View.VISIBLE);
 
-        weightspinner.setAdapter(adapter2);
+        AppController b = (AppController) getApplicationContext();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(b.baseurl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+        Call<List<truckTypeBean>> call2 = cr.getWeight();
+
+        call2.enqueue(new Callback<List<truckTypeBean>>() {
+            @Override
+            public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
+
+                weis.clear();
+
+                for (int i = 0; i < response.body().size(); i++) {
+                    weis.add(response.body().get(i).getTitle());
+                }
+
+                ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(BidDetails2.this,
+                        android.R.layout.simple_list_item_1, weis);
+
+                weightspinner.setAdapter(adapter2);
+
+                progress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<truckTypeBean>> call, Throwable t) {
+                progress.setVisibility(View.GONE);
+            }
+        });
 
         weightspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

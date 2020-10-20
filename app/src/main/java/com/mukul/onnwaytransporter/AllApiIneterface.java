@@ -290,4 +290,7 @@ public interface AllApiIneterface {
     @GET("android/getMaterial.php")
     Call<List<truckTypeBean>> getMaterial();
 
+    @GET("android/getWeight.php")
+    Call<List<truckTypeBean>> getWeight();
+
 }

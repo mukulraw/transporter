@@ -34,7 +34,8 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:src="@drawable/myprofileimage" />
+                android:padding="5dp"
+                android:src="@drawable/ic_user_profile" />
 
             <LinearLayout
                 android:layout_width="48dp"
@@ -96,7 +97,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"
-                    android:src="@drawable/businessimagegrey" />
+                    android:src="@drawable/ic_transportation" />
 
                 <LinearLayout
                     android:layout_width="48dp"
@@ -233,7 +234,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:src="@drawable/cityimagegrey" />
+                android:src="@drawable/ic_building" />
 
             <LinearLayout
                 android:layout_width="48dp"
@@ -289,7 +290,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:src="@drawable/routeimage" />
+                android:src="@drawable/ic_route" />
 
             <LinearLayout
                 android:layout_width="48dp"
@@ -344,7 +345,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
-                android:src="@drawable/kyc" />
+                android:src="@drawable/ic_driver_license" />
 
             <LinearLayout
                 android:layout_width="48dp"

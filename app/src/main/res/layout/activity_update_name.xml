@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/toolbar_background"
         android:elevation="8dp"
         android:minHeight="?attr/actionBarSize"
         android:titleTextColor="#696969"
@@ -68,9 +68,10 @@
         android:layout_height="48dp"
         android:text="Request"
         android:fontFamily="@font/montserrat_bold"
+        android:layout_margin="8dp"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:background="#E11F22"
+        android:background="@drawable/green_back_round"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

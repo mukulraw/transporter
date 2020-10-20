@@ -262,7 +262,7 @@ public class FindTruckFragment2 extends Fragment
                 int year = cldr.get(Calendar.YEAR);
                 // date picker dialog
                 DatePickerDialog picker;
-                picker = new DatePickerDialog(getActivity(),
+                picker = new DatePickerDialog(getActivity(), R.style.MyDialogTheme,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -295,7 +295,7 @@ public class FindTruckFragment2 extends Fragment
                                     if (pickUpDate.length() > 0) {
 
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                         builder.setTitle("Post Truck");
                                         builder.setMessage("Do you want to post this truck ?");
@@ -711,7 +711,7 @@ public class FindTruckFragment2 extends Fragment
 
     private void getOpenTruckType() {
 
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -772,7 +772,7 @@ public class FindTruckFragment2 extends Fragment
     }
 
     private void getContainerType() {
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -820,7 +820,7 @@ public class FindTruckFragment2 extends Fragment
     }
 
     private void getTrailerType() {
-        final Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -932,13 +932,12 @@ public class FindTruckFragment2 extends Fragment
             }
 
             if (type.equals("open truck")) {
-                holder.image.setImageResource(R.drawable.ic_truck);
+                holder.image.setImageResource(R.drawable.open);
             } else if (type.equals("container")) {
-                holder.image.setImageResource(R.drawable.ic_container);
+                holder.image.setImageResource(R.drawable.container);
             } else {
-                holder.image.setImageResource(R.drawable.ic_trailer);
+                holder.image.setImageResource(R.drawable.trailer);
             }
-
             holder.text.setText(item.getTitle());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

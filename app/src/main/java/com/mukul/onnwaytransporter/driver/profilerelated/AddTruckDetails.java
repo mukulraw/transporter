@@ -290,7 +290,7 @@ public class AddTruckDetails extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddTruckDetails.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -341,7 +341,7 @@ public class AddTruckDetails extends AppCompatActivity {
                 final CharSequence[] items = {"Take Photo from Camera",
                         "Choose from Gallery",
                         "Cancel"};
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddTruckDetails.this);
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddTruckDetails.this, R.style.MyDialogTheme);
                 builder.setTitle("Add Photo!");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
@@ -390,7 +390,7 @@ public class AddTruckDetails extends AppCompatActivity {
 
     private void getOpenTruckType() {
 
-        final Dialog dialog = new Dialog(AddTruckDetails.this);
+        final Dialog dialog = new Dialog(AddTruckDetails.this, R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -439,7 +439,7 @@ public class AddTruckDetails extends AppCompatActivity {
     }
 
     private void getContainerType() {
-        final Dialog dialog = new Dialog(AddTruckDetails.this);
+        final Dialog dialog = new Dialog(AddTruckDetails.this, R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -487,7 +487,7 @@ public class AddTruckDetails extends AppCompatActivity {
     }
 
     private void getTrailerType() {
-        final Dialog dialog = new Dialog(AddTruckDetails.this);
+        final Dialog dialog = new Dialog(AddTruckDetails.this, R.style.MyDialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.truck_type_dialog);
@@ -571,17 +571,12 @@ public class AddTruckDetails extends AppCompatActivity {
                 holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             }
 
-            if (type.equals("open truck"))
-            {
-                holder.image.setImageResource(R.drawable.ic_truck);
-            }
-            else if (type.equals("container"))
-            {
-                holder.image.setImageResource(R.drawable.ic_container);
-            }
-            else
-            {
-                holder.image.setImageResource(R.drawable.ic_trailer);
+            if (type.equals("open truck")) {
+                holder.image.setImageResource(R.drawable.open);
+            } else if (type.equals("container")) {
+                holder.image.setImageResource(R.drawable.container);
+            } else {
+                holder.image.setImageResource(R.drawable.trailer);
             }
 
             holder.text.setText(item.getTitle());
@@ -630,22 +625,17 @@ public class AddTruckDetails extends AppCompatActivity {
         displaySelectedTruck.setVisibility(View.VISIBLE);
 
 
-        if (type.equals("open truck"))
-        {
+        if (type.equals("open truck")) {
             openTruckBtn.setBackgroundResource(R.drawable.red_back_round);
-            containerBtn.setBackgroundResource(0);
-            trailerBtn.setBackgroundResource(0);
-        }
-        else if (type.equals("container"))
-        {
-            openTruckBtn.setBackgroundResource(0);
+            containerBtn.setBackgroundResource(R.drawable.white_back_round);
+            trailerBtn.setBackgroundResource(R.drawable.white_back_round);
+        } else if (type.equals("container")) {
+            openTruckBtn.setBackgroundResource(R.drawable.white_back_round);
             containerBtn.setBackgroundResource(R.drawable.red_back_round);
-            trailerBtn.setBackgroundResource(0);
-        }
-        else
-        {
-            openTruckBtn.setBackgroundResource(0);
-            containerBtn.setBackgroundResource(0);
+            trailerBtn.setBackgroundResource(R.drawable.white_back_round);
+        } else {
+            openTruckBtn.setBackgroundResource(R.drawable.white_back_round);
+            containerBtn.setBackgroundResource(R.drawable.white_back_round);
             trailerBtn.setBackgroundResource(R.drawable.red_back_round);
         }
     }

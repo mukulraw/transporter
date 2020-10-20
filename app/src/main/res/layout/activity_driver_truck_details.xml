@@ -22,7 +22,7 @@
         android:id="@+id/toolbar_truck_details_driver"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/toolbar_background"
         android:elevation="8dp"
         android:titleTextColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorAccent"
         android:src="@drawable/addroute"
+        app:backgroundTint="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

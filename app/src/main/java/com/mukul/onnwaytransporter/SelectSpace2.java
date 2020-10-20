@@ -277,7 +277,7 @@ public class SelectSpace2 extends AppCompatActivity {
                     public void onClick(View v) {
 
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SelectSpace2.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SelectSpace2.this, R.style.MyDialogTheme);
 
                         builder.setTitle("Post Truck");
                         builder.setMessage("Do you want to post this truck ?");

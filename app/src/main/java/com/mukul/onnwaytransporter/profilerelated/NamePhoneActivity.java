@@ -3,7 +3,9 @@ package com.mukul.onnwaytransporter.profilerelated;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -34,9 +36,10 @@ public class NamePhoneActivity extends AppCompatActivity {
         }
 
         //adding toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_phone_name);
+        Toolbar mToolbar = findViewById(R.id.toolbar_phone_name);
         mToolbar.setTitle(getString(R.string.account_details));
-        mToolbar.setNavigationIcon(R.drawable.backimagegray);
+        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.ic_next_back);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

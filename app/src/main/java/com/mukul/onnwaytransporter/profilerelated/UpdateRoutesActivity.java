@@ -187,7 +187,7 @@ public class UpdateRoutesActivity extends AppCompatActivity {
             viewHolderOperatedRoutes.imageDeleteProvider.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final ProgressDialog progressDialog = new ProgressDialog(mContext);
+                    final ProgressDialog progressDialog = new ProgressDialog(mContext, R.style.MyDialogTheme);
                     progressDialog.setTitle("Deleting Routes");
                     progressDialog.setMessage("Please wait, while we delete route");
                     progressDialog.show();

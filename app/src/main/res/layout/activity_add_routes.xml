@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/toolbar_background"
         android:elevation="8dp"
         app:titleTextColor="#ffffff"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +85,8 @@
         android:text="Add Route"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:background="#E11F22"
+        android:layout_margin="8dp"
+        android:background="@drawable/green_back_round"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

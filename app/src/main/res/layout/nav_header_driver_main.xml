@@ -79,7 +79,7 @@
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:text="My Profile"-->
-<!--                android:textColor="#000000"-->
+<!--                android:textColor="@color/black"-->
 <!--                android:fontFamily="@font/robotomedium"-->
 <!--                android:textSize="20sp"-->
 <!--                android:textStyle="bold"/>-->
@@ -88,7 +88,7 @@
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:text="+91 7049458212"-->
-<!--                android:textColor="#000000"-->
+<!--                android:textColor="@color/black"-->
 <!--                android:fontFamily="@font/robotomedium"-->
 <!--                android:textSize="12sp"/>-->
 

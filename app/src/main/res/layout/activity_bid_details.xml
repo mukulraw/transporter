@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="Choose Truck Type"
-                android:textColor="#000000" />
+                android:textColor="@color/black" />
 
 
 
@@ -129,7 +129,7 @@
                         android:text="Open Truck"
                         android:paddingTop="5dp"
                         android:textAlignment="center"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:gravity="center"/>
                 </LinearLayout>
 
@@ -160,7 +160,7 @@
                         android:text="Container"
                         android:paddingTop="5dp"
                         android:textAlignment="center"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:gravity="center"/>
                 </LinearLayout>
 
@@ -190,7 +190,7 @@
                         android:text="Trailer"
                         android:paddingTop="5dp"
                         android:textAlignment="center"
-                        android:textColor="#000"
+                        android:textColor="@color/black"
                         android:gravity="center"/>
                 </LinearLayout>
 
@@ -221,7 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:background="#00000000"
+                    android:background="@color/transparent"
                     android:id="@+id/passing"
                     android:textSize="14sp"
                     android:inputType="number"
@@ -251,11 +251,13 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/transparent"
                     android:hint="tap to enter"
-                    android:background="#00000000"
+                    android:drawableStart="@drawable/ic_rupee"
+                    android:drawablePadding="10dp"
                     android:inputType="numberDecimal"
-                    android:textSize="14sp"
-                    android:padding="12dp" />
+                    android:padding="12dp"
+                    android:textSize="14sp" />
 
 
             </androidx.cardview.widget.CardView>

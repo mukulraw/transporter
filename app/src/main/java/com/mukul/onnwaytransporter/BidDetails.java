@@ -94,6 +94,7 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
     EditText laodpassing;
 
     String loadtype, srcAddress, destAddress, pickUpDate;
+    ImageView truckType;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -118,6 +119,7 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.mapNearBy);
         mapFragment.getMapAsync(this);
 
+        truckType = findViewById(R.id.imageView5);
         orderid = findViewById(R.id.textView16);
         schedule = findViewById(R.id.textView86);
         confirm = findViewById(R.id.button4);
@@ -285,6 +287,18 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
                 srcAddress = item.getSource();
                 destAddress = item.getDestination();
                 pickUpDate = item.getSchedule();
+
+                try {
+                    if (item.getTruckType2().equals("open truck")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.open));
+                    } else if (item.getTruckType2().equals("trailer")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.trailer));
+                    } else {
+                        truckType.setImageDrawable(getDrawable(R.drawable.container));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 sourceLAT = item.getSourceLAT();
                 sourceLNG = item.getSourceLNG();

@@ -74,9 +74,9 @@
                 android:id="@+id/linearLayout11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="32dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:weightSum="1"
@@ -94,7 +94,7 @@
                     android:layout_width="0dp"
                     android:layout_height="3dp"
                     android:layout_weight="0.9"
-                    android:background="#000000" />
+                    android:background="@color/line" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -249,6 +249,7 @@
         android:paddingTop="3dp"
         android:paddingEnd="20dp"
         android:paddingBottom="3dp"
+        android:textSize="18sp"
         android:text="PART"
         android:textAllCaps="true"
         android:textColor="#ffffff"

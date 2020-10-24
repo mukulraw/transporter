@@ -58,14 +58,14 @@
                     android:layout_height="wrap_content"
                     android:text="Aadhar Card"
                     android:fontFamily="@font/montserrat_bold"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Upload your Aadhar card image"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/montserrat_semibold"
                     android:textSize="12sp" />
 
@@ -121,14 +121,14 @@
                     android:layout_height="wrap_content"
                     android:text="Driving Licence"
                     android:fontFamily="@font/montserrat_bold"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="20sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Upload your Driving Licence"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:fontFamily="@font/montserrat_semibold"/>
 
@@ -183,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Registration Card"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="20sp" />
 
@@ -191,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Upload your Registration card"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:fontFamily="@font/montserrat_semibold"/>
 

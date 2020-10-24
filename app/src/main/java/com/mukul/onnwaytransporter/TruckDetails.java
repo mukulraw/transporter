@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ public class TruckDetails extends AppCompatActivity {
     Button confirm , request;
     ProgressBar progress;
     String id;
-
+    ImageView truckType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class TruckDetails extends AppCompatActivity {
         });
 
 
+        truckType = findViewById(R.id.imageView5);
         orderid = findViewById(R.id.textView16);
         mattitle = findViewById(R.id.textView39);
         weititle = findViewById(R.id.textView40);
@@ -177,6 +179,19 @@ public class TruckDetails extends AppCompatActivity {
                 loadtype.setText(item.getLaodType());
                 mat.setText(item.getMaterial());
                 wei.setText(item.getWeight());
+
+                try {
+                    if (item.getTruckType2().equals("open truck")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.open));
+                    } else if (item.getTruckType2().equals("trailer")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.trailer));
+                    } else {
+                        truckType.setImageDrawable(getDrawable(R.drawable.container));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 if (item.getStatus().equals("cancelled"))
                 {

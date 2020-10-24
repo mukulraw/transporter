@@ -79,7 +79,7 @@ public class OrderDetails extends AppCompatActivity {
 
     String sourceLAT = "", sourceLNG = "", destinationLAT = "", destinationLNG = "";
     TextView laodernote;
-
+    ImageView truckType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +98,7 @@ public class OrderDetails extends AppCompatActivity {
             }
         });
 
+        truckType = findViewById(R.id.imageView5);
         laodernote = findViewById(R.id.textView46);
         orderid = findViewById(R.id.textView16);
         balance = findViewById(R.id.textView44);
@@ -341,6 +342,19 @@ public class OrderDetails extends AppCompatActivity {
                 sourceLNG = item.getSourceLNG();
                 destinationLAT = item.getDestinationLAT();
                 destinationLNG = item.getDestinationLNG();
+
+                try {
+                    if (item.getTruckType2().equals("open truck")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.open));
+                    } else if (item.getTruckType2().equals("trailer")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.trailer));
+                    } else {
+                        truckType.setImageDrawable(getDrawable(R.drawable.container));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
 
                 Location startPoint = new Location("Source");
                 startPoint.setLatitude(Double.parseDouble(sourceLAT));

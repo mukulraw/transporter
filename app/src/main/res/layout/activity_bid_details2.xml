@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="Choose Truck Type"
-                android:textColor="#000000" />
+                android:textColor="@color/black" />
 
 
             <LinearLayout
@@ -130,7 +130,7 @@
                         android:paddingTop="5dp"
                         android:text="Open Truck"
                         android:textAlignment="center"
-                        android:textColor="#000" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -161,7 +161,7 @@
                         android:paddingTop="5dp"
                         android:text="Container"
                         android:textAlignment="center"
-                        android:textColor="#000" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -191,7 +191,7 @@
                         android:paddingTop="5dp"
                         android:text="Trailer"
                         android:textAlignment="center"
-                        android:textColor="#000" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -218,7 +218,7 @@
                     android:id="@+id/passing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
+                    android:background="@color/transparent"
                     android:hint="Load passing (in ton)"
                     android:inputType="number"
                     android:padding="12dp"
@@ -232,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="Remaining Weight"
-                android:textColor="#000000" />
+                android:textColor="@color/black" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/textView50"
@@ -260,7 +260,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Add Special Note"
-                android:textColor="#000000" />
+                android:textColor="@color/black" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -310,8 +310,10 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
+                    android:background="@color/transparent"
                     android:hint="tap to enter"
+                    android:drawableStart="@drawable/ic_rupee"
+                    android:drawablePadding="10dp"
                     android:inputType="numberDecimal"
                     android:padding="12dp"
                     android:textSize="14sp" />

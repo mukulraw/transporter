@@ -50,10 +50,10 @@
                     android:drawableRight="@drawable/nameimage"
                     android:hint="Enter Your Name"
                     android:fontFamily="@font/montserrat_regular"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:inputType="textCapSentences"
                     android:singleLine="true"
-                    android:backgroundTint="#000"/>
+                    android:backgroundTint="@color/black"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,9 +77,9 @@
                     android:drawableRight="@drawable/business"
                     android:hint="Enter Transport Name"
                     android:fontFamily="@font/montserrat_regular"
-                    android:backgroundTint="#000000"
+                    android:backgroundTint="@color/black"
                     android:inputType="textCapSentences"
-                    android:textColor="#000000"/>
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -103,8 +103,8 @@
                     android:text="Enter City"
                     android:inputType="textCapSentences"
                     android:fontFamily="@font/montserrat_regular"
-                    android:backgroundTint="#000000"
-                    android:textColor="#000000"/>
+                    android:backgroundTint="@color/black"
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

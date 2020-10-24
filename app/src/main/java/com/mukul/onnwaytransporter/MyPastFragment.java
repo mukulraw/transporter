@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -142,6 +143,17 @@ public class MyPastFragment extends Fragment {
             holder.truck.setText(item.getTruckType());
             holder.schedule.setText(item.getSchedule());
 
+            try {
+                if (item.getTruckType2().equals("open truck")) {
+                    holder.truckType.setImageDrawable(context.getDrawable(R.drawable.open));
+                } else if (item.getTruckType2().equals("trailer")) {
+                    holder.truckType.setImageDrawable(context.getDrawable(R.drawable.trailer));
+                } else {
+                    holder.truckType.setImageDrawable(context.getDrawable(R.drawable.container));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if (item.getBid().equals("0")) {
                 holder.placed.setVisibility(View.GONE);
@@ -250,11 +262,13 @@ public class MyPastFragment extends Fragment {
 
         static class ViewHolder extends RecyclerView.ViewHolder {
 
+            ImageView truckType;
             TextView type, date, source, destination, material, weight, freight, truck, placed, schedule;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
+                truckType = itemView.findViewById(R.id.imageView8);
                 type = itemView.findViewById(R.id.textView65);
                 date = itemView.findViewById(R.id.textView67);
                 source = itemView.findViewById(R.id.textView69);

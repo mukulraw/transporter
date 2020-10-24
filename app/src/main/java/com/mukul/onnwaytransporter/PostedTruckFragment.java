@@ -144,6 +144,17 @@ public class PostedTruckFragment extends Fragment {
             holder.truck.setText(item.getTruckType());
             holder.status.setText(item.getStatus());
 
+            try {
+                if (item.getTruckType2().equals("open truck")) {
+                    holder.truckType.setImageDrawable(context.getDrawable(R.drawable.open));
+                } else if (item.getTruckType2().equals("trailer")) {
+                    holder.truckType.setImageDrawable(context.getDrawable(R.drawable.trailer));
+                } else {
+                    holder.truckType.setImageDrawable(context.getDrawable(R.drawable.container));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -176,12 +187,13 @@ public class PostedTruckFragment extends Fragment {
 
         static class ViewHolder extends RecyclerView.ViewHolder
         {
-
+            ImageView truckType;
             TextView type , orderid , date , source , destination , material , weight , freight , truck , status;
 
             ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
+                truckType = itemView.findViewById(R.id.imageView8);
                 type = itemView.findViewById(R.id.textView65);
                 orderid = itemView.findViewById(R.id.textView66);
                 date = itemView.findViewById(R.id.textView67);

@@ -24,6 +24,9 @@ public class Data {
     @SerializedName("truck_type")
     @Expose
     private String truckType;
+    @SerializedName("truck_type2")
+    @Expose
+    private String truckType2;
     @SerializedName("schedule")
     @Expose
     private String schedule;
@@ -556,5 +559,13 @@ public class Data {
 
     public void setBoxLength(String boxLength) {
         this.boxLength = boxLength;
+    }
+
+    public String getTruckType2() {
+        return truckType2;
+    }
+
+    public void setTruckType2(String truckType2) {
+        this.truckType2 = truckType2;
     }
 }

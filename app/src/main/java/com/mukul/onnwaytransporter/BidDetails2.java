@@ -105,7 +105,7 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
     List<String> weis;
 
     String len, wid, hei;
-
+    ImageView truckType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +131,7 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.mapNearBy);
         mapFragment.getMapAsync(this);
 
+        truckType = findViewById(R.id.imageView5);
         weightspinner = findViewById(R.id.weight);
         laodpassing = findViewById(R.id.passing);
         sel_truck = findViewById(R.id.sel_truck);
@@ -362,6 +363,17 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                     phototitle.setVisibility(View.GONE);
                 }
 
+                try {
+                    if (item.getTruckType2().equals("open truck")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.open));
+                    } else if (item.getTruckType2().equals("trailer")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.trailer));
+                    } else {
+                        truckType.setImageDrawable(getDrawable(R.drawable.container));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 float ll = Float.parseFloat(item.getLength());
                 float ww = Float.parseFloat(item.getWidth());

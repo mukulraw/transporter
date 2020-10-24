@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout profileLl;
     public static String currenntMobileActive, currentUserName;
 
+    ImageView home;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
 
-
+        home = findViewById(R.id.home);
         //NavBar
         name = view.findViewById(R.id.user_profile_name);
         phone = view.findViewById(R.id.user_profile_phone);
@@ -167,6 +170,15 @@ public class MainActivity extends AppCompatActivity
                     default:
                         return false;
                 }
+
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                myBottomNav.setSelectedItemId(R.id.my_bids);
 
             }
         });

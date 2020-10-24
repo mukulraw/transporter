@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="#ffffff"
     tools:context=".KYC2">
 
     <Toolbar
@@ -57,7 +57,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
                     android:text="Aadhar Card"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -65,7 +64,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Upload your Aadhar card image"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
@@ -85,7 +83,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat_bold"
                 android:text="Upload" />
         </LinearLayout>
 
@@ -129,7 +126,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
                     android:text="Driving License"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -137,7 +133,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Upload your Driving License image"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
@@ -157,7 +152,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat_bold"
                 android:text="Upload" />
         </LinearLayout>
 
@@ -202,7 +196,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
                     android:text="Registration Card"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
@@ -210,7 +203,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semibold"
                     android:text="Upload your Registration Card image"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
@@ -230,7 +222,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat_bold"
                 android:text="Upload" />
         </LinearLayout>
 

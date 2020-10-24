@@ -20,9 +20,9 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_name_et"
-        android:layout_width="320dp"
-        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        android:id="@+id/asdad"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
@@ -32,13 +32,39 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_update_name">
 
         <EditText
+            android:id="@+id/old"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:enabled="false"
+            android:hint="Old Name"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asdad">
+
+        <EditText
             android:id="@+id/user_name_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:hint="Enter new Name"
             android:inputType="textCapSentences"
-            android:fontFamily="@font/montserrat_regular"
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -48,7 +74,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
@@ -57,7 +83,6 @@
         android:text="This name will be updated after the confirmation by the Admin."
         android:textColor="#696969"
         android:textSize="16sp"
-        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_name_et" />
@@ -67,7 +92,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Request"
-        android:fontFamily="@font/montserrat_bold"
         android:layout_margin="8dp"
         android:textSize="16sp"
         android:textColor="#FFFFFF"

@@ -28,12 +28,6 @@ public class NamePhoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_phone);
 
-        //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(105, 105, 105));
-        }
 
         //adding toolbar
         Toolbar mToolbar = findViewById(R.id.toolbar_phone_name);

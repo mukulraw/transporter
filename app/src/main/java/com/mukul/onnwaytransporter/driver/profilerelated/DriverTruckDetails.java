@@ -103,7 +103,7 @@ public class DriverTruckDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<myTrucksBean> call, Response<myTrucksBean> response) {
 
-                truckDetailsRecyclerAdapter = new TruckDetailsRecyclerAdapter(response.body().getData());
+                truckDetailsRecyclerAdapter = new TruckDetailsRecyclerAdapter(response.body().getData(), DriverTruckDetails.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DriverTruckDetails.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setHasFixedSize(true);

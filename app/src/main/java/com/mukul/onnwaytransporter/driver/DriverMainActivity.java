@@ -36,6 +36,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,6 +101,7 @@ public class DriverMainActivity extends AppCompatActivity
     public static String currenntMobileActive;
     public static String currentUserName;
 
+    ImageView home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,7 @@ public class DriverMainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View view = navigationView.getHeaderView(0);
 
-
+        home = findViewById(R.id.home);
         name = view.findViewById(R.id.user_profile_name);
         phone = view.findViewById(R.id.user_profile_phone);
 
@@ -184,6 +186,16 @@ public class DriverMainActivity extends AppCompatActivity
 
             }
         });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                driverBottomNav.setSelectedItemId(R.id.load_request_driver);
+
+            }
+        });
+
 
         profileLl = (LinearLayout) view.findViewById(R.id.profile_ll);
 

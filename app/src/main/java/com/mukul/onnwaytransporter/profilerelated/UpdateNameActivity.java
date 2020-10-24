@@ -17,6 +17,7 @@ import android.widget.Toolbar;
 
 import com.mukul.onnwaytransporter.MainActivity;
 import com.mukul.onnwaytransporter.R;
+import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.profilerelated.changeprovidername.ChangeProviderNameDetails;
 import com.mukul.onnwaytransporter.networking.Post;
 
@@ -27,21 +28,17 @@ public class UpdateNameActivity extends AppCompatActivity {
 
     private ChangeProviderNameDetails changeProviderNameDetails;
 
+    EditText old;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_name);
 
-        //setting the color of STATUS BAR of SelectUserTYpe activity to #696969
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(105, 105, 105));
-        }
 
 
         //adding toolbar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_update_name);
+        Toolbar mToolbar = findViewById(R.id.toolbar_update_name);
         mToolbar.setTitle(getString(R.string.name_update_request));
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setNavigationIcon(R.drawable.ic_next_back);
@@ -54,15 +51,17 @@ public class UpdateNameActivity extends AppCompatActivity {
         });
 
         //Edit Text
-        userNameReq = (EditText) findViewById(R.id.user_name_et);
+        userNameReq = findViewById(R.id.user_name_et);
+        old = findViewById(R.id.old);
 
         userNameReq.requestFocus();
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(userNameReq, InputMethodManager.SHOW_IMPLICIT);
 
+        old.setText(SharePreferenceUtils.getInstance().getString("name"));
         //Button
-        requestBtn = (Button) findViewById(R.id.requestBtnName);
+        requestBtn = findViewById(R.id.requestBtnName);
 
         //handlinf activity for button click
         requestBtn.setOnClickListener(new View.OnClickListener() {

@@ -11,6 +11,9 @@ public class Datum {
     @SerializedName("trucktype")
     @Expose
     private String trucktype;
+    @SerializedName("truck_type2")
+    @Expose
+    private String truck_type2;
     @SerializedName("driver_name")
     @Expose
     private String driverName;
@@ -50,5 +53,12 @@ public class Datum {
         this.driverMobileNo = driverMobileNo;
     }
 
+    public String getTruck_type2() {
+        return truck_type2;
+    }
 
+    public void setTruck_type2(String truck_type2) {
+        this.truck_type2 = truck_type2;
+    }
 }
+

@@ -283,8 +283,69 @@ public class SelectSpace extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
+                        bar.setVisibility(View.VISIBLE);
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SelectSpace.this, R.style.MyDialogTheme);
+                        AppController b = (AppController) getApplicationContext();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(b.baseurl)
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+
+                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                        Call<postLoadBean> call = cr.post_full_load(
+                                SharePreferenceUtils.getInstance().getString("userId"),
+                                loadType,
+                                srcAddress,
+                                destAddress,
+                                tid,
+                                pickUpDate,
+                                wei,
+                                passing,
+                                desc,
+                                length,
+                                width,
+                                height,
+                                "",
+                                mid,
+                                truckTypeDetails.getText().toString(),
+                                truckCapacity.getText().toString(),
+                                boxLength.getText().toString(),
+                                boxWidth.getText().toString(),
+                                boxArea.getText().toString(),
+                                selectedArea.getText().toString(),
+                                remainingArea.getText().toString(),
+                                android.text.TextUtils.join(",", selected)
+                        );
+
+                        call.enqueue(new Callback<postLoadBean>() {
+                            @Override
+                            public void onResponse(Call<postLoadBean> call, Response<postLoadBean> response) {
+
+                                if (response.body().getStatus().equals("1"))
+                                {
+                                    Toast.makeText(SelectSpace.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                    //dialog.dismiss();
+
+                                    Intent intent = new Intent(SelectSpace.this , MainActivity.class);
+                                    startActivity(intent);
+                                    finishAffinity();
+
+                                }
+                                Toast.makeText(SelectSpace.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                bar.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onFailure(Call<postLoadBean> call, Throwable t) {
+                                bar.setVisibility(View.GONE);
+                            }
+                        });
+
+                        /*AlertDialog.Builder builder = new AlertDialog.Builder(SelectSpace.this, R.style.MyDialogTheme);
 
                         builder.setTitle("Post Truck");
                         builder.setMessage("Do you want to post this truck ?");
@@ -295,67 +356,7 @@ public class SelectSpace extends AppCompatActivity {
                                 // Do nothing but close the dialog
 
 
-                                bar.setVisibility(View.VISIBLE);
 
-                                AppController b = (AppController) getApplicationContext();
-
-                                Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl(b.baseurl)
-                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                        .addConverterFactory(GsonConverterFactory.create())
-                                        .build();
-
-                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                Call<postLoadBean> call = cr.post_full_load(
-                                        SharePreferenceUtils.getInstance().getString("userId"),
-                                        loadType,
-                                        srcAddress,
-                                        destAddress,
-                                        tid,
-                                        pickUpDate,
-                                        wei,
-                                        passing,
-                                        desc,
-                                        length,
-                                        width,
-                                        height,
-                                        "",
-                                        mid,
-                                        truckTypeDetails.getText().toString(),
-                                        truckCapacity.getText().toString(),
-                                        boxLength.getText().toString(),
-                                        boxWidth.getText().toString(),
-                                        boxArea.getText().toString(),
-                                        selectedArea.getText().toString(),
-                                        remainingArea.getText().toString(),
-                                        android.text.TextUtils.join(",", selected)
-                                );
-
-                                call.enqueue(new Callback<postLoadBean>() {
-                                    @Override
-                                    public void onResponse(Call<postLoadBean> call, Response<postLoadBean> response) {
-
-                                        if (response.body().getStatus().equals("1"))
-                                        {
-                                            Toast.makeText(SelectSpace.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
-
-                                            Intent intent = new Intent(SelectSpace.this , MainActivity.class);
-                                            startActivity(intent);
-                                            finishAffinity();
-
-                                        }
-                                        Toast.makeText(SelectSpace.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                        bar.setVisibility(View.GONE);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<postLoadBean> call, Throwable t) {
-                                        bar.setVisibility(View.GONE);
-                                    }
-                                });
 
                             }
                         });
@@ -371,7 +372,7 @@ public class SelectSpace extends AppCompatActivity {
                         });
 
                         AlertDialog alert = builder.create();
-                        alert.show();
+                        alert.show();*/
 
 
                     }

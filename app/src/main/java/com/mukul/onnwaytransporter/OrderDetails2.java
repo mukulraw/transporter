@@ -131,7 +131,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
 
     TextView navigate;
     TextView laodernote;
-
+    ImageView truckType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +151,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
             }
         });
 
+        truckType = findViewById(R.id.imageView5);
         laodernote = findViewById(R.id.textView46);
         navigate = findViewById(R.id.imageButton);
         orderid = findViewById(R.id.textView16);
@@ -454,6 +455,17 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                     startend.setText("START");
                 }
 
+                try {
+                    if (item.getTruckType2().equals("open truck")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.open));
+                    } else if (item.getTruckType2().equals("trailer")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.trailer));
+                    } else {
+                        truckType.setImageDrawable(getDrawable(R.drawable.container));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 PODAdapter adapter = new PODAdapter(OrderDetails2.this, item.getPod());
                 GridLayoutManager manager = new GridLayoutManager(OrderDetails2.this, 2);

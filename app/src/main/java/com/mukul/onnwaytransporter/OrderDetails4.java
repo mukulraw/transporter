@@ -141,7 +141,7 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
     String length, width, height, desc, tid, passing;
     float capcaity, len, wid;
     List<String> selected;
-
+    ImageView truckType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,7 +159,7 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
                 finish();
             }
         });
-
+        truckType = findViewById(R.id.imageView5);
         partLoad1 = findViewById(R.id.part_load_card_1);
         partLoad2 = findViewById(R.id.part_load_card_2);
         partLoad3 = findViewById(R.id.part_load_card_3);
@@ -461,6 +461,18 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
                 fare.setText("₹ " + item.getFare());
                 paid.setText(item.getPaid());
                 laodernote.setText(item.getRemarks());
+
+                try {
+                    if (item.getTruckType2().equals("open truck")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.open));
+                    } else if (item.getTruckType2().equals("trailer")) {
+                        truckType.setImageDrawable(getDrawable(R.drawable.trailer));
+                    } else {
+                        truckType.setImageDrawable(getDrawable(R.drawable.container));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 if (item.getSelected().contains("1")) {
                     partLoad1.setCardBackgroundColor(Color.parseColor("#A0A0A0"));

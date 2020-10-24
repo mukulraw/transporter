@@ -2,6 +2,8 @@ package com.mukul.onnwaytransporter.driver.profilerelated.DriverTruckDetailsRecy
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,11 @@ import java.util.List;
 public class TruckDetailsRecyclerAdapter extends RecyclerView.Adapter<TruckDetailsViewHolder> {
 
     private List<Datum> truckDetailsUsers;
+    Context context;
 
-    public TruckDetailsRecyclerAdapter(List<Datum> truckDetailsUsers){
+    public TruckDetailsRecyclerAdapter(List<Datum> truckDetailsUsers, Context context){
         this.truckDetailsUsers=truckDetailsUsers;
+        this.context=context;
     }
 
     @NonNull
@@ -34,6 +38,18 @@ public class TruckDetailsRecyclerAdapter extends RecyclerView.Adapter<TruckDetai
         truckDetailsViewHolder.registrationNumber.setText(sampleTruckDetails.getTruckRegNo());
         truckDetailsViewHolder.driverName.setText(sampleTruckDetails.getDriverName());
         truckDetailsViewHolder.driverNumber.setText(sampleTruckDetails.getDriverMobileNo());
+
+        try {
+            if (sampleTruckDetails.getTruck_type2().equals("open truck")) {
+                truckDetailsViewHolder.trucktype.setImageDrawable(context.getDrawable(R.drawable.open));
+            } else if (sampleTruckDetails.getTruck_type2().equals("trailer")) {
+                truckDetailsViewHolder.trucktype.setImageDrawable(context.getDrawable(R.drawable.trailer));
+            } else {
+                truckDetailsViewHolder.trucktype.setImageDrawable(context.getDrawable(R.drawable.container));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

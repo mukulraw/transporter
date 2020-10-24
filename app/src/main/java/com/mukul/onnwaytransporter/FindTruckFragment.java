@@ -293,8 +293,70 @@ public class FindTruckFragment extends Fragment
 
                                     if (pickUpDate.length() > 0) {
 
+                                        bar.setVisibility(View.VISIBLE);
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
+                                        AppController b = (AppController) getContext().getApplicationContext();
+
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl(b.baseurl)
+                                                .addConverterFactory(ScalarsConverterFactory.create())
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+
+                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                                        Call<postLoadBean> call = cr.post_full_load(
+                                                SharePreferenceUtils.getInstance().getString("userId"),
+                                                "full",
+                                                srcAddress,
+                                                destAddress,
+                                                tid,
+                                                pickUpDate,
+                                                "",
+                                                passing + " Mt.",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                "",
+                                                ""
+                                        );
+
+                                        call.enqueue(new Callback<postLoadBean>() {
+                                            @Override
+                                            public void onResponse(Call<postLoadBean> call, Response<postLoadBean> response) {
+
+                                                if (response.body().getStatus().equals("1")) {
+                                                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    //dialog.dismiss();
+
+
+                                                    FindTruckFragment postTruckFrag;
+                                                    postTruckFrag = new FindTruckFragment();
+
+                                                    ((MainActivity) getActivity()).setFragment(postTruckFrag);
+
+                                                }
+                                                Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                                bar.setVisibility(View.GONE);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<postLoadBean> call, Throwable t) {
+                                                bar.setVisibility(View.GONE);
+                                            }
+                                        });
+
+                                        /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
 
                                         builder.setTitle("Post Truck");
                                         builder.setMessage("Do you want to post this truck ?");
@@ -305,68 +367,7 @@ public class FindTruckFragment extends Fragment
                                                 // Do nothing but close the dialog
 
 
-                                                bar.setVisibility(View.VISIBLE);
 
-                                                AppController b = (AppController) getContext().getApplicationContext();
-
-                                                Retrofit retrofit = new Retrofit.Builder()
-                                                        .baseUrl(b.baseurl)
-                                                        .addConverterFactory(ScalarsConverterFactory.create())
-                                                        .addConverterFactory(GsonConverterFactory.create())
-                                                        .build();
-
-                                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                                Call<postLoadBean> call = cr.post_full_load(
-                                                        SharePreferenceUtils.getInstance().getString("userId"),
-                                                        "full",
-                                                        srcAddress,
-                                                        destAddress,
-                                                        tid,
-                                                        pickUpDate,
-                                                        "",
-                                                        passing + " Mt.",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        "",
-                                                        ""
-                                                );
-
-                                                call.enqueue(new Callback<postLoadBean>() {
-                                                    @Override
-                                                    public void onResponse(Call<postLoadBean> call, Response<postLoadBean> response) {
-
-                                                        if (response.body().getStatus().equals("1")) {
-                                                            Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                            dialog.dismiss();
-
-
-                                                            FindTruckFragment postTruckFrag;
-                                                            postTruckFrag = new FindTruckFragment();
-
-                                                            ((MainActivity) getActivity()).setFragment(postTruckFrag);
-
-                                                        }
-                                                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
-                                                        bar.setVisibility(View.GONE);
-                                                    }
-
-                                                    @Override
-                                                    public void onFailure(Call<postLoadBean> call, Throwable t) {
-                                                        bar.setVisibility(View.GONE);
-                                                    }
-                                                });
 
                                             }
                                         });
@@ -383,7 +384,7 @@ public class FindTruckFragment extends Fragment
 
                                         AlertDialog alert = builder.create();
                                         alert.show();
-
+*/
 
 
 

@@ -449,7 +449,7 @@ public class KYC3 extends AppCompatActivity {
                 ImageLoader loader = ImageLoader.getInstance();
                 loader.displayImage(item.getFrontAadhar(), af, options);
                 loader.displayImage(item.getBackAadhar(), ab, options);
-                loader.displayImage(item.getFrontDriving(), df, options);
+                /*loader.displayImage(item.getFrontDriving(), df, options);
                 loader.displayImage(item.getBackDriving(), db, options);
                 loader.displayImage(item.getFrontRegistration(), rf, options);
                 loader.displayImage(item.getBackRegistration(), rb, options);
@@ -501,7 +501,7 @@ public class KYC3 extends AppCompatActivity {
                 } else {
                     rb_verify.setVisibility(View.GONE);
                     upload6.setEnabled(true);
-                }
+                }*/
 
 
                 progress.setVisibility(View.GONE);

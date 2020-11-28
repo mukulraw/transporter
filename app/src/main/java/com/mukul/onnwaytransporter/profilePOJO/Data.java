@@ -31,18 +31,30 @@ public class Data {
     @SerializedName("fa_verify")
     @Expose
     private String faVerify;
-    @SerializedName("bd_verify")
+    @SerializedName("bp_verify")
     @Expose
-    private String bdVerify;
-    @SerializedName("fd_verify")
+    private String bpVerify;
+    @SerializedName("fp_verify")
     @Expose
-    private String fdVerify;
-    @SerializedName("br_verify")
+    private String fpVerify;
+    @SerializedName("bv_verify")
     @Expose
-    private String brVerify;
-    @SerializedName("fr_verify")
+    private String bvVerify;
+    @SerializedName("fv_verify")
     @Expose
-    private String frVerify;
+    private String fvVerify;
+    @SerializedName("fpa_verify")
+    @Expose
+    private String fpaVerify;
+    @SerializedName("bpa_verify")
+    @Expose
+    private String bpaVerify;
+    @SerializedName("fo_verify")
+    @Expose
+    private String foVerify;
+    @SerializedName("bo_verify")
+    @Expose
+    private String boVerify;
     @SerializedName("image")
     @Expose
     private String image;
@@ -52,18 +64,30 @@ public class Data {
     @SerializedName("front_aadhar")
     @Expose
     private String frontAadhar;
-    @SerializedName("back_driving")
+    @SerializedName("back_pan")
     @Expose
-    private String backDriving;
-    @SerializedName("front_driving")
+    private String backPan;
+    @SerializedName("front_pan")
     @Expose
-    private String frontDriving;
-    @SerializedName("back_registration")
+    private String frontPan;
+    @SerializedName("back_visiting")
     @Expose
-    private String backRegistration;
-    @SerializedName("front_registration")
+    private String backVisiting;
+    @SerializedName("front_visiting")
     @Expose
-    private String frontRegistration;
+    private String frontVisiting;
+    @SerializedName("front_passbook")
+    @Expose
+    private String frontPassbook;
+    @SerializedName("back_passbook")
+    @Expose
+    private String backPassbook;
+    @SerializedName("front_other")
+    @Expose
+    private String frontOther;
+    @SerializedName("back_other")
+    @Expose
+    private String backOther;
     @SerializedName("created")
     @Expose
     private String created;
@@ -140,36 +164,68 @@ public class Data {
         this.faVerify = faVerify;
     }
 
-    public String getBdVerify() {
-        return bdVerify;
+    public String getBpVerify() {
+        return bpVerify;
     }
 
-    public void setBdVerify(String bdVerify) {
-        this.bdVerify = bdVerify;
+    public void setBpVerify(String bpVerify) {
+        this.bpVerify = bpVerify;
     }
 
-    public String getFdVerify() {
-        return fdVerify;
+    public String getFpVerify() {
+        return fpVerify;
     }
 
-    public void setFdVerify(String fdVerify) {
-        this.fdVerify = fdVerify;
+    public void setFpVerify(String fpVerify) {
+        this.fpVerify = fpVerify;
     }
 
-    public String getBrVerify() {
-        return brVerify;
+    public String getBvVerify() {
+        return bvVerify;
     }
 
-    public void setBrVerify(String brVerify) {
-        this.brVerify = brVerify;
+    public void setBvVerify(String bvVerify) {
+        this.bvVerify = bvVerify;
     }
 
-    public String getFrVerify() {
-        return frVerify;
+    public String getFvVerify() {
+        return fvVerify;
     }
 
-    public void setFrVerify(String frVerify) {
-        this.frVerify = frVerify;
+    public void setFvVerify(String fvVerify) {
+        this.fvVerify = fvVerify;
+    }
+
+    public String getFpaVerify() {
+        return fpaVerify;
+    }
+
+    public void setFpaVerify(String fpaVerify) {
+        this.fpaVerify = fpaVerify;
+    }
+
+    public String getBpaVerify() {
+        return bpaVerify;
+    }
+
+    public void setBpaVerify(String bpaVerify) {
+        this.bpaVerify = bpaVerify;
+    }
+
+    public String getFoVerify() {
+        return foVerify;
+    }
+
+    public void setFoVerify(String foVerify) {
+        this.foVerify = foVerify;
+    }
+
+    public String getBoVerify() {
+        return boVerify;
+    }
+
+    public void setBoVerify(String boVerify) {
+        this.boVerify = boVerify;
     }
 
     public String getImage() {
@@ -196,36 +252,68 @@ public class Data {
         this.frontAadhar = frontAadhar;
     }
 
-    public String getBackDriving() {
-        return backDriving;
+    public String getBackPan() {
+        return backPan;
     }
 
-    public void setBackDriving(String backDriving) {
-        this.backDriving = backDriving;
+    public void setBackPan(String backPan) {
+        this.backPan = backPan;
     }
 
-    public String getFrontDriving() {
-        return frontDriving;
+    public String getFrontPan() {
+        return frontPan;
     }
 
-    public void setFrontDriving(String frontDriving) {
-        this.frontDriving = frontDriving;
+    public void setFrontPan(String frontPan) {
+        this.frontPan = frontPan;
     }
 
-    public String getBackRegistration() {
-        return backRegistration;
+    public String getBackVisiting() {
+        return backVisiting;
     }
 
-    public void setBackRegistration(String backRegistration) {
-        this.backRegistration = backRegistration;
+    public void setBackVisiting(String backVisiting) {
+        this.backVisiting = backVisiting;
     }
 
-    public String getFrontRegistration() {
-        return frontRegistration;
+    public String getFrontVisiting() {
+        return frontVisiting;
     }
 
-    public void setFrontRegistration(String frontRegistration) {
-        this.frontRegistration = frontRegistration;
+    public void setFrontVisiting(String frontVisiting) {
+        this.frontVisiting = frontVisiting;
+    }
+
+    public String getFrontPassbook() {
+        return frontPassbook;
+    }
+
+    public void setFrontPassbook(String frontPassbook) {
+        this.frontPassbook = frontPassbook;
+    }
+
+    public String getBackPassbook() {
+        return backPassbook;
+    }
+
+    public void setBackPassbook(String backPassbook) {
+        this.backPassbook = backPassbook;
+    }
+
+    public String getFrontOther() {
+        return frontOther;
+    }
+
+    public void setFrontOther(String frontOther) {
+        this.frontOther = frontOther;
+    }
+
+    public String getBackOther() {
+        return backOther;
+    }
+
+    public void setBackOther(String backOther) {
+        this.backOther = backOther;
     }
 
     public String getCreated() {
@@ -235,4 +323,5 @@ public class Data {
     public void setCreated(String created) {
         this.created = created;
     }
+
 }

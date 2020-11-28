@@ -10,7 +10,7 @@ import android.widget.Toolbar;
 
 public class KYC2 extends AppCompatActivity {
 
-    Button aadharcard, driving, registration;
+    Button visiting, pan, aadhar, passbook, other;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +28,73 @@ public class KYC2 extends AppCompatActivity {
             }
         });
 
-        aadharcard = findViewById(R.id.aadhar_card_btn);
-        driving = findViewById(R.id.aadhar_card_btn2);
-        registration = findViewById(R.id.aadhar_card_btn3);
+        visiting = findViewById(R.id.visiting);
+        pan = findViewById(R.id.pan);
+        aadhar = findViewById(R.id.aadhar);
+        passbook = findViewById(R.id.passbook);
+        other = findViewById(R.id.other);
 
-        aadharcard.setOnClickListener(new View.OnClickListener() {
+        visiting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(KYC2.this, KYC.class);
+                intent.putExtra("type", "visiting");
+                intent.putExtra("front", "front_visiting");
+                intent.putExtra("back", "back_visiting");
+                intent.putExtra("title", "Visiting Card");
                 startActivity(intent);
             }
         });
 
-        driving.setOnClickListener(new View.OnClickListener() {
+        pan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(KYC2.this, KYC3.class);
+                Intent intent = new Intent(KYC2.this, KYC.class);
+                intent.putExtra("type", "pan");
+                intent.putExtra("front", "front_pan");
+                intent.putExtra("back", "back_pan");
+                intent.putExtra("title", "PAN Card");
                 startActivity(intent);
             }
         });
 
 
-        registration.setOnClickListener(new View.OnClickListener() {
+        aadhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(KYC2.this, KYC4.class);
+                Intent intent = new Intent(KYC2.this, KYC.class);
+                intent.putExtra("type", "aadhar");
+                intent.putExtra("front", "front_aadhar");
+                intent.putExtra("back", "back_aadhar");
+                intent.putExtra("title", "Aadhar Card");
                 startActivity(intent);
             }
         });
+
+        passbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KYC2.this, KYC.class);
+                intent.putExtra("type", "passbook");
+                intent.putExtra("front", "front_passbook");
+                intent.putExtra("back", "back_passbook");
+                intent.putExtra("title", "Bank Passbook");
+                startActivity(intent);
+            }
+        });
+
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KYC2.this, KYC.class);
+                intent.putExtra("type", "other");
+                intent.putExtra("front", "front_other");
+                intent.putExtra("back", "back_other");
+                intent.putExtra("title", "Other Doc");
+                startActivity(intent);
+            }
+        });
+
 
 
     }

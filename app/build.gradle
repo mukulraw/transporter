@@ -46,14 +46,11 @@ dependencies {
     implementation 'com.github.florent37:materialtextfield:1.0.7'
     //
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
-    //
-    implementation 'swarajsaaj:otpreader:1.1'
+
     //
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     //
     implementation 'com.android.volley:volley:1.1.1'
-    //
-    implementation 'swarajsaaj:otpreader:1.1'
     //
     implementation 'com.nabinbhandari.android:permissions:3.8'
     //
@@ -96,6 +93,7 @@ dependencies {
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
     implementation 'com.github.sujithkanna:smileyrating:2.0.0'
-
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
 
 }

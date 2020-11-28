@@ -38,6 +38,12 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/resend2.php")
+    Call<loginBean> resend(
+            @Part("phone") String phone
+    );
+
+    @Multipart
     @POST("android/update_provider_profile.php")
     Call<updateProfileBean> update_provider_profile(
             @Part("user_id") String user_id,

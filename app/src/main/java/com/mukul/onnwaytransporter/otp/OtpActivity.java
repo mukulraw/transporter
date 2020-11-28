@@ -1,21 +1,34 @@
 package com.mukul.onnwaytransporter.otp;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Handler;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.mukesh.OnOtpCompletionListener;
+import com.mukul.onnwaytransporter.AllApiIneterface;
+import com.mukul.onnwaytransporter.MySMSBroadcastReceiver;
 import com.mukul.onnwaytransporter.SharePreferenceUtils;
 import com.mukul.onnwaytransporter.driver.DriverMainActivity;
 import com.mukul.onnwaytransporter.MainActivity;
+import com.mukul.onnwaytransporter.loginBean;
+import com.mukul.onnwaytransporter.networking.AppController;
 import com.mukul.onnwaytransporter.networking.Post;
 import com.mukul.onnwaytransporter.preferences.SaveSharedPreference;
 import com.mukesh.OtpView;
@@ -23,19 +36,29 @@ import com.mukul.onnwaytransporter.R;
 import com.mukul.onnwaytransporter.SelectUserType;
 import com.mukul.onnwaytransporter.splash.SplashActivity;
 
-import swarajsaaj.smscodereader.interfaces.OTPListener;
-import swarajsaaj.smscodereader.receivers.OtpReader;
+import java.util.concurrent.TimeUnit;
 
-public class OtpActivity extends AppCompatActivity  implements OTPListener {
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+public class OtpActivity extends AppCompatActivity  implements  MySMSBroadcastReceiver.OTPReceiveListener {
 
     SharedData sharedData;
     Button nextBtn;
 
     private OtpView otpview;
-    private TextView mobileTv;
+    ProgressBar progress;
+    private TextView mobileTv, resend;
 
     public CheckingPreRegistered checkingPreRegistered = new CheckingPreRegistered();
 
+    private MySMSBroadcastReceiver smsReceiver;
 
     String phone , otp , id , type;
     @Override
@@ -47,6 +70,8 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
         otp = getIntent().getStringExtra("otp");
         id = getIntent().getStringExtra("id");
         type = getIntent().getStringExtra("type");
+        resend = findViewById(R.id.textView5);
+        progress = findViewById(R.id.progressBar4);
 
 
 //        nextBtn = (Button) findViewById(R.id.nextBtn);
@@ -78,8 +103,6 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
 
         mobileTv = findViewById(R.id.mobile_tv);
         mobileTv.setText(phone);
-        //automatic OTP reader, library used: "swarajsaaj:otpreader:1.1"
-        OtpReader.bind(OtpActivity.this,"SNDOTP");
 
         otpview.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
@@ -124,53 +147,99 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
             }
         });
 
-    }
-
-
-
-
-    @Override
-    public void otpReceived(String messageText) {
-
-//when otp received then this method called
-        Log.i("otp", messageText);
-        int length = messageText.length();
-        Log.i("otp", "Length:" + length);
-        String substr = messageText.substring(length - 4, length);
-
-        otpview.setText(messageText);
-
-
-
-
-
-        /*new Handler().postDelayed(new Runnable() {
+        resend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if (Post.cityName.equals("")){
-                    Intent intent = new Intent(OtpActivity.this, SelectUserType.class);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                    Toast.makeText(OtpActivity.this, "Not found", Toast.LENGTH_LONG).show();
-                } else {
-                    addData();
-                    Toast.makeText(OtpActivity.this, Post.cityName+Post.mobileNumber+Post.transportName+Post.userType, Toast.LENGTH_LONG).show();
-                    if(Post.userType.equals("1")){
-                        Intent intent = new Intent(OtpActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent(OtpActivity.this, DriverMainActivity.class);
-                        startActivity(intent);
-                        finish();
+            public void onClick(View v) {
+
+                progress.setVisibility(View.VISIBLE);
+
+                AppController b = (AppController) getApplicationContext();
+
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                logging.level(HttpLoggingInterceptor.Level.HEADERS);
+                logging.level(HttpLoggingInterceptor.Level.BODY);
+
+                OkHttpClient client = new OkHttpClient.Builder().writeTimeout(1000, TimeUnit.SECONDS).readTimeout(1000, TimeUnit.SECONDS).connectTimeout(1000, TimeUnit.SECONDS).addInterceptor(logging).build();
+
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(b.baseurl)
+                        .client(client)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+                Call<loginBean> call = cr.resend(phone);
+
+                call.enqueue(new Callback<loginBean>() {
+                    @Override
+                    public void onResponse(Call<loginBean> call, Response<loginBean> response) {
+
+                        if (response.body().getStatus().equals("1")) {
+
+                            SharePreferenceUtils.getInstance().saveString("phone" , response.body().getPhone());
+                            SharePreferenceUtils.getInstance().saveString("name" , response.body().getName());
+                            SharePreferenceUtils.getInstance().saveString("email" , response.body().getEmail());
+                            SharePreferenceUtils.getInstance().saveString("city" , response.body().getCity());
+
+                            otp = response.body().getOtp();
+
+                        } else {
+                            Toast.makeText(OtpActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        progress.setVisibility(View.GONE);
                     }
-                }
-//                nextBtn.setClickable(true);
-//                nextBtn.setBackgroundColor(getResources().getColor(R.color.red_active_button));
+
+                    @Override
+                    public void onFailure(Call<loginBean> call, Throwable t) {
+                        progress.setVisibility(View.GONE);
+                        t.printStackTrace();
+                    }
+                });
+
             }
-        }, 3000);*/
-//        finish();
+        });
+
+        smsReceiver = new MySMSBroadcastReceiver();
+        smsReceiver.setOTPListener(this);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION);
+        this.registerReceiver(smsReceiver, intentFilter);
+
+        // Get an instance of SmsRetrieverClient, used to start listening for a matching
+// SMS message.
+        SmsRetrieverClient client = SmsRetriever.getClient(this /* context */);
+
+// Starts SmsRetriever, which waits for ONE matching SMS message until timeout
+// (5 minutes). The matching SMS message will be sent via a Broadcast Intent with
+// action SmsRetriever#SMS_RETRIEVED_ACTION.
+        Task<Void> task = client.startSmsRetriever();
+
+// Listen for success/failure of the start Task. If in a background thread, this
+// can be made blocking using Tasks.await(task, [timeout]);
+        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Successfully started retriever, expect broadcast intent
+                // ...
+                MySMSBroadcastReceiver receiver = new MySMSBroadcastReceiver();
+
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Failed to start retriever, inspect Exception for more details
+                // ...
+            }
+        });
+
     }
 
     public void addData() {
@@ -206,4 +275,38 @@ public class OtpActivity extends AppCompatActivity  implements OTPListener {
             //deleted
         }
     }
+
+    @Override
+    public void onOTPReceived(String messageText) {
+        Log.i("otp", messageText);
+        int length = messageText.length();
+        Log.i("otp", "Length:" + length);
+        String substr = messageText.substring(length - 16, length);
+
+        otpview.setText(substr);
+        if (smsReceiver != null) {
+            unregisterReceiver(smsReceiver);
+            smsReceiver = null;
+        }
+
+    }
+
+    @Override
+    public void onOTPTimeOut() {
+
+    }
+
+    @Override
+    public void onOTPReceivedError(String error) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (smsReceiver != null) {
+            unregisterReceiver(smsReceiver);
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mukul.onnwaytransporter">
+    package="com.app.onnwaytransporter">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -32,7 +32,7 @@
         android:value="AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY" />
 
     <application
-        android:name=".networking.AppController"
+        android:name="com.app.onnwaytransporter.networking.AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,68 +41,68 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".KYC4"></activity>
-        <activity android:name=".KYC3" />
-        <activity android:name=".KYC2" />
+        <activity android:name="com.app.onnwaytransporter.KYC4"></activity>
+        <activity android:name="com.app.onnwaytransporter.KYC3" />
+        <activity android:name="com.app.onnwaytransporter.KYC2" />
         <activity
-            android:name=".SelectSpace3"
+            android:name="com.app.onnwaytransporter.SelectSpace3"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Feedback"
+            android:name="com.app.onnwaytransporter.Feedback"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".KYC"
+            android:name="com.app.onnwaytransporter.KYC"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderDetails4"
+            android:name="com.app.onnwaytransporter.OrderDetails4"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TruckDetails2"
+            android:name="com.app.onnwaytransporter.TruckDetails2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderDetails3"
+            android:name="com.app.onnwaytransporter.OrderDetails3"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProfile"
+            android:name="com.app.onnwaytransporter.EditProfile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BidDetails2"
+            android:name="com.app.onnwaytransporter.BidDetails2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".GettingStarted"
+            android:name="com.app.onnwaytransporter.GettingStarted"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Web"
+            android:name="com.app.onnwaytransporter.Web"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderDetails2"
+            android:name="com.app.onnwaytransporter.OrderDetails2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SelectSpace2"
+            android:name="com.app.onnwaytransporter.SelectSpace2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Materials2"
+            android:name="com.app.onnwaytransporter.Materials2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SelectSpace"
+            android:name="com.app.onnwaytransporter.SelectSpace"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Materials"
+            android:name="com.app.onnwaytransporter.Materials"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderDetails"
+            android:name="com.app.onnwaytransporter.OrderDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TruckDetails"
+            android:name="com.app.onnwaytransporter.TruckDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BidDetails"
+            android:name="com.app.onnwaytransporter.BidDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Profile"
+            android:name="com.app.onnwaytransporter.Profile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".otp.NumberIntroActivity"
+            android:name="com.app.onnwaytransporter.otp.NumberIntroActivity"
             android:screenOrientation="portrait" />
 
         <uses-library
@@ -110,28 +110,28 @@
             android:required="false" />
 
         <activity
-            android:name=".profilerelated.KycProviderActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.KycProviderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.uploadkycimage.KycMainPage"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.uploadkycimage.KycMainPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.uploadkycimage.UploadImageActivity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.uploadkycimage.UploadImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TestActivity"
+            android:name="com.app.onnwaytransporter.TestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.AddTruckDetails"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.AddTruckDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.DriverTruckDetails"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverTruckDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.Image_Picker.FileUploadCamera"
+            android:name="com.app.onnwaytransporter.driver.Image_Picker.FileUploadCamera"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.Image_Picker.FileUpload"
+            android:name="com.app.onnwaytransporter.driver.Image_Picker.FileUpload"
             android:screenOrientation="portrait" /> <!-- <provider -->
         <!-- android:name="android.support.v4.content.FileProvider" -->
         <!-- android:authorities="com.sumit.myapplication.fileprovider" -->
@@ -152,52 +152,52 @@
         </provider>
 
         <activity
-            android:name=".providerpartload.SelectTruckSpaceProvider"
+            android:name="com.app.onnwaytransporter.providerpartload.SelectTruckSpaceProvider"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".providerpartload.PartLoadMaterialDetails"
+            android:name="com.app.onnwaytransporter.providerpartload.PartLoadMaterialDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.KycDriverActivity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.KycDriverActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.DriverOperatedRoutesActivity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverOperatedRoutesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.DriverUpdateCity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverUpdateCity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".driver.profilerelated.DriverUpdateMobile"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverUpdateMobile"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".driver.profilerelated.DriverUpdateName"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverUpdateName"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".driver.profilerelated.DriverAddRoutesActivity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverAddRoutesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.DriverNamePhoneActivity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverNamePhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.profilerelated.DriverProfileActivity"
+            android:name="com.app.onnwaytransporter.driver.profilerelated.DriverProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderStatus.UploadPOD"
+            android:name="com.app.onnwaytransporter.OrderStatus.UploadPOD"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".OrderStatus.AssignTruck"
+            android:name="com.app.onnwaytransporter.OrderStatus.AssignTruck"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.postload.DriverPostPartLoad"
+            android:name="com.app.onnwaytransporter.driver.postload.DriverPostPartLoad"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.postload.DriverPostFullLoad"
+            android:name="com.app.onnwaytransporter.driver.postload.DriverPostFullLoad"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".driver.DriverMainActivity"
+            android:name="com.app.onnwaytransporter.driver.DriverMainActivity"
             android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -212,60 +212,60 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".FetchDriverLocation"
+            android:name="com.app.onnwaytransporter.FetchDriverLocation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".profilerelated.UpdateRoutesActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.UpdateRoutesActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
+        <activity android:name="com.app.onnwaytransporter.GoogleMapActivity" /> <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
         <!-- <activity android:name="com.atul.testing.TestingActivity"></activity> -->
         <activity
-            android:name=".biddetails.SetBidDetailsActivity"
+            android:name="com.app.onnwaytransporter.biddetails.SetBidDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.app.onnwaytransporter.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".profilerelated.AddRoutesActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.AddRoutesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.UpdateCityActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.UpdateCityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.UpdateMobileActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.UpdateMobileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.UpdateNameActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.UpdateNameActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".profilerelated.NamePhoneActivity"
+            android:name="com.app.onnwaytransporter.profilerelated.NamePhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.app.onnwaytransporter.ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".otp.OtpActivity"
+            android:name="com.app.onnwaytransporter.otp.OtpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".otp.NumberActivity"
+            android:name="com.app.onnwaytransporter.otp.NumberActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FirstTimeProfileActivity"
+            android:name="com.app.onnwaytransporter.FirstTimeProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".SelectUserType" />
+        <activity android:name="com.app.onnwaytransporter.SelectUserType" />
         <activity
-            android:name=".testing.TestingActivity"
+            android:name="com.app.onnwaytransporter.testing.TestingActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="com.app.onnwaytransporter.splash.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -281,7 +281,7 @@
         </receiver>
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.app.onnwaytransporter.MyFirebaseMessagingService"
             android:permission="">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -303,7 +303,7 @@
             android:value="@string/default_notification_channel_id" />
 
         <service
-            android:name=".LocationUpdatesService"
+            android:name="com.app.onnwaytransporter.LocationUpdatesService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location" />

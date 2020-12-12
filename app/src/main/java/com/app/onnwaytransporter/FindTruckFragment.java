@@ -83,7 +83,7 @@ public class FindTruckFragment extends Fragment
         implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, DatePickerDialog.OnDateSetListener {
 
     /*
      * This fragment is used to load the findtruckfragment
@@ -253,25 +253,17 @@ public class FindTruckFragment extends Fragment
         schedulePickupDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                DatePickerDialog picker;
-                picker = new DatePickerDialog(getActivity(), R.style.MyDialogTheme,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                String dateFormat = (String) setDateFormat(dayOfMonth, (monthOfYear + 1), year);
-                                schedulePickupDate.setText(dateFormat);
-                                pickUpDate = schedulePickupDate.getText().toString();
-                            }
-                        }, year, month, day);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                int mYear, mMonth, mDay;
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.MyDialogTheme, FindTruckFragment.this, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 //Toast.makeText(getContext(), ""+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
-                picker.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000 + (1000 * 60 * 60 * 24 * 4));
-                picker.show();
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000 + (1000 * 60 * 60 * 24 * 4));
+                datePickerDialog.show();
             }
         });
 
@@ -895,6 +887,13 @@ public class FindTruckFragment extends Fragment
             finalDate = day + " December " + year;
         }
         return finalDate;
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String dateFormat = setDateFormat(dayOfMonth, (month + 1), year);
+        schedulePickupDate.setText(dateFormat);
+        pickUpDate = schedulePickupDate.getText().toString();
     }
 
     class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder> {

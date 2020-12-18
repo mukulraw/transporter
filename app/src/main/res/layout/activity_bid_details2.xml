@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:hint="Load passing (in ton)"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:padding="12dp"
                     android:textSize="14sp" />
 

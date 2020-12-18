@@ -224,7 +224,7 @@
                     android:background="@color/transparent"
                     android:id="@+id/passing"
                     android:textSize="14sp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:hint="Load passing (in ton)"
                     />
 

@@ -50,10 +50,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,13 +70,13 @@ public class AddTruckDetails extends AppCompatActivity {
 
     String tid = "";
 
-    private EditText registrationNumber,driverName, driverNumber;
+    private EditText registrationNumber, driverName, driverNumber;
     private TextView displaySelectedTruck;
     private Button addTruckBtn;
-    ImageView front , back;
+    ImageView front, back;
 
-    File f1 , f2;
-    Uri uri1 , uri2;
+    File f1, f2;
+    Uri uri1, uri2;
 
     ProgressBar progress;
 
@@ -104,13 +107,13 @@ public class AddTruckDetails extends AppCompatActivity {
         containerBtn = findViewById(R.id.container_btn);
         trailerBtn = findViewById(R.id.trailer_btn);
         //edit text
-        registrationNumber= findViewById(R.id.input_truck_reg_no);
-        driverName= findViewById(R.id.name);
-        driverNumber=findViewById(R.id.mobile);
+        registrationNumber = findViewById(R.id.input_truck_reg_no);
+        driverName = findViewById(R.id.name);
+        driverNumber = findViewById(R.id.mobile);
         //display selected truck
-        displaySelectedTruck= findViewById(R.id.sel_truck);
+        displaySelectedTruck = findViewById(R.id.sel_truck);
         //add truck btn
-        addTruckBtn= findViewById(R.id.add_truck_details_btn);
+        addTruckBtn = findViewById(R.id.add_truck_details_btn);
         //handling alertDialog for Truck
 
 
@@ -150,126 +153,102 @@ public class AddTruckDetails extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 String r = registrationNumber.getText().toString();
                 String n = driverName.getText().toString();
                 String m = driverNumber.getText().toString();
 
-                if (tid.length() > 0)
-                {
-                    if (f1 != null)
-                    {
-                        if (f2 != null)
-                        {
-                            if (r.length() > 0)
-                            {
-                                if (n.length() > 0)
-                                {
-                                    if (m.length() > 0)
-                                    {
+                if (tid.length() > 0) {
+                    if (r.length() > 0) {
+                        if (n.length() > 0) {
+                            if (m.length() > 0) {
+                                MultipartBody.Part body = null;
 
-                                        MultipartBody.Part body = null;
+                                try {
 
-                                        try {
-
-                                            RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
-                                            body = MultipartBody.Part.createFormData("front", f1.getName(), reqFile1);
+                                    RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), f1);
+                                    body = MultipartBody.Part.createFormData("front", f1.getName(), reqFile1);
 
 
-                                        } catch (Exception e1) {
-                                            e1.printStackTrace();
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                MultipartBody.Part body2 = null;
+
+                                try {
+
+                                    RequestBody reqFile12 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
+                                    body2 = MultipartBody.Part.createFormData("back", f2.getName(), reqFile12);
+
+
+                                } catch (Exception e1) {
+                                    e1.printStackTrace();
+                                }
+
+                                progress.setVisibility(View.VISIBLE);
+
+                                AppController b = (AppController) getApplicationContext();
+
+                                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                                logging.level(HttpLoggingInterceptor.Level.HEADERS);
+                                logging.level(HttpLoggingInterceptor.Level.BODY);
+
+                                OkHttpClient client = new OkHttpClient.Builder().writeTimeout(1000, TimeUnit.SECONDS).readTimeout(1000, TimeUnit.SECONDS).connectTimeout(1000, TimeUnit.SECONDS).addInterceptor(logging).build();
+
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(b.baseurl)
+                                        .client(client)
+                                        .addConverterFactory(ScalarsConverterFactory.create())
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+
+                                AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
+
+
+
+                                Call<ordersBean> call = cr.store_trucks_provider(
+                                        SharePreferenceUtils.getInstance().getString("userId"),
+                                        tid,
+                                        r,
+                                        n,
+                                        m,
+                                        body,
+                                        body2
+                                );
+
+                                call.enqueue(new Callback<ordersBean>() {
+                                    @Override
+                                    public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
+
+                                        if (response.body().getStatus().equals("1")) {
+                                            Toast.makeText(AddTruckDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(AddTruckDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
 
-                                        MultipartBody.Part body2 = null;
 
-                                        try {
-
-                                            RequestBody reqFile12 = RequestBody.create(MediaType.parse("multipart/form-data"), f2);
-                                            body2 = MultipartBody.Part.createFormData("back", f2.getName(), reqFile12);
-
-
-                                        } catch (Exception e1) {
-                                            e1.printStackTrace();
-                                        }
-
-                                        progress.setVisibility(View.VISIBLE);
-
-                                        AppController b = (AppController) getApplicationContext();
-
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl(b.baseurl)
-                                                .addConverterFactory(ScalarsConverterFactory.create())
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
-
-                                        AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
-
-                                        Call<ordersBean> call = cr.store_trucks_provider(
-                                                SharePreferenceUtils.getInstance().getString("userId"),
-                                                tid,
-                                                r,
-                                                n,
-                                                m,
-                                                body,
-                                                body2
-                                        );
-
-                                        call.enqueue(new Callback<ordersBean>() {
-                                            @Override
-                                            public void onResponse(Call<ordersBean> call, Response<ordersBean> response) {
-
-                                                if (response.body().getStatus().equals("1"))
-                                                {
-                                                    Toast.makeText(AddTruckDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                    finish();
-                                                }
-                                                else
-                                                {
-                                                    Toast.makeText(AddTruckDetails.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-
-
-
-                                                progress.setVisibility(View.GONE);
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<ordersBean> call, Throwable t) {
-                                                progress.setVisibility(View.GONE);
-                                            }
-                                        });
-
+                                        progress.setVisibility(View.GONE);
                                     }
-                                    else
-                                    {
-                                        Toast.makeText(AddTruckDetails.this, "Invalid driver mobile", Toast.LENGTH_SHORT).show();
+
+                                    @Override
+                                    public void onFailure(Call<ordersBean> call, Throwable t) {
+                                        progress.setVisibility(View.GONE);
                                     }
-                                }
-                                else
-                                {
-                                    Toast.makeText(AddTruckDetails.this, "Invalid driver name", Toast.LENGTH_SHORT).show();
-                                }
+                                });
+
+                            } else {
+                                Toast.makeText(AddTruckDetails.this, "Invalid driver mobile", Toast.LENGTH_SHORT).show();
                             }
-                            else
-                            {
-                                Toast.makeText(AddTruckDetails.this, "Invalid registration number", Toast.LENGTH_SHORT).show();
-                            }
+                        } else {
+                            Toast.makeText(AddTruckDetails.this, "Invalid driver name", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                        {
-                            Toast.makeText(AddTruckDetails.this, "Please select a back image", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        Toast.makeText(AddTruckDetails.this, "Invalid registration number", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(AddTruckDetails.this, "Please select a front image", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else
-                {
+                } else {
                     Toast.makeText(AddTruckDetails.this, "Invalid vehicle type", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -413,8 +392,8 @@ public class AddTruckDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
 
-                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this , response.body() , "open truck" , dialog);
-                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this , 3);
+                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this, response.body(), "open truck", dialog);
+                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this, 3);
 
                 grid.setAdapter(adapter);
                 grid.setLayoutManager(manager);
@@ -462,8 +441,8 @@ public class AddTruckDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
 
-                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this , response.body() , "container" , dialog);
-                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this , 3);
+                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this, response.body(), "container", dialog);
+                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this, 3);
 
                 grid.setAdapter(adapter);
                 grid.setLayoutManager(manager);
@@ -510,8 +489,8 @@ public class AddTruckDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<truckTypeBean>> call, Response<List<truckTypeBean>> response) {
 
-                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this , response.body() , "trailer" , dialog);
-                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this , 3);
+                TruckAdapter adapter = new TruckAdapter(AddTruckDetails.this, response.body(), "trailer", dialog);
+                GridLayoutManager manager = new GridLayoutManager(AddTruckDetails.this, 3);
 
                 grid.setAdapter(adapter);
                 grid.setLayoutManager(manager);
@@ -526,15 +505,13 @@ public class AddTruckDetails extends AppCompatActivity {
         });
     }
 
-    class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder>
-    {
+    class TruckAdapter extends RecyclerView.Adapter<TruckAdapter.ViewHolder> {
         Context context;
         List<truckTypeBean> list = new ArrayList<>();
         String type;
         Dialog dialog;
 
-        TruckAdapter(Context context, List<truckTypeBean> list, String type , Dialog dialog)
-        {
+        TruckAdapter(Context context, List<truckTypeBean> list, String type, Dialog dialog) {
             this.context = context;
             this.list = list;
             this.type = type;
@@ -544,8 +521,8 @@ public class AddTruckDetails extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.truck_list_model , parent , false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.truck_list_model, parent, false);
             return new ViewHolder(view);
         }
 
@@ -554,12 +531,9 @@ public class AddTruckDetails extends AppCompatActivity {
 
             final truckTypeBean item = list.get(position);
 
-            if (tid.equals(item.getId()))
-            {
+            if (tid.equals(item.getId())) {
                 holder.card.setCardBackgroundColor(Color.parseColor("#F5DEDE"));
-            }
-            else
-            {
+            } else {
                 holder.card.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             }
 
@@ -577,7 +551,7 @@ public class AddTruckDetails extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    checktruckType(item.getId() , item.getType() , item.getTitle() , item.getCapcacity() , item.getBox_length() , item.getBox_width() , item.getTitle());
+                    checktruckType(item.getId(), item.getType(), item.getTitle(), item.getCapcacity(), item.getBox_length(), item.getBox_width(), item.getTitle());
                     dialog.dismiss();
 
                 }
@@ -590,8 +564,7 @@ public class AddTruckDetails extends AppCompatActivity {
             return list.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder
-        {
+        class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView image;
             TextView text;
@@ -606,10 +579,10 @@ public class AddTruckDetails extends AppCompatActivity {
 
             }
         }
+
     }
 
-    private void checktruckType(String id, String type , String title , String capcaity , String length , String width , String trucktitle)
-    {
+    private void checktruckType(String id, String type, String title, String capcaity, String length, String width, String trucktitle) {
         this.tid = id;
 
 
@@ -655,7 +628,6 @@ public class AddTruckDetails extends AppCompatActivity {
         }
 
 
-
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
             uri2 = data.getData();
             back.setImageURI(uri2);
@@ -664,7 +636,6 @@ public class AddTruckDetails extends AppCompatActivity {
             String ypath = getPath(AddTruckDetails.this, uri2);
             assert ypath != null;
             f2 = new File(ypath);
-
 
 
         } else if (requestCode == 3 && resultCode == RESULT_OK) {

@@ -37,23 +37,26 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Truck Provider"
-                android:textColor="@color/black"
+                android:textColor="#000"
                 android:textSize="32sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="#cdcdcd" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingStart="10dp"
+                android:paddingStart="20dp"
                 android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp"
                 android:text="If you provide own trucks or other trucks and want biddings"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -88,17 +91,20 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="#cdcdcd" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingStart="10dp"
+                android:paddingStart="20dp"
                 android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp"
                 android:text="If you drive trucks"
                 android:textColor="@color/black"
                 android:textSize="16sp" />

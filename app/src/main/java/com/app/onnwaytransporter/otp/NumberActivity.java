@@ -46,7 +46,7 @@ public class NumberActivity extends AppCompatActivity {
         setContentView(R.layout.activity_number);
 
         //finding and checking the regex
-        ePhoneNumber=findViewById(R.id.cardView);
+        ePhoneNumber=findViewById(R.id.phone);
 //        materialTextField=findViewById(R.id.materialTextField);
         progress = findViewById(R.id.progressBar4);
         ePhoneNumber.requestFocus();

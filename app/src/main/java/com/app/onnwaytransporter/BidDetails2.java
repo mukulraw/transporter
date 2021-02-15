@@ -231,7 +231,7 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
                             intent.putExtra("des", destAddress);
                             intent.putExtra("dat", pickUpDate);
                             intent.putExtra("tid", tid);
-                            intent.putExtra("passing", passing + " Mt.");
+                            intent.putExtra("passing", passing + " Tons");
                             intent.putExtra("wei", wei);
                             intent.putExtra("mid", "");
                             intent.putExtra("loa", loadtype);

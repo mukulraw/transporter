@@ -177,7 +177,7 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
                                 tid,
                                 pickUpDate,
                                 "",
-                                passing + " Mt.",
+                                passing + " Tons",
                                 "",
                                 "",
                                 "",

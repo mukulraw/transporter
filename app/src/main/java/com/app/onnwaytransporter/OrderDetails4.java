@@ -108,7 +108,7 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
         }
     };
 
-    TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid;
+    TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid, balance;
 
     TextView vehiclenumber, drivernumber;
 
@@ -170,6 +170,7 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
         partLoad8 = findViewById(R.id.part_load_card_8);
 
         weight = findViewById(R.id.textView38);
+        balance = findViewById(R.id.textView44);
         truckTypeDetails = findViewById(R.id.truck_type);
         truckCapacity = findViewById(R.id.truck_capacity);
         boxLength = findViewById(R.id.box_length);
@@ -461,6 +462,16 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
                 fare.setText("₹ " + item.getFare());
                 paid.setText(item.getPaid());
                 laodernote.setText(item.getRemarks());
+
+                float tot = Float.parseFloat(item.getFare());
+                float pa = 0;
+                if (item.getPaid().length() > 0) {
+                    pa = Float.parseFloat(item.getPaid());
+                } else {
+                    pa = 0;
+                }
+
+                balance.setText("₹ " + (tot - pa));
 
                 try {
                     if (item.getTruckType2().equals("open truck")) {

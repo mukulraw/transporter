@@ -2,6 +2,7 @@ package com.app.onnwaytransporter.driver;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -59,6 +61,7 @@ import com.app.onnwaytransporter.otp.SharedData;
 import com.app.onnwaytransporter.splash.SplashActivity;
 
 import java.io.IOException;
+import java.sql.Driver;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -371,7 +374,47 @@ public class DriverMainActivity extends AppCompatActivity
                 //e.toString();
             }
         } else if (id == R.id.nav_logout) {
-            new Thread(new Runnable() {
+
+
+            new AlertDialog.Builder(DriverMainActivity.this, R.style.MyDialogTheme)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to Logout?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, int which) {
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        FirebaseInstanceId.getInstance().deleteInstanceId();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }).start();
+
+                            SharePreferenceUtils.getInstance().deletePref();
+                            Intent intent = new Intent(DriverMainActivity.this, SplashActivity.class);
+                            startActivity(intent);
+                            finishAffinity();
+
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+
+
+            /*new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -385,7 +428,7 @@ public class DriverMainActivity extends AppCompatActivity
 
             SharePreferenceUtils.getInstance().deletePref();
             startActivity(new Intent(this, SplashActivity.class));
-            finishAffinity();
+            finishAffinity();*/
 
         } else if (id == R.id.feedback) {
             Intent intent = new Intent(DriverMainActivity.this, Feedback.class);

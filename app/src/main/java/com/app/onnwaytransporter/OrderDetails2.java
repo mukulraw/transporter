@@ -106,7 +106,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
         }
     };
 
-    TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid;
+    TextView orderid, orderdate, truck, source, destination, material, weight, date, status, fare, distance, paid, balance;
 
     TextView vehiclenumber, drivernumber;
 
@@ -165,6 +165,7 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
         fare = findViewById(R.id.textView31);
         distance = findViewById(R.id.textView11);
         paid = findViewById(R.id.textView32);
+        balance = findViewById(R.id.textView44);
         progress = findViewById(R.id.progressBar);
         startend = findViewById(R.id.button);
 
@@ -432,8 +433,18 @@ public class OrderDetails2 extends AppCompatActivity implements SharedPreference
                 date.setText(item.getSchedule());
                 status.setText(item.getStatus());
                 fare.setText("₹ " + item.getFare());
-                paid.setText(item.getPaid());
+                paid.setText("₹ " + item.getPaid());
                 laodernote.setText(item.getRemarks());
+
+                float tot = Float.parseFloat(item.getFare());
+                float pa = 0;
+                if (item.getPaid().length() > 0) {
+                    pa = Float.parseFloat(item.getPaid());
+                } else {
+                    pa = 0;
+                }
+
+                balance.setText("₹ " + (tot - pa));
 
                 vehiclenumber.setText(item.getVehicleNumber());
                 drivernumber.setText(item.getDriverNumber());

@@ -47,7 +47,7 @@ public class SelectUserType extends AppCompatActivity {
         truckDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectUserType.this, Profile.class);
+                Intent intent = new Intent(SelectUserType.this, Profile2.class);
                 intent.putExtra("user" , "driver");
                 startActivity(intent);
             }

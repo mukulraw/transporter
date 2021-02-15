@@ -193,4 +193,4 @@ public class Profile2 extends AppCompatActivity {
         }
     }
 
-}}
+}

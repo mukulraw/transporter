@@ -31,7 +31,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="@color/black"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/truckDriver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:text="Truck Provider"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/black"
             android:textSize="32sp" />
 
         <View
@@ -79,7 +79,7 @@
         android:layout_height="120dp"
         android:background="@drawable/rounded_button"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/black"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
             android:gravity="center"
             android:text="Truck Driver"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/black"
             android:textSize="32sp" />
 
         <View

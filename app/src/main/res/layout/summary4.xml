@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:inputType="textCapSentences"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -68,6 +69,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:inputType="textCapSentences"
         android:drawableStart="@drawable/start_address_pointer"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
@@ -81,6 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:inputType="textCapSentences"
         android:drawableStart="@drawable/end_address_pointer"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
@@ -128,7 +131,7 @@
         android:text="Weight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/textView23"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -136,6 +139,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:inputType="textCapSentences"
         app:layout_constraintBottom_toBottomOf="@+id/textView24"
         app:layout_constraintEnd_toEndOf="@+id/textView23"
         app:layout_constraintStart_toStartOf="@+id/textView23"
@@ -197,7 +201,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="7 km"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
@@ -257,6 +261,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:inputType="textCapSentences"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/textView25"
         app:layout_constraintStart_toStartOf="@+id/textView25"
@@ -267,6 +272,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textAllCaps="true"
         android:textColor="#42A5F5"
         app:layout_constraintEnd_toEndOf="@+id/textView29"
         app:layout_constraintStart_toStartOf="@+id/textView29"
@@ -278,6 +284,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="#26A69A"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="@+id/textView30"
         app:layout_constraintStart_toStartOf="@+id/textView30"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
@@ -288,6 +295,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:visibility="visible"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="@+id/textView31"
         app:layout_constraintStart_toStartOf="@+id/textView31"
         app:layout_constraintTop_toBottomOf="@+id/textView31" />
@@ -324,6 +332,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="@+id/textView32"
         app:layout_constraintStart_toStartOf="@+id/textView32"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
@@ -345,6 +354,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:inputType="textCapSentences"
         android:layout_marginBottom="16dp"
         android:background="@drawable/white_back_round1"
         android:padding="10dp"

@@ -119,7 +119,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad1.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("1");
                 } else {
-                    partLoad1.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad1.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("1");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea);
@@ -139,7 +139,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad2.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("2");
                 } else {
-                    partLoad2.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad2.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("2");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea1);
@@ -159,7 +159,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad3.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("3");
                 } else {
-                    partLoad3.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad3.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("3");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea2);
@@ -179,7 +179,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad4.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("4");
                 } else {
-                    partLoad4.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad4.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("4");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea3);
@@ -199,7 +199,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad5.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("5");
                 } else {
-                    partLoad5.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad5.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("5");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea4);
@@ -219,7 +219,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad6.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("6");
                 } else {
-                    partLoad6.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad6.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("6");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea5);
@@ -239,7 +239,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad7.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("7");
                 } else {
-                    partLoad7.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad7.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("7");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea6);
@@ -259,7 +259,7 @@ public class SelectSpace extends AppCompatActivity {
                     partLoad8.setCardBackgroundColor(Color.parseColor("#EDEDED"));
                     selected.remove("8");
                 } else {
-                    partLoad8.setCardBackgroundColor(Color.parseColor("#A0A0A0"));
+                    partLoad8.setCardBackgroundColor(Color.parseColor("#e11f26"));
                     selected.add("8");
                 }
                 calculateArea(click1 + click2 + click3 + click4 + click5 + click6 + click7 + click8, finalTotalArea7);

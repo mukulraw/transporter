@@ -469,9 +469,15 @@ public class FindTruckFragment extends Fragment
     public void onPause() {
         super.onPause();
         //stop location updates when Activity is no longer active
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        try {
+            if (mGoogleApiClient != null) {
+                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
+
     }
 
     @Override
@@ -549,16 +555,22 @@ public class FindTruckFragment extends Fragment
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(20000);
-        mLocationRequest.setFastestInterval(20000);
-        mLocationRequest.setSmallestDisplacement(5.0f);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        try {
+            mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(20000);
+            mLocationRequest.setFastestInterval(20000);
+            mLocationRequest.setSmallestDisplacement(5.0f);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
+
     }
 
     @Override

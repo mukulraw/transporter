@@ -225,7 +225,7 @@ public class DriverMainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<updateProfileBean> call, Response<updateProfileBean> response) {
 
-                Log.d("name", response.body().getMessage());
+                //Log.d("name", response.body().getMessage());
                 SharePreferenceUtils.getInstance().saveString("name", response.body().getMessage());
                 phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
                 name.setText(SharePreferenceUtils.getInstance().getString("name"));

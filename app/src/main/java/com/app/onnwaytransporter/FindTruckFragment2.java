@@ -312,7 +312,7 @@ public class FindTruckFragment2 extends Fragment
                                                 tid,
                                                 pickUpDate,
                                                 "",
-                                                passing,
+                                                passing + " Tons",
                                                 "",
                                                 "",
                                                 "",
@@ -425,7 +425,7 @@ public class FindTruckFragment2 extends Fragment
                                         intent.putExtra("source", srcAddress);
                                         intent.putExtra("destination", destAddress);
                                         intent.putExtra("tid", tid);
-                                        intent.putExtra("passing", laodpassing.getText().toString());
+                                        intent.putExtra("passing", laodpassing.getText().toString() + " Tons");
                                         intent.putExtra("loadtype", "part");
                                         intent.putExtra("date", pickUpDate);
                                         intent.putExtra("capcaity", capcaity);

@@ -124,6 +124,25 @@ public class Data {
     @SerializedName("material_image")
     @Expose
     private String material_image;
+    @SerializedName("load_passing")
+    @Expose
+    private String load_passing;
+    @SerializedName("bid_truck_type")
+    @Expose
+    private String bid_truck_type;
+    @SerializedName("bid_truck_type2")
+    @Expose
+    private String bid_truck_type2;
+    @SerializedName("bid_id")
+    @Expose
+    private String bid_id;
+    @SerializedName("bid_remarks")
+    @Expose
+    private String bid_remarks;
+    @SerializedName("bid_weight")
+    @Expose
+    private String bid_weight;
+
 
     public String getId() {
         return id;
@@ -443,5 +462,53 @@ public class Data {
 
     public void setTruckType2(String truckType2) {
         this.truckType2 = truckType2;
+    }
+
+    public String getBid_truck_type() {
+        return bid_truck_type;
+    }
+
+    public void setBid_truck_type(String bid_truck_type) {
+        this.bid_truck_type = bid_truck_type;
+    }
+
+    public String getBid_truck_type2() {
+        return bid_truck_type2;
+    }
+
+    public void setBid_truck_type2(String bid_truck_type2) {
+        this.bid_truck_type2 = bid_truck_type2;
+    }
+
+    public String getLoad_passing() {
+        return load_passing;
+    }
+
+    public void setLoad_passing(String load_passing) {
+        this.load_passing = load_passing;
+    }
+
+    public String getBid_id() {
+        return bid_id;
+    }
+
+    public void setBid_id(String bid_id) {
+        this.bid_id = bid_id;
+    }
+
+    public String getBid_remarks() {
+        return bid_remarks;
+    }
+
+    public void setBid_remarks(String bid_remarks) {
+        this.bid_remarks = bid_remarks;
+    }
+
+    public String getBid_weight() {
+        return bid_weight;
+    }
+
+    public void setBid_weight(String bid_weight) {
+        this.bid_weight = bid_weight;
     }
 }

@@ -111,7 +111,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     builder[0] = new NotificationCompat.Builder(AppController.getContext(), idChannel);
                     builder[0].setContentTitle(AppController.getContext().getString(R.string.app_name))
-                            .setSmallIcon(R.drawable.loggg)
+                            .setSmallIcon(R.drawable.progress)
                             .setContentIntent(pendingIntent)
                             .setContentText(Html.fromHtml(message))
                             .setAutoCancel(true)
@@ -155,7 +155,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         {
             builder[0] = new NotificationCompat.Builder(AppController.getContext(), idChannel);
             builder[0].setContentTitle(AppController.getContext().getString(R.string.app_name))
-                    .setSmallIcon(R.drawable.loggg)
+                    .setSmallIcon(R.drawable.progress)
                     .setContentIntent(pendingIntent)
                     .setContentText(Html.fromHtml(message))
                     .setAutoCancel(true)

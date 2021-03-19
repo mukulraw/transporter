@@ -459,11 +459,18 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
                 weight.setText(item.getWeight());
                 date.setText(item.getSchedule());
                 status.setText(item.getStatus());
-                fare.setText("₹ " + item.getFare());
+
                 paid.setText(item.getPaid());
                 laodernote.setText(item.getRemarks());
 
+                float oth = 0;
                 float tot = Float.parseFloat(item.getFare());
+                try {
+                    oth = Float.parseFloat(item.getOther());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 float pa = 0;
                 if (item.getPaid().length() > 0) {
                     pa = Float.parseFloat(item.getPaid());
@@ -471,7 +478,8 @@ public class OrderDetails4 extends AppCompatActivity implements SharedPreference
                     pa = 0;
                 }
 
-                balance.setText("₹ " + (tot - pa));
+                fare.setText("₹ " + (tot + oth));
+                balance.setText("₹ " + ((tot + oth) - pa));
 
                 try {
                     if (item.getTruckType2().equals("open truck")) {

@@ -385,12 +385,38 @@ public class BidDetails2 extends AppCompatActivity implements OnMapReadyCallback
 
                 if (item.getBid().length() > 0) {
                     amount.setText(item.getBid());
+                    laodpassing.setText(item.getLoad_passing());
+                    remarks.setText(item.getBid_remarks());
+                    weightspinner.setSelection(weis.indexOf(item.getBid_weight()));
                     amount.setClickable(false);
                     amount.setFocusable(false);
+                    laodpassing.setClickable(false);
+                    laodpassing.setFocusable(false);
+                    openTruckBtn.setClickable(false);
+                    openTruckBtn.setFocusable(false);
+                    containerBtn.setClickable(false);
+                    containerBtn.setFocusable(false);
+                    trailerBtn.setClickable(false);
+                    trailerBtn.setFocusable(false);
+                    remarks.setClickable(false);
+                    remarks.setFocusable(false);
+                    weightspinner.setEnabled(false);
+                    checktruckType(item.getBid_id(), item.getBid_truck_type2(), item.getBid_truck_type(), "", "", "", "");
                     confirm.setVisibility(View.GONE);
                 } else {
                     amount.setClickable(true);
                     amount.setFocusable(true);
+                    laodpassing.setClickable(true);
+                    laodpassing.setFocusable(true);
+                    openTruckBtn.setClickable(true);
+                    openTruckBtn.setFocusable(true);
+                    containerBtn.setClickable(true);
+                    containerBtn.setFocusable(true);
+                    trailerBtn.setClickable(true);
+                    trailerBtn.setFocusable(true);
+                    remarks.setClickable(true);
+                    remarks.setFocusable(true);
+                    weightspinner.setEnabled(true);
                     confirm.setVisibility(View.VISIBLE);
                 }
 

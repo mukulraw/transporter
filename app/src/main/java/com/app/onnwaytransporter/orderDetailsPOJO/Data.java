@@ -160,6 +160,9 @@ public class Data {
     @SerializedName("selected")
     @Expose
     private String selected;
+    @SerializedName("other")
+    @Expose
+    private String other;
 
     public String getId() {
         return id;
@@ -567,5 +570,13 @@ public class Data {
 
     public void setTruckType2(String truckType2) {
         this.truckType2 = truckType2;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 }

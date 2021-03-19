@@ -323,12 +323,30 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
 
                 if (item.getBid().length() > 0) {
                     amount.setText(item.getBid());
+                    laodpassing.setText(item.getLoad_passing());
                     amount.setClickable(false);
                     amount.setFocusable(false);
+                    laodpassing.setClickable(false);
+                    laodpassing.setFocusable(false);
+                    openTruckBtn.setClickable(false);
+                    openTruckBtn.setFocusable(false);
+                    containerBtn.setClickable(false);
+                    containerBtn.setFocusable(false);
+                    trailerBtn.setClickable(false);
+                    trailerBtn.setFocusable(false);
+                    checktruckType(item.getBid_id(), item.getBid_truck_type2(), item.getBid_truck_type(), "", "", "", "");
                     confirm.setVisibility(View.GONE);
                 } else {
                     amount.setClickable(true);
                     amount.setFocusable(true);
+                    laodpassing.setClickable(true);
+                    laodpassing.setFocusable(true);
+                    openTruckBtn.setClickable(true);
+                    openTruckBtn.setFocusable(true);
+                    containerBtn.setClickable(true);
+                    containerBtn.setFocusable(true);
+                    trailerBtn.setClickable(true);
+                    trailerBtn.setFocusable(true);
                     confirm.setVisibility(View.VISIBLE);
                 }
 
@@ -488,9 +506,9 @@ public class BidDetails extends AppCompatActivity implements OnMapReadyCallback 
             try {
                 // Fetching the data from web service
                 data = downloadUrl(url[0]);
-                Log.d("DownloadTask", "DownloadTask : " + data);
+                //Log.d("DownloadTask", "DownloadTask : " + data);
             } catch (Exception e) {
-                Log.d("Background Task", e.toString());
+                //Log.d("Background Task", e.toString());
             }
             return data;
         }

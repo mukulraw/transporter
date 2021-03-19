@@ -416,7 +416,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginRight="8dp"
                 app:cardBackgroundColor="#e11f26"/>
 
@@ -431,7 +430,7 @@
 
             <TextView
                 android:id="@+id/selected_area"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="4dp"
                 android:fontFamily="@font/montserrat_semibold"
@@ -452,7 +451,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginRight="8dp"
                 app:cardBackgroundColor="#EDEDED"/>
 
@@ -467,7 +465,7 @@
 
             <TextView
                 android:id="@+id/remaining_area"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="4dp"
                 android:fontFamily="@font/montserrat_semibold"

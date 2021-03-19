@@ -332,7 +332,7 @@ public class OrderDetails extends AppCompatActivity {
                 weight.setText(item.getWeight());
                 date.setText(item.getSchedule());
                 status.setText(item.getStatus());
-                fare.setText("₹ " + item.getFare());
+
                 paid.setText("₹ " + item.getPaid());
                 laodernote.setText(item.getRemarks());
 
@@ -362,7 +362,14 @@ public class OrderDetails extends AppCompatActivity {
                 endPoint.setLatitude(Double.parseDouble(destinationLAT));
                 endPoint.setLongitude(Double.parseDouble(destinationLNG));
 
+                float oth = 0;
                 float tot = Float.parseFloat(item.getFare());
+                try {
+                    oth = Float.parseFloat(item.getOther());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 float pa = 0;
                 if (item.getPaid().length() > 0) {
                     pa = Float.parseFloat(item.getPaid());
@@ -370,7 +377,9 @@ public class OrderDetails extends AppCompatActivity {
                     pa = 0;
                 }
 
-                balance.setText("₹ " + (tot - pa));
+
+                fare.setText("₹ " + (tot + oth));
+                balance.setText("₹ " + ((tot + oth) - pa));
 
                 distance.setText((startPoint.distanceTo(endPoint) / 1000) + " km");
 

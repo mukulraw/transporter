@@ -392,7 +392,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView19">
 
         <LinearLayout
-            android:layout_width="336dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
@@ -426,7 +426,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="336dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center_horizontal"

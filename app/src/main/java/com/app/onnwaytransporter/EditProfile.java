@@ -48,7 +48,7 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        user = getIntent().getStringExtra("user");
+        user = SharePreferenceUtils.getInstance().getString("user");
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_activity_shipment);
         mToolbar.setTitle("Edit Profile");
@@ -125,7 +125,7 @@ public class EditProfile extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<updateProfileBean> call = cr.update_provider_profile(
+        Call<updateProfileBean> call = cr.update_provider_profile2(
                 SharePreferenceUtils.getInstance().getString("userId"),
                 user,
                 SharePreferenceUtils.getInstance().getString("name"),

@@ -439,6 +439,16 @@
                 android:textColor="#2A2A2A"
                 android:textSize="12sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text=" sq. ft."
+                android:gravity="center_vertical"
+                android:textColor="#2A2A2A"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -473,6 +483,17 @@
                 android:gravity="center_vertical"
                 android:textColor="#2A2A2A"
                 android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text=" sq. ft."
+                android:gravity="center_vertical"
+                android:textColor="#2A2A2A"
+                android:textSize="12sp" />
+
         </LinearLayout>
     </LinearLayout>
 

@@ -54,6 +54,16 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/update_provider_profile2.php")
+    Call<updateProfileBean> update_provider_profile2(
+            @Part("user_id") String user_id,
+            @Part("user") String user,
+            @Part("name") String name,
+            @Part("transport_name") String transport_name,
+            @Part("city") String city
+    );
+
+    @Multipart
     @POST("android/checkDriverRating.php")
     Call<confirm_full_bean> checkDriverRating(
             @Part("user_id") String user_id

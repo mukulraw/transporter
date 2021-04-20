@@ -207,22 +207,23 @@ public class MainActivity extends AppCompatActivity
 
 
         //Log.d("name", SharePreferenceUtils.getInstance().getString("userId"));
-        Call<updateProfileBean> call = cr.getNewName(
+        Call<newNameBean> call = cr.getNewName(
                 SharePreferenceUtils.getInstance().getString("userId")
         );
 
-        call.enqueue(new Callback<updateProfileBean>() {
+        call.enqueue(new Callback<newNameBean>() {
             @Override
-            public void onResponse(Call<updateProfileBean> call, Response<updateProfileBean> response) {
+            public void onResponse(Call<newNameBean> call, Response<newNameBean> response) {
 
-                Log.d("name", response.body().getMessage());
-                SharePreferenceUtils.getInstance().saveString("name", response.body().getMessage());
+                SharePreferenceUtils.getInstance().saveString("name", response.body().getName());
                 phone.setText("Ph. - " + SharePreferenceUtils.getInstance().getString("phone"));
+                SharePreferenceUtils.getInstance().saveString("city", response.body().getCity());
+                SharePreferenceUtils.getInstance().saveString("email", response.body().getTransportName());
                 name.setText(SharePreferenceUtils.getInstance().getString("name"));
             }
 
             @Override
-            public void onFailure(Call<updateProfileBean> call, Throwable t) {
+            public void onFailure(Call<newNameBean> call, Throwable t) {
                 t.printStackTrace();
             }
         });

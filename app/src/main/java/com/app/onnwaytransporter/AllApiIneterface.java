@@ -64,6 +64,14 @@ public interface AllApiIneterface {
     );
 
     @Multipart
+    @POST("android/requesttransport.php")
+    Call<updateProfileBean> requesttransport(
+            @Part("mobile_no") String mobile_no,
+            @Part("transport") String transport,
+            @Part("city") String city
+    );
+
+    @Multipart
     @POST("android/checkDriverRating.php")
     Call<confirm_full_bean> checkDriverRating(
             @Part("user_id") String user_id
@@ -103,7 +111,7 @@ public interface AllApiIneterface {
 
     @Multipart
     @POST("android/getNewName.php")
-    Call<updateProfileBean> getNewName(
+    Call<newNameBean> getNewName(
             @Part("user_id") String user_id
     );
 

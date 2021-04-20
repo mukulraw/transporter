@@ -125,10 +125,8 @@ public class EditProfile extends AppCompatActivity {
 
         AllApiIneterface cr = retrofit.create(AllApiIneterface.class);
 
-        Call<updateProfileBean> call = cr.update_provider_profile2(
+        Call<updateProfileBean> call = cr.requesttransport(
                 SharePreferenceUtils.getInstance().getString("userId"),
-                user,
-                SharePreferenceUtils.getInstance().getString("name"),
                 e,
                 c
         );
@@ -139,13 +137,13 @@ public class EditProfile extends AppCompatActivity {
 
                 if (response.body().getStatus().equals("1")) {
 
-                    SharePreferenceUtils.getInstance().saveString("name", response.body().getData().getName());
+                    /*SharePreferenceUtils.getInstance().saveString("name", response.body().getData().getName());
                     SharePreferenceUtils.getInstance().saveString("email", response.body().getData().getEmail());
                     SharePreferenceUtils.getInstance().saveString("city", response.body().getData().getCity());
                     SharePreferenceUtils.getInstance().saveString("type", response.body().getData().getType());
                     SharePreferenceUtils.getInstance().saveString("company", response.body().getData().getCompany());
 
-                    SharePreferenceUtils.getInstance().saveString("user", user);
+                    SharePreferenceUtils.getInstance().saveString("user", user);*/
 
                     Toast.makeText(EditProfile.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 

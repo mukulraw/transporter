@@ -675,7 +675,7 @@ public class FindTruckFragment extends Fragment
     private void getLocation() {
 
         //this method is used to get the places by places autocomplete
-        Places.initialize(getActivity(), "AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY");
+        Places.initialize(getActivity(), "AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA");
 
         // Set the fields to specify which types of place data to return.
         List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);

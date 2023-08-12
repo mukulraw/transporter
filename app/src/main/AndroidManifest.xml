@@ -212,7 +212,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY" />
+            android:value="AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA" />
 
         <activity
             android:name=".FetchDriverLocation"

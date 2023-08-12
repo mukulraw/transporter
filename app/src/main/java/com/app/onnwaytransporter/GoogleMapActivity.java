@@ -33,7 +33,7 @@ public class GoogleMapActivity extends AppCompatActivity {
 
         txtVw = findViewById(R.id.placeName);
 
-        Places.initialize(getApplicationContext(), "AIzaSyDD5e-SJP_E8SDLOHYz79IR79pVy6YQOgg");
+        Places.initialize(getApplicationContext(), "AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA");
 
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);

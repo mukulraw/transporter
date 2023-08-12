@@ -171,7 +171,7 @@ public class FirstTimeProfileActivity extends AppCompatActivity {
     }
     private void getLocation() {
 
-        Places.initialize(FirstTimeProfileActivity.this, "AIzaSyDD5e-SJP_E8SDLOHYz79IR79pVy6YQOgg");
+        Places.initialize(FirstTimeProfileActivity.this, "AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA");
 
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(FirstTimeProfileActivity.this);

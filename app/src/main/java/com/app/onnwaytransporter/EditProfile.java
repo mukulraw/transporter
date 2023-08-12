@@ -74,7 +74,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Places.initialize(EditProfile.this, "AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY");
+                Places.initialize(EditProfile.this, "AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA");
 
                 // Set the fields to specify which types of place data to return.
                 List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);

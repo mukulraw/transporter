@@ -434,7 +434,7 @@ public class PostTruckFragment extends Fragment  {
 
     private void getLocation() {
 
-        Places.initialize(getActivity(), "AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY");
+        Places.initialize(getActivity(), "AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA");
 
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(getActivity());

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.app.onnwaytransporter">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -270,7 +269,8 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".splash.SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -280,7 +280,8 @@
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:permission="">
+            android:permission=""
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

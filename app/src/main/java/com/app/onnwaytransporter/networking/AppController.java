@@ -19,7 +19,7 @@ public class AppController extends Application {
 
     private static Context context;
 
-    public String baseurl = "https://www.onnway.com/";
+    public String baseurl = "https://onnway.com/";
 
     public static Context getContext() {
         return context;

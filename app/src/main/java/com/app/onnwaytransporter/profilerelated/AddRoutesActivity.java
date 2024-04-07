@@ -143,7 +143,7 @@ public class AddRoutesActivity extends AppCompatActivity {
 
     private void getLocation() {
 
-        Places.initialize(AddRoutesActivity.this, "AIzaSyDg928l41AL20avLOGqYVVHHYHyNTM3DMY");
+        Places.initialize(AddRoutesActivity.this, "AIzaSyDqE-hIGTcdZA2RNswLLaNwN92dJUEYEnA");
 
         // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(AddRoutesActivity.this);

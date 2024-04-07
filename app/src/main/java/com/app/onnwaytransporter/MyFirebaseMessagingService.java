@@ -60,7 +60,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         try {
             handleNotification(object.getString("message") , object.getString("image"));
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -82,7 +82,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         mainIntent = new Intent(AppController.getContext(), SplashActivity.class);
 
-        final PendingIntent pendingIntent = PendingIntent.getActivity(AppController.getContext(), 0, mainIntent, 0);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(AppController.getContext(), 0, mainIntent, PendingIntent.FLAG_IMMUTABLE);
 
         final NotificationManager mNotificationManager = (NotificationManager) AppController.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
